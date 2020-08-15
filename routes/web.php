@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', ['as' => 'inicio', 'uses' => 'WebController@index']);
+Route::get('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
+Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
