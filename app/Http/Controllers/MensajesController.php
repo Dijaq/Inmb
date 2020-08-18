@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Request;
+use Illuminate\Http\Request;
+use App\Mensaje;
 
 class MensajesController extends Controller
 {
@@ -13,7 +14,9 @@ class MensajesController extends Controller
      */
     public function index()
     {
-        //
+        $mensajes = Mensaje::all();
+        return $mensajes;
+        
     }
 
     /**
@@ -23,7 +26,7 @@ class MensajesController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -34,7 +37,21 @@ class MensajesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $mensaje = new Mensaje();
+            $mensaje->inmueble_id = $request->inmueble_id;
+            $mensaje->usuario_origen_id = $request->usuario_origen_id;
+            $mensaje->usuario_destino_id = $request->usuario_destino_id;
+            $mensaje->mensaje = $request->mensaje;
+            $mensaje->fecha_envio = now();
+            $mensaje->save();
+
+            //return $persona;
+            return response()->json(['message' => 'Generado Satisfactorimente']);
+        }
+        catch(\Exception $e){
+            return response()->json(['message' => $e->getMessage()]);
+        }
     }
 
     /**

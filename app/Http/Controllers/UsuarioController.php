@@ -14,7 +14,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $usuarios = Usuario::all();
+        return $usuarios;
     }
 
     /**
@@ -41,7 +42,7 @@ class UsuarioController extends Controller
             $usuario->pwd = $request->pwd;
             $usuario->nombre = $request->nombre;
             $usuario->rol = $request->rol;
-            $persona->save();
+            $usuario->save();
 
             //return $persona;
             return response()->json(['message' => 'Generado Satisfactorimente']);

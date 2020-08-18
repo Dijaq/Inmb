@@ -15,19 +15,11 @@ class InmuebleController extends Controller
     public function index()
     {
         $inmuebles = Inmueble::all();
+        return $inmuebles;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
+    
+        /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -46,10 +38,10 @@ class InmuebleController extends Controller
             $inmueble->moneda = $request->moneda;
             $inmueble->titulo = $request->titulo;
             $inmueble->slug = $request->slug;
-            $inmueble->descripcion = $request->moneda;
-            $inmueble->mapa_latitud = $request->moneda;
-            $inmueble->mapa_longitud = $request->moneda;
-            $inmueble->mapa_zoom = $request->moneda;
+            $inmueble->descripcion = $request->descripcion;
+            $inmueble->mapa_lalitud = $request->mapa_latitud;
+            $inmueble->mapa_longitud = $request->mapa_longitud;
+            $inmueble->mapa_zoom = $request->mapa_zoom;
             $inmueble->fecha_publicacion = now();
             $inmueble->fecha_vencimiento = $request->fecha_vencimiento;
             $inmueble->estado = $request->estado;
@@ -79,17 +71,6 @@ class InmuebleController extends Controller
             //return $e->getMessage();
             return response()->json(['message' => 'No se ha encontrado el elemento solicitado']);
         }
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**

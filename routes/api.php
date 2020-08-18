@@ -42,6 +42,12 @@ Route::get("personas/{id}", "PersonaController@show");
 Route::put("personas/{id}", "PersonaController@update");
 Route::delete("personas/{id}", "PersonaController@destroy");
 
+Route::get("usuarios", "UsuarioController@index");
+Route::post("usuarios", "UsuarioController@store");
+Route::get("usuarios/{id}", "UsuarioController@show");
+Route::put("usuarios/{id}", "UsuarioController@update");
+Route::delete("usuarios/{id}", "UsuarioController@destroy");
+
 Route::get("servicios", "ServicioController@index");
 Route::post("servicios", "ServicioController@store");
 Route::get("servicios/{id}", "ServicioController@show");
@@ -54,9 +60,9 @@ Route::get("tipos/{id}", "TipoController@show");
 Route::put("tipos/{id}", "TipoController@update");
 Route::delete("tipos/{id}", "TipoController@destroy");
 
-Route::get("usuarios", "UsuarioController@index");
-Route::post("usuarios", "UsuarioController@store");
-Route::get("usuarios/{id}", "UsuarioController@show");
-Route::put("usuarios/{id}", "UsuarioController@update");
-Route::delete("usuarios/{id}", "UsuarioController@destroy");
+Route::get("mensajes", "MensajesController@index");
+Route::post("mensajes", "MensajesController@store");
+Route::get("mensajes/{id}", "MensajesController@show");
+Route::put("mensajes/{id}", "MensajesController@update");
+Route::delete("mensajes/{id}", "MensajesController@destroy");
 

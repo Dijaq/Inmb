@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Mensaje extends Model
+class Usuario extends Model
 {
-    public $table = 'mensajes';
+    public $table = 'usuarios';
 }
