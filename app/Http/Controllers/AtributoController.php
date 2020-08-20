@@ -18,6 +18,14 @@ class AtributoController extends Controller
         return $atributos;
     }
 
+    public function _index()
+    {
+        $AtributoController = new AtributoController();
+        $atributos=$AtributoController->index();
+        //$atributos = Atributo::all();
+        return view('administracion.atributos.index', compact('atributos'));
+    }
+
     /**
      * Store a newly created resource in storage.
      *

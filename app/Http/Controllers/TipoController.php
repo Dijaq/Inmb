@@ -18,6 +18,14 @@ class TipoController extends Controller
         return $tipos;
     }
 
+    public function _index()
+    {
+        $TipoController = new TipoController();
+        $tipos = $TipoController->index();
+        //$atributos = Atributo::all();
+        return view('administracion.tipos.index', compact('tipos'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

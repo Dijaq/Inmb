@@ -18,6 +18,14 @@ class OperacionController extends Controller
         return $operaciones;
     }
 
+    public function _index()
+    {
+        $OperacionController = new OperacionController();
+        $operaciones = $OperacionController->index();
+        //$atributos = Atributo::all();
+        return view('administracion.operacion.index', compact('operaciones'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

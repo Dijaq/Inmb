@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', ['as' => 'inicio', 'uses' => 'WebController@index']);
 Route::get('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
 Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
+
+//Route::get('/tipos' ['as' => 'tipo.store', 'uses' => 'Web']);
+
+Route::get("atributos", "AtributoController@_index");
+Route::get("operaciones", "OperacionController@_index");
+Route::get("tipos", "TipoController@_index");

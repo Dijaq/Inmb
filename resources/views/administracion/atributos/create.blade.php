@@ -14,7 +14,7 @@
       </form>-->
 
       <div align="center">
-        <form method="POST"  style="width: 90%;" action="{{route('atributo.store')}}" enctype="multipart/form-data">
+        <form method="POST"  style="width: 90%;" action="{{route('general.inmueble')}}" enctype="multipart/form-data">
         
           {!!csrf_field()!!}
         
