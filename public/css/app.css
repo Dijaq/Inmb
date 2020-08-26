@@ -1,0 +1,37 @@
+@import url(https://fonst.googleapis.com/css?family=Nunito);.footer {
+  background-color: #1ab474;
+  color: white;
+}
+
+.foot_list {
+  list-style: none;
+  padding: 0px;
+}
+
+.container_header {
+  background-color: #e6e6e6;
+}
+
+.vive-btn {
+  background-color: #e6e6e6;
+  margin: 20px;
+  padding: 10px;
+}
+
+.vive-btn-post {
+  background-color: #2b373d;
+  margin: 20px;
+  padding: 10px;
+  color: white;
+}
+
+.vive-see-more {
+  background-color: #2b373d;
+  padding: 10px;
+  color: white;
+}
+
+.body-inmuebles {
+  background-color: #e6e6e6;
+}
+
