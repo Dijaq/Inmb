@@ -14,7 +14,7 @@ class AtributoController extends Controller
      */
     public function index()
     {
-        $atributos = Atributo::all();
+        $atributos = Atributo::with('tipo')->get();
         return $atributos;
     }
 

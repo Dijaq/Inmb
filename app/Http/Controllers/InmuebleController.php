@@ -14,7 +14,7 @@ class InmuebleController extends Controller
      */
     public function index()
     {
-        $inmuebles = Inmueble::all();
+        $inmuebles = Inmueble::with('operacion')->with('tipo')->get();
         return $inmuebles;
     }
 

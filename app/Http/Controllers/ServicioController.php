@@ -14,7 +14,7 @@ class ServicioController extends Controller
      */
     public function index()
     {
-        $servicios = Servicio::all();
+        $servicios = Servicio::with('tipo')->get();
         return $servicios;
     }
 
