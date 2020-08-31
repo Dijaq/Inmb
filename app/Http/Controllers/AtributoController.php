@@ -44,10 +44,10 @@ class AtributoController extends Controller
             $atributo->orden = $request->orden;
             $atributo->save();
 
-            return response()->json(['message' => 'Generado Satisfactorimente']);
+            return response()->json(['message' => 'Generado Satisfactorimente'], 200);
         } catch(\Exception $e){
             //return $e->getMessage();
-            return response()->json(['message' => $e->getMessage()]);
+            return response()->json(['message' => $e->getMessage()], 502);
         }
     }
 
