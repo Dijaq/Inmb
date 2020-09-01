@@ -47,7 +47,7 @@ class AtributoController extends Controller
             return response()->json(['message' => 'Generado Satisfactorimente'], 200);
         } catch(\Exception $e){
             //return $e->getMessage();
-            return response()->json(['message' => $e->getMessage()], 502);
+            return response()->json(['message' => $e->getMessage()], 400);
         }
     }
 

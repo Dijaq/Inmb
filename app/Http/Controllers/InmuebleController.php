@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inmueble;
+use App\InmuebleFotos;
 
 class InmuebleController extends Controller
 {
@@ -119,5 +120,10 @@ class InmuebleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function _index()
+    {
+        $inmuebles = InmuebleFotos::with('inmueble')->get();
     }
 }

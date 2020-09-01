@@ -18,4 +18,12 @@ class Inmueble extends Model
     {
         return $this->belongsTo(Tipo::class, 'tipo_id');
     }
+
+    public function fotos(){
+        return $this->hasMany(InmuebleFotos::class, 'inmueble_id');
+    }
+
+    public function videos(){
+        return $this->hasMany(InmuebleVideos::class, 'inmueble_id');
+    }
 }

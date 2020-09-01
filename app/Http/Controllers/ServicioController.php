@@ -40,6 +40,10 @@ class ServicioController extends Controller
             $servicio = new Servicio();
             $servicio->tipo_id = $request->tipo_id;
             $servicio->nombre = $request->nombre;
+            $servicio->ruta_imagen = $request->ruta_imagen;
+            $servicio->tipo = $request->tipo;
+            $servicio->meta = $request->meta;
+            $servicio->orden = $request->orden;
             $servicio->save();
 
             return response()->json(['message' => 'Generado Satisfactorimente']);
@@ -91,6 +95,10 @@ class ServicioController extends Controller
             $servicio = Servicio::findOrFail($id);
             $servicio->tipo_id = $request->tipo_id;
             $servicio->nombre = $request->nombre;
+            $servicio->ruta_imagen = $request->ruta_imagen;
+            $servicio->tipo = $request->tipo;
+            $servicio->meta = $request->meta;
+            $servicio->orden = $request->orden;
             $servicio->update();
 
             return response()->json(['message' => 'Modificado Satisfactorimente']);

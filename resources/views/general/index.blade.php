@@ -14,6 +14,23 @@
                     <h3>Últimas Publicaciones</h3>
                 </div>
             </div>
+
+            <div class="row py-4">
+                @foreach($inmuebles as $inmueble)
+                
+                    <div class="col-md-4 py-4">
+                        <div class="card" style="width: 100%;">
+                            <img class="card-img-top" src="{{$inmueble->url_imagen}}" alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">{{$inmueble->inmueble->descripcion}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="btn p-2 mt-2 vive-see-more">Ver Más</div>
+                    </div>
+                @endforeach
+            </div>
+
             <div class="row py-4">
                 <div class="col-md-4">
                     <div class="card" style="width: 100%;">
