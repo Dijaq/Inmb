@@ -25,7 +25,7 @@
                         <div class="d-flex justify-content-center">
                             <div class="btn p-2 vive-btn">Creditos</div>
                             <div class="btn p-2 vive-btn">Menu</div>
-                            <div class="btn p-2 vive-btn-post">Publicar</div>
+                            <div class="btn p-2 px-4 vive-btn-post">PUBLICAR</div>
                         </div>
                     </div>
                 </div>
