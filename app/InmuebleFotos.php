@@ -13,4 +13,9 @@ class InmuebleFotos extends Model
     {
         return $this->belongsTo(Inmueble::class, 'inmueble_id');
     }
+
+    public function inmueble()
+    {
+        return $this->belongsTo(Inmueble::class, 'inmueble_id');
+    }
 }
