@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', ['as' => 'inicio', 'uses' => 'WebController@index']);
-Route::get('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
+Route::post('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
+Route::post('/mas-propiedades', ['as' => 'inmueble.more', 'uses' => 'WebController@more']);
 Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
 Route::get('/inmueble/{slug}', ['as' => 'inmueble.detail', 'uses' => 'WebController@inmueble']);
 

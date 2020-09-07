@@ -95,7 +95,7 @@ class TipoController extends Controller
     public function update(Request $request, $id)
     {
         try{      
-            $tipo = new Tipo();
+            $tipo = Tipo::findOrFail($id);
             $tipo->nombre = $request->nombre;
             $tipo->update();
 

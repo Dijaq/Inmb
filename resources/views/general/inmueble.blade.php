@@ -14,7 +14,7 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <img src="{{ asset('storage/edificio_1.PNG')}}" style="width: 100%" alt="Card image cap">
+                    <img src="{{$inmueble->fotos[0]->url_imagen }}" style="width: 100%" alt="Card image cap">
 
                     <div class="row pt-4">
                         <div class="col-md-12">
@@ -34,12 +34,17 @@
                         </div>
                     </div>    
 
-                    <img src="{{ asset('storage/ubicacion.PNG')}}" style="width: 100%" alt="Card image cap">
+                    <img src="{{$inmueble->fotos[0]->url_imagen }}" style="width: 100%" alt="Card image cap">
 
                 </div>
                 <div class="col-md-4">
                     <div class="row">
-                        <div class="col-md-4 p-1">
+                        @foreach($inmueble->fotos as $key => $foto)
+                            <div class="col-md-4 p-1">
+                                <img src="{{$foto->url_imagen}}" style="width: 100%" alt="Card image cap">
+                            </div>
+                        @endforeach
+                        <!--<div class="col-md-4 p-1">
                             <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
                         </div>
                         <div class="col-md-4 p-1">
@@ -62,10 +67,7 @@
                         </div>
                         <div class="col-md-4 p-1">
                             <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
