@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::get("atributos", "AtributoController@index");
+Route::get("atributosTipo/{id}", "AtributoController@allByTipo");
 Route::post("atributos", "AtributoController@store");
 Route::get("atributos/{id}", "AtributoController@show");
 Route::put("atributos/{id}", "AtributoController@update");

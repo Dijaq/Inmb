@@ -1,35 +1,30 @@
-@extends('layoutuser')
+@extends('layoutintranettim')
 
 @section('contenido')
 
-  <div style="text-align:center;" align="center" >
-    <h1 >Nuevo Tipo</h1>
-    <br>
+  <div class="row">
+    <div class="offset-md-3 col-md-6">
+      <div class="card ">
+          <div class="card-header ">
+            <h4 class="card-title">Nuevo Tipo</h4>
+          </div>
     @if(session()->has('info'))
       <h3>{{session('info')}}</h3>
     @else
-        <div align="center">
-          <form style="width: 50%;" method="POST" action="{{route('tipo.store')}}">
-          
-            {!!csrf_field()!!}
-          
-            <div class="row" >
-          
-              <div class="col-md-4">
-                <label for="nombre" style="text-align:left;">
-                  Nombre Tipo:
-                </label>
-              </div>
-                <div class="col-md-8"><input class="form-control" type="text" name="nombre" value="{{old('nombre')}}">
-                  {!! $errors->first('nombre', '<span class="error">:message</span>') !!}</div>
-              <br><br>
-                    <br><br>
-              <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Crear"></div>
-            </div>
-          
-          </form>
-        </div>
-      
+        <div class="card-body ">
+            <form style="width: 100%;" method="POST" action="{{route('tipo.store')}}">    
+              {!!csrf_field()!!}     
+                  <label for="nombre" style="text-align:left;">
+                    Nombre Tipo
+                  </label>
+                  <div class="form-group"><input class="form-control" type="text" name="nombre" value="{{old('nombre')}}">
+                    {!! $errors->first('nombre', '<span class="error">:message</span>') !!}</div>
+                  <br>
+                 <input class="btn btn-primary" type="submit" value="Crear">        
+            </form>
+        </div>  
+      </div>
+    </div>
     @endif
   </div>
 @stop

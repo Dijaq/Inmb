@@ -15,6 +15,50 @@ class OperacionController extends Controller
     public function index()
     {
         $operaciones = Operacion::all();
+        return view('administracion.operacion.index', compact('operaciones'));
+    }
+
+    public function create()
+    {
+        return view('administracion.operacion.create');
+    }
+
+    public function store(Request $request)
+    {
+        $operacion = new Operacion();
+        $operacion->nombre = $request->nombre;
+        $operacion->orden = $request->orden;
+        $operacion->save();
+        return redirect()->route('operacion.index')->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function edit($id)
+    {
+        $operacion = Operacion::findOrFail($id);
+        return view('administracion.operacion.edit', compact('operacion'));
+    }
+
+    public function update(Request $request, $id)
+    {   
+        $operacion = Operacion::findOrFail($id);
+        $operacion->nombre = $request->nombre;
+        $operacion->orden = $request->orden;
+        $operacion->update();
+
+        return redirect()->route('operacion.index')->with('info', 'Se modifico el tipo satisfactoriamente');
+    }
+
+    public function destroy($id)
+    {  
+        $operacion = Operacion::findOrFail($id);
+        $operacion->delete();
+        return redirect()->route('operacion.index')->with('info', 'Se elimino el tipo satisfactoriamente');
+   
+    }
+
+    /*public function index()
+    {
+        $operaciones = Operacion::all();
         return $operaciones;
     }
 
@@ -26,22 +70,11 @@ class OperacionController extends Controller
         return view('administracion.operacion.index', compact('operaciones'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try{      
@@ -57,12 +90,6 @@ class OperacionController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{            
@@ -75,24 +102,11 @@ class OperacionController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try{      
@@ -108,12 +122,6 @@ class OperacionController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{     
@@ -124,5 +132,5 @@ class OperacionController extends Controller
             //return $e->getMessage();
             return response()->json(['message' => $e->getMessage()]);
         }
-    }
+    }*/
 }

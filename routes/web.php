@@ -22,6 +22,35 @@ Route::get('/inmueble/{slug}', ['as' => 'inmueble.detail', 'uses' => 'WebControl
 
 //Route::get('/tipos' ['as' => 'tipo.store', 'uses' => 'Web']);
 
-Route::get("atributos", "AtributoController@_index");
+/*Route::get("atributos", "AtributoController@_index");
 Route::get("operaciones", "OperacionController@_index");
-Route::get("tipos", "TipoController@_index");
+Route::get("/tipos", "TipoController@_index");*/
+
+//Label contenido
+Route::get('tipos', ['as' => 'tipo.index', 'uses' => 'TipoController@index']);
+Route::get('tipos/crear', ['as' => 'tipo.create', 'uses' => 'TipoController@create']);
+Route::post('tipos', ['as' => 'tipo.store', 'uses' => 'TipoController@store']);
+Route::get('tipos/{id}', ['as' => 'tipo.edit', 'uses' => 'TipoController@edit']);
+Route::put('tipos/{id}', ['as' => 'tipo.update', 'uses' => 'TipoController@update']);
+Route::delete('tipos/{id}', ['as' => 'tipo.delete', 'uses' => 'TipoController@destroy']);
+
+Route::get('lista_atributos/{id}', ['as' => 'atributo.index', 'uses' => 'AtributoController@index']);
+Route::get('atributos/crear', ['as' => 'atributo.create', 'uses' => 'AtributoController@create']);
+Route::post('atributos', ['as' => 'tipo.store', 'uses' => 'AtributoController@store']);
+Route::get('atributos/{id}', ['as' => 'atributo.edit', 'uses' => 'AtributoController@edit']);
+Route::put('atributos/{id}', ['as' => 'atributo.update', 'uses' => 'AtributoController@update']);
+Route::delete('atributos/{id}', ['as' => 'atributo.delete', 'uses' => 'AtributoController@destroy']);
+
+Route::get('lista_servicios/{id}', ['as' => 'servicio.index', 'uses' => 'ServicioController@index']);
+Route::get('servicios/crear', ['as' => 'servicio.create', 'uses' => 'ServicioController@create']);
+Route::post('servicios', ['as' => 'servicio.store', 'uses' => 'ServicioController@store']);
+Route::get('servicios/{id}', ['as' => 'servicio.edit', 'uses' => 'ServicioController@edit']);
+Route::put('servicios/{id}', ['as' => 'servicio.update', 'uses' => 'ServicioController@update']);
+Route::delete('servicios/{id}', ['as' => 'servicio.delete', 'uses' => 'ServicioController@destroy']);
+
+Route::get('operaciones', ['as' => 'operacion.index', 'uses' => 'OperacionController@index']);
+Route::get('operaciones/crear', ['as' => 'operacion.create', 'uses' => 'OperacionController@create']);
+Route::post('operaciones', ['as' => 'operacion.store', 'uses' => 'OperacionController@store']);
+Route::get('operaciones/{id}', ['as' => 'operacion.edit', 'uses' => 'OperacionController@edit']);
+Route::put('operaciones/{id}', ['as' => 'operacion.update', 'uses' => 'OperacionController@update']);
+Route::delete('operaciones/{id}', ['as' => 'operacion.delete', 'uses' => 'OperacionController@destroy']);

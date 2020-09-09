@@ -12,9 +12,34 @@ class AtributoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+
+    public function index($idTipo)
     {
         $atributos = Atributo::with('tipo')->get();
+        if($idTipo != 0)
+        {
+            $atributos = $atributos->where('tipo_id', $idTipo);
+        }
+
+        //return $atributos[0]->tipo;
+        return view('administracion.atributos.index', compact('atributos'));
+    }
+
+
+    /*public function index()
+    {
+        $atributos = Atributo::with('tipo')->get();
+        return $atributos;
+    }
+
+    public function allByTipo($idTipo)
+    {
+        $atributos = Atributo::with('tipo')->get();
+        if($idTipo != 0)
+        {
+            $atributos = $atributos->where('tipo_id', $idTipo);
+        }
+
         return $atributos;
     }
 
@@ -26,12 +51,6 @@ class AtributoController extends Controller
         return view('administracion.atributos.index', compact('atributos'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try{      
@@ -51,12 +70,6 @@ class AtributoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{      
@@ -68,13 +81,6 @@ class AtributoController extends Controller
         }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try{      
@@ -94,12 +100,6 @@ class AtributoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{     
@@ -110,5 +110,5 @@ class AtributoController extends Controller
             //return $e->getMessage();
             return response()->json(['message' => $e->getMessage()]);
         }
-    }
+    }*/
 }

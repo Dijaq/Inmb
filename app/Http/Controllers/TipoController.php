@@ -12,7 +12,7 @@ class TipoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         $tipos = Tipo::all();
         return $tipos;
@@ -22,7 +22,12 @@ class TipoController extends Controller
     {
         $TipoController = new TipoController();
         $tipos = $TipoController->index();
-        //$atributos = Atributo::all();
+        return view('administracion.tipos.index', compact('tipos'));
+    }*/
+
+    public function index()
+    {
+        $tipos = Tipo::all();
         return view('administracion.tipos.index', compact('tipos'));
     }
 
@@ -33,15 +38,41 @@ class TipoController extends Controller
      */
     public function create()
     {
-        //
+        return view('administracion.tipos.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function store(Request $request)
+    {
+        $tipo = new Tipo();
+        $tipo->nombre = $request->nombre;
+        $tipo->save();
+        return redirect()->route('tipo.index')->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function edit($id)
+    {
+        $tipo = Tipo::findOrFail($id);
+        return view('administracion.tipos.edit', compact('tipo'));
+    }
+
+    public function update(Request $request, $id)
+    {   
+        $tipo = Tipo::findOrFail($id);
+        $tipo->nombre = $request->nombre;
+        $tipo->update();
+
+        return redirect()->route('tipo.index')->with('info', 'Se modifico el tipo satisfactoriamente');
+    }
+
+    public function destroy($id)
+    {  
+        $tipo = Tipo::findOrFail($id);
+        $tipo->delete();
+        return redirect()->route('tipo.index')->with('info', 'Se elimino el tipo satisfactoriamente');
+   
+    }
+
+/*
     public function store(Request $request)
     {
         try{      
@@ -56,12 +87,6 @@ class TipoController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{            
@@ -74,24 +99,11 @@ class TipoController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try{      
@@ -106,12 +118,6 @@ class TipoController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{     
@@ -122,5 +128,5 @@ class TipoController extends Controller
             //return $e->getMessage();
             return response()->json(['message' => $e->getMessage()]);
         }
-    }
+    }*/
 }
