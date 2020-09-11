@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Servicio;
+use App\Tipo;
 
 class ServicioController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,32 +21,96 @@ class ServicioController extends Controller
     public function index($idTipo)
     {
         
-        $servicios = Servicio::with('tipo')->get();
+        $servicios = Servicio::with('tipo')->orderBy('orden')->get();
         if($idTipo != 0)
         {
             $servicios = $servicios->where('tipo_id', $idTipo);
         }
 
-        //return $atributos[0]->tipo;
         return view('administracion.servicios.index', compact('servicios'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function create()
+    {
+        //$atributos = Atributo::with('tipo')->get();
+        $tipos = Tipo::all();
+        $tipos_opcion = collect([
+            ['id' => 1, 'nombre' => 'SELECT OPTION'],
+            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 3, 'nombre' => 'RADIO BUTTON']
+        ]);
+   
+        return view('administracion.servicios.create', compact('tipos_opcion', 'tipos'));
+    }
+
+    public function store(Request $request)
+    {
+        $image = $request->file('dir_image');
+        $nameImage = $image->getClientOriginalName();
+        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        //$image->save(storage_path('app/public/'. $filename));
+        $image->storeAs('public', $filename);
+
+        $servicio = new Servicio();
+        $servicio->tipo_id = $request->tipo;
+        $servicio->nombre = $request->nombre;
+        $servicio->ruta_imagen = $filename;
+        $servicio->tipo_opcion = $request->tipo_opcion;
+        $servicio->meta = $request->meta;
+        $servicio->orden = $request->orden;
+        $servicio->save();
+
+        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function edit($id)
+    {
+        $servicio = Servicio::findOrFail($id);
+        $tipos = Tipo::all();
+        $tipos_opcion = collect([
+            ['id' => 1, 'nombre' => 'SELECT OPTION'],
+            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 3, 'nombre' => 'RADIO BUTTON']
+        ]);
+        return view('administracion.servicios.edit', compact('servicio', 'tipos', 'tipos_opcion'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $servicio = Servicio::findOrFail($id);
+        $servicio->tipo_id = $request->tipo;
+        $servicio->nombre = $request->nombre;
+        $servicio->tipo_opcion = $request->tipo_opcion;
+        $servicio->meta = $request->meta;
+        $servicio->orden = $request->orden;
+
+        if(is_file($request->file('dir_image'))){
+            $image = $request->file('dir_image');
+            $nameImage = $image->getClientOriginalName();
+            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $image->storeAs('public', $filename);
+
+            $servicio->ruta_imagen = $filename;
+        }
+
+        $servicio->update();
+
+        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function destroy($id)
+    {
+        $servicio = Servicio::findOrFail($id);
+        $servicio->delete();
+        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+ /* 
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         try{      
@@ -60,12 +130,6 @@ class ServicioController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try{            
@@ -78,24 +142,11 @@ class ServicioController extends Controller
         }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         try{      
@@ -115,12 +166,6 @@ class ServicioController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         try{     
@@ -131,5 +176,5 @@ class ServicioController extends Controller
             //return $e->getMessage();
             return response()->json(['message' => $e->getMessage()]);
         }
-    }
+    }*/
 }

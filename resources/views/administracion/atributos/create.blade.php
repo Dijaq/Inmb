@@ -1,9 +1,9 @@
-@extends('layoutuser')
+@extends('layoutintranettim')
 
 @section('contenido')
 
   <div align="center">
-  <h1 style="text-align:center;">Servicio</h1>
+  <h2 style="text-align:center;">Atributo</h2>
   <br>
   @if(session()->has('info'))
     <h3>{{session('info')}}</h3>
@@ -14,73 +14,74 @@
       </form>-->
 
       <div align="center">
-        <form method="POST"  style="width: 90%;" action="{{route('general.inmueble')}}" enctype="multipart/form-data">
+        <form method="POST"  style="width: 60%;" action="{{route('atributo.store')}}" enctype="multipart/form-data">
         
           {!!csrf_field()!!}
         
           <div class="row">
 
-            <div class="col-md-3">
-              <label for="titulo" style="text-align:left;">
-                Nombre: 
-              </label>
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="titulo" >Nombre</label>
+                <input class="form-control" type="text" name="nombre" value="{{old('nombre')}}">
+                  {!! $errors->first('nombre', '<span class="error">:message</span>') !!}
+              </div>
             </div>
-              <div class="col-md-9"><input class="form-control" type="text" name="nombre" value="{{old('nombre')}}">
-                {!! $errors->first('nombre', '<span class="error">:message</span>') !!}</div>
-            <br><br>
-
-            <div class="col-md-3">
-              <label for="tipo" style="text-align:left;">
-                Tipos:
-              </label>
-            </div>
-            <div class="col-md-3">  
-              <select class="form-control" name="tipo" required>
-                <option value="">[Seleccion una opción]</option>
-                @foreach($listTipos as $tipo)     
-                    <option value="{{$user->id}}" {{old('tipo') == $user->id ? 'selected':''}}>{{$tipo->nombre}}</option>
-                @endforeach
-              </select>
+            
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="tipo" style="text-align:left;">Tipo Inmueble</label>
+                <select class="form-control" name="tipo" required>
+                  <option value="">[Seleccion una opción]</option>
+                  @foreach($tipos as $tipo)     
+                      <option value="{{$tipo->id}}" {{old('tipo') == $tipo->id ? 'selected':''}}>{{$tipo->nombre}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
 
-            <div class="col-md-3">
-              <label for="ruta_imagen" style="text-align:left;">
-                Imagen: 
-              </label>
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="tipo" style="text-align:left;">Tipo Atributo</label>
+                <select class="form-control" name="tipo_opcion" required>
+                  <option value="">[Seleccion una opción]</option>
+                  @foreach($tipos_opcion as $tipo)     
+                      <option value="{{$tipo['id']}}" {{old('tipo') == $tipo['id'] ? 'selected':''}}>{{$tipo['nombre']}}</option>
+                  @endforeach
+                </select>
+              </div>
             </div>
-              <div class="col-md-9"><input class="form-control" type="text" name="ruta_imagen" value="{{old('ruta_imagen')}}">
-                {!! $errors->first('ruta_imagen', '<span class="error">:message</span>') !!}</div>
-            <br><br>
 
-            <div class="col-md-3">
-              <label for="tipo" style="text-align:left;">
-                Tipo: 
-              </label>
+            
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="tipo" style="text-align:left;">Icono</label>
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image">
+                  <label class="custom-file-label" for="validatedCustomFile">Elige una imagen</label>
+                  <div class="invalid-feedback">Example invalid custom file feedback</div>
+                  {!! $errors->first('dir_image', '<span class="error">:message</span>') !!}
+                </div>
+              </div>
             </div>
-              <div class="col-md-9"><input class="form-control" type="text" name="tipo" value="{{old('tipo')}}">
-                {!! $errors->first('tipo', '<span class="error">:message</span>') !!}</div>
-            <br><br>
 
-            <div class="col-md-3">
-              <label for="titulo" style="text-align:left;">
-                Meta: 
-              </label>
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="titulo" >Meta</label>
+                <input class="form-control" type="text" name="meta" value="{{old('meta')}}">
+                  {!! $errors->first('meta', '<span class="error">:message</span>') !!}
+              </div>
             </div>
-              <div class="col-md-9"><input class="form-control" type="text" name="meta" value="{{old('meta')}}">
-                {!! $errors->first('meta', '<span class="error">:message</span>') !!}</div>
-            <br><br>
 
-            <div class="col-md-3">
-              <label for="orden" style="text-align:left;">
-                Orden: 
-              </label>
-            </div>
-              <div class="col-md-9"><input class="form-control" type="text" name="orden" value="{{old('orden')}}">
-                {!! $errors->first('orden', '<span class="error">:message</span>') !!}</div>
-            <br><br>
+            <div class="col-md-12" style="text-align:left;">
+              <div class="form-group">
+                <label for="titulo" >Orden</label>
+                <input class="form-control" type="text" name="orden" value="{{old('orden')}}">
+                  {!! $errors->first('orden', '<span class="error">:message</span>') !!}
+              </div>
+            </div>            
 
           </div>
-          <br>
           <div class="row">
             <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Crear Atributo"></div>
           </div>

@@ -25,6 +25,11 @@ class TipoController extends Controller
         return view('administracion.tipos.index', compact('tipos'));
     }*/
 
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $tipos = Tipo::all();

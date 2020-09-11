@@ -7,6 +7,10 @@ use App\Operacion;
 
 class OperacionController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,7 @@ class OperacionController extends Controller
      */
     public function index()
     {
-        $operaciones = Operacion::all();
+        $operaciones = Operacion::orderBy('orden')->get();
         return view('administracion.operacion.index', compact('operaciones'));
     }
 

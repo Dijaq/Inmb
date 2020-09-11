@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Atributo;
+use App\Tipo;
+use Illuminate\Support\Arr;
 
 class AtributoController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,14 +21,95 @@ class AtributoController extends Controller
 
     public function index($idTipo)
     {
-        $atributos = Atributo::with('tipo')->get();
-        if($idTipo != 0)
+        $atributos = Atributo::with('tipo')->orderBy('orden')->get();
+        /*if($idTipo != 0)
         {
             $atributos = $atributos->where('tipo_id', $idTipo);
+        }*/
+        return view('administracion.atributos.index', compact('atributos'));
+    }
+
+      /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //$atributos = Atributo::with('tipo')->get();
+        $tipos = Tipo::all();
+        $tipos_opcion = collect([
+            ['id' => 1, 'nombre' => 'SELECT OPTION'],
+            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 3, 'nombre' => 'RADIO BUTTON']
+        ]);
+       
+  
+        #return $tipos_opcion[0]['nombre'];
+
+        return view('administracion.atributos.create', compact('tipos_opcion', 'tipos'));
+    }
+
+    public function store(Request $request)
+    {
+        $image = $request->file('dir_image');
+        $nameImage = $image->getClientOriginalName();
+        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        //$image->save(storage_path('app/public/'. $filename));
+        $image->storeAs('public', $filename);
+
+        $atributo = new Atributo();
+        $atributo->tipo_id = $request->tipo;
+        $atributo->nombre = $request->nombre;
+        $atributo->ruta_imagen = $filename;
+        $atributo->tipo_opcion = $request->tipo_opcion;
+        $atributo->meta = $request->meta;
+        $atributo->orden = $request->orden;
+        $atributo->save();
+
+        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function edit($id)
+    {
+        $atributo = Atributo::findOrFail($id);
+        $tipos = Tipo::all();
+        $tipos_opcion = collect([
+            ['id' => 1, 'nombre' => 'SELECT OPTION'],
+            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 3, 'nombre' => 'RADIO BUTTON']
+        ]);
+        return view('administracion.atributos.edit', compact('atributo', 'tipos', 'tipos_opcion'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $atributo = Atributo::findOrFail($id);
+        $atributo->tipo_id = $request->tipo;
+        $atributo->nombre = $request->nombre;
+        $atributo->tipo_opcion = $request->tipo_opcion;
+        $atributo->meta = $request->meta;
+        $atributo->orden = $request->orden;
+
+        if(is_file($request->file('dir_image'))){
+            $image = $request->file('dir_image');
+            $nameImage = $image->getClientOriginalName();
+            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $image->storeAs('public', $filename);
+
+            $atributo->ruta_imagen = $filename;
         }
 
-        //return $atributos[0]->tipo;
-        return view('administracion.atributos.index', compact('atributos'));
+        $atributo->update();
+
+        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function destroy($id)
+    {
+        $atributo = Atributo::findOrFail($id);
+        $atributo->delete();
+        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
 

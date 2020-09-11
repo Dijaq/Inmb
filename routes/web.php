@@ -36,7 +36,7 @@ Route::delete('tipos/{id}', ['as' => 'tipo.delete', 'uses' => 'TipoController@de
 
 Route::get('lista_atributos/{id}', ['as' => 'atributo.index', 'uses' => 'AtributoController@index']);
 Route::get('atributos/crear', ['as' => 'atributo.create', 'uses' => 'AtributoController@create']);
-Route::post('atributos', ['as' => 'tipo.store', 'uses' => 'AtributoController@store']);
+Route::post('atributos', ['as' => 'atributo.store', 'uses' => 'AtributoController@store']);
 Route::get('atributos/{id}', ['as' => 'atributo.edit', 'uses' => 'AtributoController@edit']);
 Route::put('atributos/{id}', ['as' => 'atributo.update', 'uses' => 'AtributoController@update']);
 Route::delete('atributos/{id}', ['as' => 'atributo.delete', 'uses' => 'AtributoController@destroy']);
@@ -54,3 +54,22 @@ Route::post('operaciones', ['as' => 'operacion.store', 'uses' => 'OperacionContr
 Route::get('operaciones/{id}', ['as' => 'operacion.edit', 'uses' => 'OperacionController@edit']);
 Route::put('operaciones/{id}', ['as' => 'operacion.update', 'uses' => 'OperacionController@update']);
 Route::delete('operaciones/{id}', ['as' => 'operacion.delete', 'uses' => 'OperacionController@destroy']);
+
+Route::get('inmuebles', ['as' => 'inmueble.index', 'uses' => 'InmuebleController@index']);
+Route::get('inmuebles/crear', ['as' => 'inmueble.create', 'uses' => 'InmuebleController@create']);
+Route::post('inmuebles', ['as' => 'inmueble.store', 'uses' => 'InmuebleController@store']);
+Route::get('inmuebles/{id}', ['as' => 'inmueble.edit', 'uses' => 'InmuebleController@edit']);
+Route::put('inmuebles/{id}', ['as' => 'inmueble.update', 'uses' => 'InmuebleController@update']);
+Route::delete('inmuebles/{id}', ['as' => 'inmueble.delete', 'uses' => 'InmuebleController@destroy']);
+
+Auth::routes();
+
+Route::get('data', ['as' => 'data', 'uses' => 'Data@index']);
+Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

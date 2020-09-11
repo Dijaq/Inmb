@@ -62,7 +62,7 @@ Coded by www.creative-tim.com
           <div class="info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
               <span>
-                Chet Faker
+              {{auth()->user()->nombre}}
                 <b class="caret"></b>
               </span>
             </a>
@@ -82,9 +82,9 @@ Coded by www.creative-tim.com
                   </a>
                 </li>
                 <li>
-                  <a href="#">
-                    <span class="sidebar-mini-icon">S</span>
-                    <span class="sidebar-normal">Settings</span>
+                  <a href="{{ url('/logout') }}">
+                    <span class="sidebar-mini-icon">X</span>
+                    <span class="sidebar-normal">Cerrar Sesion</span>
                   </a>
                 </li>
               </ul>
@@ -129,6 +129,23 @@ Coded by www.creative-tim.com
                   <a href="{{route('operacion.index')}}">
                     <span class="sidebar-mini-icon">O</span>
                     <span class="sidebar-normal"> Operaciones </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a data-toggle="collapse" href="#inmuebleExample">
+              <i class="nc-icon nc-book-bookmark"></i>
+              <p> Admin Inmuebles <b class="caret"></b>
+              </p>
+            </a>
+            <div class="collapse " id="inmuebleExample">
+              <ul class="nav">
+                <li>
+                  <a href="{{route('inmueble.index')}}">
+                    <span class="sidebar-mini-icon">I</span>
+                    <span class="sidebar-normal"> Inmuebles </span>
                   </a>
                 </li>
               </ul>
@@ -496,6 +513,11 @@ Coded by www.creative-tim.com
       demo.initVectorMap();
 
     });
+
+    $(document).ready(function() {
+        $('#table_paginate').DataTable();
+    } );
+    
   </script>
 </body>
 

@@ -9,19 +9,19 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table">
+        <table id="table_paginate" class="table">
           <thead class="">
             <th>Id</th>
-            <th>Nombre</th>
             <th>Orden</th>
+            <th>Nombre</th>
             <th style="text-align: center">Acciones</th>
           </thead>
           <tbody>
             @foreach($operaciones as $operacion)
               <tr>  
                 <td>{{$operacion->id}}</td>
-                <td>{{$operacion->nombre}}</td>
                 <td>{{$operacion->orden}}</td>
+                <td>{{$operacion->nombre}}</td>
 
                 <td align="center">
                   <a class="btn btn-info btn-sm" href="{{route('operacion.edit', $operacion->id)}}">Editar</a>

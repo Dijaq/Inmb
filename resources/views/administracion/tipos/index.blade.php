@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table">
+        <table id="table_paginate" class="table">
           <thead class="">
             <th>Id</th>
             <th>Nombre</th>
