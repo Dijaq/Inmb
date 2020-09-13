@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Persona;
 
 class Usuario extends Authenticatable
 {
@@ -15,4 +16,9 @@ class Usuario extends Authenticatable
     protected $fillable = [
         'nombre','usr', 'pwd',
     ];
+
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'persona_id');
+    }
 }

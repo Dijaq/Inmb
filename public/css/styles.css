@@ -1,0 +1,448 @@
+body {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 400;
+  background-color: #fff;
+}
+
+a:hover {
+  text-decoration: none
+}
+
+.green-background {
+  background-color: #1ab474;
+  color: white;
+}
+
+.green-background a {
+  color: white;
+}
+
+.header__navbar {
+  background-color: #e6e6e6;
+}
+
+.nav-img {
+  width: 160px;
+}
+
+.navbar-toggler {
+  border-color: #262A34;
+}
+
+.navbar-toggler-icon {
+  color: #262A34;
+}
+
+.header__link {
+  font-size: 0.8em;
+  font-weight: 500;
+}
+
+.header__navlink {
+  text-transform: uppercase;
+  color: #262A34;
+  font-weight: 700;
+}
+
+.header__publish {
+  text-transform: uppercase;
+  padding: 5px 12px !important;
+  font-weight: 500;
+}
+
+.mainButton {
+  background-color: #262A34;
+  color: white;
+}
+
+.btn.mainButton:hover,
+a.mainButton:hover {
+  color: white;
+}
+
+.mainButton--shadow {
+  border-radius: 0;
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, .45);
+  text-transform: uppercase;
+  font-size: 1.2em;
+}
+
+
+.banner {
+  height: 50vh;
+  min-height: 500px;
+  background-image: url('../img/big-fondo.png');
+  background-size: cover;
+  background-position-y: 65%;
+  position: relative;
+}
+
+.banner::after {
+  content: "";
+  background-image:
+    radial-gradient(circle at bottom center,
+      #e6e6e6,
+      rgb(61, 60, 60));
+  opacity: 0.7;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+}
+
+.banner__search {
+  max-width: 900px;
+  margin: 0 auto;
+  z-index: 3;
+}
+
+.foot_list {
+  list-style: none;
+  padding: 0px;
+}
+
+.maininput {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 1em;
+  border-radius: 0;
+  color: black;
+}
+
+.banner__input {
+  border: none;
+}
+
+.banner__input:focus {
+  outline: 0 none;
+  box-shadow: none;
+}
+
+.input-group--search {
+  width: 40%;
+}
+
+.search-icon {
+  width: 21px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  background-color: white;
+}
+
+.search-button {
+  background-color: #FD5451;
+  border-radius: 0;
+}
+
+@media(max-width:767px) {
+
+  .banner__input:not(.input__search),
+  .input-group--search {
+    width: 100% !important;
+    margin-bottom: 1em;
+  }
+
+  .other-map {
+    height: 25vh;
+    min-height: 250px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 20px;
+  }
+}
+
+.publications {
+  background-color: #e6e6e6;
+}
+
+.publication__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 2em;
+  color: #262A34;
+}
+
+.publication__card {
+  background-color: white;
+  box-shadow: 0 6px 6px rgba(0, 0, 0, .25);
+  font-family: "Montserrat", sans-serif;
+}
+
+.card-content {
+  padding: 1.5rem;
+  font-size: 0.9em;
+}
+
+.card-img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-end {
+  border-top: 4px solid #e6e6e6;
+  padding: 1rem 1.5rem;
+}
+
+.sponsor__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1em;
+  font-weight: 700;
+}
+
+.sponsor__link {
+  padding: 0;
+  font-size: 0.9em;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+}
+
+.footer__title {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.footer__link {
+  padding: 0;
+  font-size: 0.9em;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.footer__link:hover {
+  color: white;
+  font-weight: 700;
+}
+
+.footer__image {
+  width: 75%;
+  max-width: 280px;
+  min-width: 200px;
+}
+
+.footer__social {
+  width: 2em;
+}
+
+.footer__socialContainer {
+  justify-content: flex-end;
+}
+
+@media(min-width:768px) {
+  .header__navlist {
+    max-width: 360px;
+  }
+
+  .input-group--search {
+    min-width: 300px;
+  }
+
+  .section {
+    padding: 8% 0;
+  }
+
+  .section2 {
+    padding: 4% 0;
+  }
+
+  .footer {
+    padding: 5% 0 0;
+  }
+
+  .footer__socialContainer {
+    justify-content: center;
+  }
+
+  .other-square{
+    padding: 0 !important;
+  }
+}
+
+
+@media only screen and (max-width:599px) {
+
+  .container {
+    padding: 0 5%;
+  }
+
+}
+
+/*login*/
+.login__container {
+  min-height: 80vh;
+}
+
+.login {
+  font-family: "Montserrat", sans-serif;
+  max-width: 850px;
+}
+
+.login__title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2em;
+}
+
+.login__label {
+  color: #716E67;
+  padding-left: 1em;
+}
+
+.login__input {
+  border: none;
+  background-color: #F5F5F5;
+  margin-bottom: 10px;
+}
+
+.login__input:focus {
+  outline: 0 none;
+  box-shadow: none;
+  background-color: #F5F5F5;
+}
+
+.login__button {
+  border-radius: 0;
+  margin: 10px 0;
+  font-size: 1em;
+}
+
+.login__link {
+  color: #262A34;
+}
+
+@media only screen and (max-width:768px) {
+
+  .login {
+    padding: 2em 0;
+  }
+
+  .login__title {
+    font-size: 1.6em;
+  }
+
+}
+
+/*mis publicaciones*/
+.post__edit {
+  box-shadow: 0 6px 6px rgba(0, 0, 0, .25);
+  margin-top: 7px;
+  padding: 1rem 1.5rem;
+  background-color: white;
+}
+
+.post__icon {
+  width: 1.5em;
+}
+
+.post__comment p {
+  border-bottom: 2px solid #262A34;
+  margin-top: 1em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0;
+}
+
+.post__comment a {
+  color: #262A34;
+  font-size: 0.7em;
+}
+
+/*descrip*/
+.descrip {
+  font-family: "Montserrat", sans-serif;
+}
+
+.descrip__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  font-size: 1.5em;
+}
+
+.descrip__bed {
+  font-size: 0.8em;
+  line-height: 1.2em;
+  margin-left: 12px;
+}
+
+.descrip__icon {
+  width: 30px;
+  height: 30px;
+}
+
+.descrip__subtitle {
+  font-weight: 700;
+  font-size: 1em;
+  margin-bottom: 2em;
+}
+
+.descrip__paragraph {
+  border-bottom: 2px solid #1ab474;
+}
+
+.descrip__paragraph p {
+  font-size: 0.8em;
+}
+
+.descrip__mini {
+  background-color: #262A34;
+  width: 100px;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.descrip__mini span {
+  color: white;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+/*other*/
+.other__link {
+  color: black;
+  font-size: 0.7em;
+}
+
+.other__input {
+  border: none;
+  background-color: #F5F5F5;
+  font-size: 0.7em;
+  width: 150px;
+}
+
+.other__input:focus {
+  outline: 0 none;
+  box-shadow: none;
+  background-color: #F5F5F5;
+}
+
+.other__button {
+  background-color: #F5F5F5;
+  height: fit-content;
+  padding: 2px 5px;
+}
+
+.search-other {
+  display: flex;
+  align-items: center;
+  padding-right: 10px;
+  background-color: #F5F5F5;
+}
+
+.other-descrip {
+  font-size: 0.7em;
+}
+
+.other-greenButton {
+  font-size: 0.7em;
+  border-radius: 0;
+}
+
+.other-green {
+  font-size: 0.7em;
+  color: #1ab474;
+}

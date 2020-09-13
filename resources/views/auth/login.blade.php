@@ -1,11 +1,37 @@
-@extends('layoutintranet')
+@extends('layoutlogin')
 
-	<h1>Login</h1>
-  @section('contenido')
-    <form class="form-inline" method="POST" action="{{route('login')}}">
-      {!!csrf_field()!!}
-      <input class="form-control" type="email" name="email" placeholder="Email">
-      <input class="form-control" type="password" name="password" placeholder="Password">
-      <input class="btn btn-primary" type="submit" value="Entrar">
-    </form>
-  @endsection
+@section('contenido')
+  <div
+      class="login__container container d-flex align-items-center justify-content-center"
+    >
+      <div class="login">
+        <div class="row">
+          <div class="col-lg-5 col-md-6">
+            <h2 class="login__title text-center">Iniciar sesión</h2>
+            <p class="text-center" style="font-size: 0.9em;">Ingresa tu coreo electrónico y contraseña</p>
+            <form class="mt-4" method="POST" action="{{route('login')}}">
+              {!!csrf_field()!!}
+              <label class="login__label" for="" >Correo electrónico</label>
+              <input type="text" class="form-control login__input maininput" name="email" />
+              <label class="login__label" for="">Contraseña</label>
+              <input type="password" class="form-control login__input maininput" name="password" />
+              <div class="pt-4">
+                <button
+                type="submit"
+                class="btn login__button green-background btn-lg btn-block"
+              >
+                Iniciar sesión
+              </button>
+              </div>
+            </form>
+            <div>
+              <p class="text-center" style="font-size: 0.8em;">¿No tiene cuenta? <a class="login__link" href="">Crea una</a></p>
+            </div>
+          </div>
+          <div class="col-lg-7 col-md-6 d-none d-md-block">
+            <img src="{{ asset('storage/img/login.png')}}" class="w-100" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+@endsection

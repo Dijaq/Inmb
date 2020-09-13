@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Usuario;
+use App\Persona;
 
 class UsuarioController extends Controller
 {
@@ -14,8 +15,8 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::all();
-        return $usuarios;
+        $usuarios = Usuario::with('persona')->get();
+        return view('usuarios.index', compact('usuarios'));
     }
 
     /**
@@ -25,7 +26,11 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        //
+        $roles = collect([
+            ['id' => 'ADMIN', 'nombre' => 'ADMINISTRADOR'],
+            ['id' => 'USER', 'nombre' => 'USUARIO']
+        ]);
+        return view('usuarios.create', compact('roles'));
     }
 
     /**
@@ -36,20 +41,23 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        try{
-            $usuario = new Usuario();
-            $usuario->usr = $request->usr;
-            $usuario->pwd = $request->pwd;
-            $usuario->nombre = $request->nombre;
-            $usuario->rol = $request->rol;
-            $usuario->save();
+        $persona = new Persona();
+        $persona->nombres = $request->nombres;
+        $persona->apellidos = $request->apellidos;
+        $persona->dni = $request->dni;
+        $persona->correo = $request->email;
+        $persona->telefono = $request->celular;
+        $persona->info_busqueda = $request->nombres." ".$request->apellidos." ".$request->celular;
+        $persona->save();
 
-            //return $persona;
-            return response()->json(['message' => 'Generado Satisfactorimente']);
-        }
-        catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        $usuario = new Usuario();
+        $usuario->persona_id = $persona->id;
+        $usuario->nombre = $request->nombre_usuario;
+        $usuario->email = $persona->correo;
+        $usuario->rol = $request->rol;
+        $usuario->password = bcrypt($request->password);
+        $usuario->save();
+        return redirect()->route('usuario.index')->with('info', 'Se creo el usuario satisfactoriamente');
     }
 
     /**
@@ -78,7 +86,12 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+        $roles = collect([
+            ['id' => 'ADMIN', 'nombre' => 'ADMINISTRADOR'],
+            ['id' => 'USER', 'nombre' => 'USUARIO']
+        ]);
+        return view('usuarios.edit', compact('roles', 'usuario'));
     }
 
     /**
@@ -90,20 +103,23 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, $id)
     {
-        try{
-            $usuario = Usuario::findOrFail($id);
-            $usuario->usr = $request->usr;
-            $usuario->pwd = $request->pwd;
-            $usuario->nombre = $request->nombre;
-            $usuario->rol = $request->rol;
-            $persona->update();
+        $usuario = Usuario::findOrFail($id);
+        $persona = Persona::findOrFail($usuario->persona_id);
 
-            //return $persona;
-            return response()->json(['message' => 'Modificado Satisfactorimente']);
-        }
-        catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+        $persona->nombres = $request->nombres;
+        $persona->apellidos = $request->apellidos;
+        $persona->dni = $request->dni;
+        $persona->correo = $request->email;
+        $persona->telefono = $request->celular;
+        $persona->info_busqueda = $request->nombres." ".$request->apellidos." ".$request->celular;
+        $persona->update();
+
+        $usuario->persona_id = $persona->id;
+        $usuario->nombre = $request->nombre_usuario;
+        $usuario->email = $persona->correo;
+        $usuario->rol = $request->rol;
+        $usuario->update();
+        return redirect()->route('usuario.index')->with('info', 'Se creo el usuario satisfactoriamente');
     }
 
     /**
@@ -114,13 +130,9 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        try{     
-            $usuario = Usuario::findOrFail($id);
-            $usuario->delete();
-            return response()->json(['message' => 'Eliminado Satisfactorimente']);
-        } catch(\Exception $e){
-            //return $e->getMessage();
-            return response()->json(['message' => $e->getMessage()]);
-        }
+            
+        $usuario = Usuario::findOrFail($id);
+        $usuario->delete();
+        return redirect()->route('usuario.index')->with('info', 'Se elimino el usuario satisfactoriamente');
     }
 }

@@ -19,14 +19,14 @@ class AtributoController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index($idTipo)
+    public function index($tipo_id)
     {
         $atributos = Atributo::with('tipo')->orderBy('orden')->get();
-        /*if($idTipo != 0)
+        if($tipo_id != 0)
         {
-            $atributos = $atributos->where('tipo_id', $idTipo);
-        }*/
-        return view('administracion.atributos.index', compact('atributos'));
+            $atributos = $atributos->where('tipo_id', $tipo_id);
+        }
+        return view('administracion.atributos.index', compact('atributos', 'tipo_id'));
     }
 
       /**
@@ -34,7 +34,7 @@ class AtributoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($tipo_id)
     {
         //$atributos = Atributo::with('tipo')->get();
         $tipos = Tipo::all();
@@ -47,7 +47,7 @@ class AtributoController extends Controller
   
         #return $tipos_opcion[0]['nombre'];
 
-        return view('administracion.atributos.create', compact('tipos_opcion', 'tipos'));
+        return view('administracion.atributos.create', compact('tipos_opcion', 'tipo_id', 'tipos'));
     }
 
     public function store(Request $request)
@@ -67,7 +67,7 @@ class AtributoController extends Controller
         $atributo->orden = $request->orden;
         $atributo->save();
 
-        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('atributo.index', $atributo->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     public function edit($id)
@@ -85,7 +85,7 @@ class AtributoController extends Controller
     public function update(Request $request, $id)
     {
         $atributo = Atributo::findOrFail($id);
-        $atributo->tipo_id = $request->tipo;
+        //$atributo->tipo_id = $request->tipo;
         $atributo->nombre = $request->nombre;
         $atributo->tipo_opcion = $request->tipo_opcion;
         $atributo->meta = $request->meta;
@@ -102,14 +102,16 @@ class AtributoController extends Controller
 
         $atributo->update();
 
-        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('atributo.index', $atributo->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     public function destroy($id)
     {
+        
         $atributo = Atributo::findOrFail($id);
+        $tipo_id = $atributo->tipo_id;
         $atributo->delete();
-        return redirect()->route('atributo.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('atributo.index', $tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
 

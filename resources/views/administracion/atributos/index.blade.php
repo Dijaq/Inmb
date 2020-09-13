@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title"> Lista de Atributos</h4>
-      <a class="btn btn-primary" href="{{route('atributo.create')}}">Crear Atributo</a>
+      <a class="btn btn-primary" href="{{route('atributo.create', $tipo_id)}}">Crear Atributo</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">

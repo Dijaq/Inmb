@@ -18,19 +18,18 @@ class ServicioController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($idTipo)
-    {
-        
+    public function index($tipo_id)
+    {      
         $servicios = Servicio::with('tipo')->orderBy('orden')->get();
-        if($idTipo != 0)
+        if($tipo_id != 0)
         {
-            $servicios = $servicios->where('tipo_id', $idTipo);
+            $servicios = $servicios->where('tipo_id', $tipo_id);
         }
 
-        return view('administracion.servicios.index', compact('servicios'));
+        return view('administracion.servicios.index', compact('servicios', 'tipo_id'));
     }
 
-    public function create()
+    public function create($tipo_id)
     {
         //$atributos = Atributo::with('tipo')->get();
         $tipos = Tipo::all();
@@ -40,7 +39,7 @@ class ServicioController extends Controller
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
    
-        return view('administracion.servicios.create', compact('tipos_opcion', 'tipos'));
+        return view('administracion.servicios.create', compact('tipos_opcion', 'tipos', 'tipo_id'));
     }
 
     public function store(Request $request)
@@ -60,7 +59,7 @@ class ServicioController extends Controller
         $servicio->orden = $request->orden;
         $servicio->save();
 
-        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $servicio->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     public function edit($id)
@@ -78,7 +77,7 @@ class ServicioController extends Controller
     public function update(Request $request, $id)
     {
         $servicio = Servicio::findOrFail($id);
-        $servicio->tipo_id = $request->tipo;
+        //$servicio->tipo_id = $request->tipo;
         $servicio->nombre = $request->nombre;
         $servicio->tipo_opcion = $request->tipo_opcion;
         $servicio->meta = $request->meta;
@@ -95,14 +94,16 @@ class ServicioController extends Controller
 
         $servicio->update();
 
-        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $servicio->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     public function destroy($id)
     {
+        
         $servicio = Servicio::findOrFail($id);
+        $tipo_id = $servicio->tipo_id;
         $servicio->delete();
-        return redirect()->route('servicio.index', 0)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
  /* 

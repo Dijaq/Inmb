@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title"> Lista de Servicios</h4>
-      <a class="btn btn-primary" href="{{route('servicio.create')}}">Crear Servicio</a>
+      <a class="btn btn-primary" href="{{route('servicio.create', $tipo_id)}}">Crear Servicio</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -17,7 +17,7 @@
             <th>Tipo</th>
             <th>Ruta Imagen</th>
             <th>Meta</th>
-            
+            <th>Acciones</th>
             <!--<th style="text-align: center">Acciones</th>-->
           </thead>
           <tbody>

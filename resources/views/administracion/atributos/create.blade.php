@@ -27,8 +27,10 @@
                   {!! $errors->first('nombre', '<span class="error">:message</span>') !!}
               </div>
             </div>
+
+            <input class="form-control" type="hidden" name="tipo" value="{{$tipo_id}}">
             
-            <div class="col-md-12" style="text-align:left;">
+            <!--<div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Inmueble</label>
                 <select class="form-control" name="tipo" required>
@@ -38,15 +40,15 @@
                   @endforeach
                 </select>
               </div>
-            </div>
+            </div>-->
 
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
-                <label for="tipo" style="text-align:left;">Tipo Atributo</label>
+                <label for="tipo_opcion" style="text-align:left;">Tipo Atributo</label>
                 <select class="form-control" name="tipo_opcion" required>
                   <option value="">[Seleccion una opción]</option>
                   @foreach($tipos_opcion as $tipo)     
-                      <option value="{{$tipo['id']}}" {{old('tipo') == $tipo['id'] ? 'selected':''}}>{{$tipo['nombre']}}</option>
+                      <option value="{{$tipo['id']}}" {{old('tipo_opcion') == $tipo['id'] ? 'selected':''}}>{{$tipo['nombre']}}</option>
                   @endforeach
                 </select>
               </div>

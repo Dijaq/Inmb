@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Inmueble;
 use App\InmuebleFotos;
+use App\Tipo;
+use App\Operacion;
+use App\UbicacionDistrito;
 
 class InmuebleController extends Controller
 {
@@ -15,8 +18,125 @@ class InmuebleController extends Controller
 
     public function index()
     {
-        $inmuebles = Inmueble::with('operacion')->with('tipo')->get();
+        $inmuebles = Inmueble::with('operacion')->with('tipo')->orderBy('fecha_publicacion', 'desc')->get();
         return view('admin_inmuebles.inmuebles.index', compact('inmuebles'));
+    }
+
+    public function create()
+    {
+        $tipos = Tipo::all();
+        $operaciones = Operacion::all();
+        $ubicaciones = UbicacionDistrito::all();
+
+        $monedas = collect([
+            ['id' => 'PEN', 'nombre' => 'SOLES'],
+            ['id' => 'USD', 'nombre' => 'DOLARES'],
+        ]);
+
+        return view('admin_inmuebles.inmuebles.create', compact('tipos', 'operaciones', 'ubicaciones', 'monedas'));
+    }
+
+    
+    public function store(Request $request)
+    {
+        
+        //return $request;
+
+        $inmueble = new Inmueble();
+        $inmueble->tipo_id = $request->tipo;
+        $inmueble->operacion_id = $request->operacion;
+        $inmueble->moneda = $request->moneda;
+        $inmueble->titulo = $request->titulo;
+        $inmueble->descripcion = $request->descripcion;
+        $inmueble->direccion = $request->direccion;
+        $inmueble->fecha_publicacion = now();
+        $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        $inmueble->precio = $request->precio;
+
+        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $inmueble->ubigeo_distrito_id = $ubicacion->id;
+        $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
+        $inmueble->ubigeo_region_id = $ubicacion->region_id;
+        
+        $slug = strtr(strtolower($inmueble->titulo), " ", "-");
+        $inmueble->slug = $slug;
+        $inmueble->mapa_latitud = $request->mapa_latitud;
+        $inmueble->mapa_longitud = $request->mapa_longitud;
+        $inmueble->mapa_zoom = $request->mapa_zoom;
+        $inmueble->estado = "PUBLICADO";
+
+        $inmueble->save();
+
+        $inmueble->slug = $inmueble->slug."-".$inmueble->id;
+        $inmueble->update();
+
+        /*Images*/
+        $image = $request->file('dir_image');
+        $nameImage = $image->getClientOriginalName();
+        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        //$image->save(storage_path('app/public/'. $filename));
+        $image->storeAs('public', $filename);
+
+        $inmueble_fotos = new InmuebleFotos();
+        $inmueble_fotos->inmueble_id = $inmueble->id;
+        $inmueble_fotos->url_imagen = 'storage/'.$filename;
+        $inmueble_fotos->orden = 1;
+        $inmueble_fotos->es_destacado = true;
+        $inmueble_fotos->save();
+        
+        return redirect()->route('inmueble.index')->with('info', 'Se creo el tipo satisfactoriamente');
+ 
+    }
+
+    public function edit($id)
+    {
+        $inmueble = Inmueble::findOrFail($id);
+        $tipos = Tipo::all();
+        $operaciones = Operacion::all();
+        $ubicaciones = UbicacionDistrito::all();
+        $monedas = collect([
+            ['id' => 'PEN', 'nombre' => 'SOLES'],
+            ['id' => 'USD', 'nombre' => 'DOLARES'],
+        ]);
+
+        return view('admin_inmuebles.inmuebles.edit', compact('inmueble', 'tipos', 'operaciones', 'ubicaciones', 'monedas'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        //return $request;
+
+        $inmueble = Inmueble::findOrFail($id);
+        $inmueble->tipo_id = $request->tipo;
+        $inmueble->operacion_id = $request->operacion;
+        $inmueble->moneda = $request->moneda;
+        $inmueble->titulo = $request->titulo;
+        $inmueble->descripcion = $request->descripcion;
+        $inmueble->direccion = $request->direccion;
+        //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        $inmueble->precio = $request->precio;
+
+        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $inmueble->ubigeo_distrito_id = $ubicacion->id;
+        $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
+        $inmueble->ubigeo_region_id = $ubicacion->region_id;
+        
+        $inmueble->mapa_latitud = $request->mapa_latitud;
+        $inmueble->mapa_longitud = $request->mapa_longitud;
+        $inmueble->mapa_zoom = $request->mapa_zoom;
+        $inmueble->estado = "PUBLICADO";
+
+        $inmueble->update();
+
+        return redirect()->route('inmueble.index')->with('info', 'Se actuali el inmueble el satisfactoriamente');
+ 
+    }
+
+    public function destroy($id)
+    {
+        $inmueble = Inmueble::findOrFail($id);
+        $inmueble->delete();
+        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
     }
 
     /*public function index()

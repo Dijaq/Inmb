@@ -1,23 +1,41 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drag and Drop file upload with Dropzone in Laravel</title>
 
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+    <!-- Meta -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{asset('dropzone/dist/min/dropzone.min.css')}}">
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
+    <!-- JS -->
+    <script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>
+
+  </head>
+  <body>
+
+    <div class='content'>
+      <!-- Dropzone -->
+      <form action="{{route('login')}}" class='dropzone' >
+      </form> 
+    </div> 
+
+    <!-- Script -->
+    <script>
+    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone(".dropzone",{ 
+        maxFilesize: 3,  // 3 mb
+        acceptedFiles: ".jpeg,.jpg,.png,.pdf",
+    });
+    myDropzone.on("sending", function(file, xhr, formData) {
+       formData.append("_token", CSRF_TOKEN);
+    }); 
+    </script>
+
+  </body>
+</html>

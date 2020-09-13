@@ -28,7 +28,7 @@
               </div>
             </div>
             
-            <div class="col-md-12" style="text-align:left;">
+            <!--<div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Inmueble</label>
                 <select class="form-control" name="tipo" required>
@@ -41,7 +41,7 @@
                   @endforeach
                 </select>
               </div>
-            </div>
+            </div>-->
 
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">

@@ -1907,7 +1907,7 @@ demo = {
           label: "Emails",
           pointRadius: 0,
           pointHoverRadius: 0,
-          backgroundColor: ['#66615b', '#f4f3ef'],
+          backgroundColor: ['#262A34', '#f4f3ef'],
           borderWidth: 0,
           data: [11, 89]
         }]

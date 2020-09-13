@@ -19,6 +19,7 @@ class WebController extends Controller
         $operaciones = Operacion::all();
         $tipos = Tipo::all();
         $cantidad = 3;
+
         return view('general.index', compact('inmuebles', 'operaciones', 'tipos', 'cantidad'));
     }
 
@@ -67,8 +68,9 @@ class WebController extends Controller
         catch(\Exception $e){
             return response()->json(['message' => $e->getMessage()]);
         }
+        $tipos = Tipo::all();
 
-        return view('general.inmueble', compact('inmueble'));
+        return view('general.inmueble', compact('inmueble', 'tipos'));
     }
     
 }

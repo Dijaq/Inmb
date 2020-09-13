@@ -23,6 +23,8 @@
                   </td>
 
                   <td align="center">
+                    <a class="btn btn-primary btn-sm" href="{{route('atributo.index', $tipo->id)}}">Atributos</a>
+                    <a class="btn btn-success btn-sm" href="{{route('servicio.index', $tipo->id)}}">Servicios</a>
                     <a class="btn btn-info btn-sm" href="{{route('tipo.edit', $tipo->id)}}">Editar</a>
                     <form style="display: inline" method="POST" action={{route('tipo.delete', $tipo->id)}}>
                       {!! csrf_field() !!}

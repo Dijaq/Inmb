@@ -35,14 +35,14 @@ Route::put('tipos/{id}', ['as' => 'tipo.update', 'uses' => 'TipoController@updat
 Route::delete('tipos/{id}', ['as' => 'tipo.delete', 'uses' => 'TipoController@destroy']);
 
 Route::get('lista_atributos/{id}', ['as' => 'atributo.index', 'uses' => 'AtributoController@index']);
-Route::get('atributos/crear', ['as' => 'atributo.create', 'uses' => 'AtributoController@create']);
+Route::get('atributos_crear/{id}', ['as' => 'atributo.create', 'uses' => 'AtributoController@create']);
 Route::post('atributos', ['as' => 'atributo.store', 'uses' => 'AtributoController@store']);
 Route::get('atributos/{id}', ['as' => 'atributo.edit', 'uses' => 'AtributoController@edit']);
 Route::put('atributos/{id}', ['as' => 'atributo.update', 'uses' => 'AtributoController@update']);
 Route::delete('atributos/{id}', ['as' => 'atributo.delete', 'uses' => 'AtributoController@destroy']);
 
 Route::get('lista_servicios/{id}', ['as' => 'servicio.index', 'uses' => 'ServicioController@index']);
-Route::get('servicios/crear', ['as' => 'servicio.create', 'uses' => 'ServicioController@create']);
+Route::get('servicios_crear/{id}', ['as' => 'servicio.create', 'uses' => 'ServicioController@create']);
 Route::post('servicios', ['as' => 'servicio.store', 'uses' => 'ServicioController@store']);
 Route::get('servicios/{id}', ['as' => 'servicio.edit', 'uses' => 'ServicioController@edit']);
 Route::put('servicios/{id}', ['as' => 'servicio.update', 'uses' => 'ServicioController@update']);
@@ -61,6 +61,13 @@ Route::post('inmuebles', ['as' => 'inmueble.store', 'uses' => 'InmuebleControlle
 Route::get('inmuebles/{id}', ['as' => 'inmueble.edit', 'uses' => 'InmuebleController@edit']);
 Route::put('inmuebles/{id}', ['as' => 'inmueble.update', 'uses' => 'InmuebleController@update']);
 Route::delete('inmuebles/{id}', ['as' => 'inmueble.delete', 'uses' => 'InmuebleController@destroy']);
+
+Route::get('usuarios', ['as' => 'usuario.index', 'uses' => 'UsuarioController@index']);
+Route::get('usuarios/crear', ['as' => 'usuario.create', 'uses' => 'UsuarioController@create']);
+Route::post('usuarios', ['as' => 'usuario.store', 'uses' => 'UsuarioController@store']);
+Route::get('usuarios/{id}', ['as' => 'usuario.edit', 'uses' => 'UsuarioController@edit']);
+Route::put('usuarios/{id}', ['as' => 'usuario.update', 'uses' => 'UsuarioController@update']);
+Route::delete('usuarios/{id}', ['as' => 'usuario.delete', 'uses' => 'UsuarioController@destroy']);
 
 Auth::routes();
 

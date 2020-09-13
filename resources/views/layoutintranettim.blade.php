@@ -32,6 +32,14 @@ Coded by www.creative-tim.com
   <link href="../assets/css/paper-dashboard.css?v=2.1.1" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="{{asset('dropzone/dist/min/dropzone.min.css')}}">
+
+  <!-- JS -->
+  <script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>
 </head>
 
 <body class="">
@@ -48,7 +56,7 @@ Coded by www.creative-tim.com
           <!-- <p>CT</p> -->
         </a>
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+          Vivela o Vendela
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -72,13 +80,13 @@ Coded by www.creative-tim.com
                 <li>
                   <a href="#">
                     <span class="sidebar-mini-icon">MP</span>
-                    <span class="sidebar-normal">My Profile</span>
+                    <span class="sidebar-normal">Mi Perfil</span>
                   </a>
                 </li>
                 <li>
                   <a href="#">
                     <span class="sidebar-mini-icon">EP</span>
-                    <span class="sidebar-normal">Edit Profile</span>
+                    <span class="sidebar-normal">Editar mi perfil</span>
                   </a>
                 </li>
                 <li>
@@ -92,12 +100,12 @@ Coded by www.creative-tim.com
           </div>
         </div>
         <ul class="nav">
-          <li class="active">
+          <!--<li class="active">
             <a href="../examples/dashboard.html">
               <i class="nc-icon nc-bank"></i>
               <p>Dashboard</p>
             </a>
-          </li>
+          </li>-->
 
           <li>
             <a data-toggle="collapse" href="#pagesExamples">
@@ -113,12 +121,12 @@ Coded by www.creative-tim.com
                     <span class="sidebar-normal"> Tipos de Inmueble </span>
                   </a>
                 </li>
-                <li>
+                <!--<li>
                   <a href="{{route('atributo.index', '0')}}">
                     <span class="sidebar-mini-icon">A</span>
                     <span class="sidebar-normal"> Atributos </span>
                   </a>
-                </li>
+                </li>-->
                 <li>
                   <a href="{{route('servicio.index', '0')}}">
                     <span class="sidebar-mini-icon">S</span>
@@ -151,216 +159,23 @@ Coded by www.creative-tim.com
               </ul>
             </div>
           </li>
-          <!--<li>
-            <a data-toggle="collapse" href="#pagesExamples">
+          <li>
+            <a data-toggle="collapse" href="#usuarioExample">
               <i class="nc-icon nc-book-bookmark"></i>
-              <p>
-                Pages <b class="caret"></b>
+              <p> Admin Usuarios <b class="caret"></b>
               </p>
             </a>
-            <div class="collapse " id="pagesExamples">
+            <div class="collapse " id="usuarioExample">
               <ul class="nav">
                 <li>
-                  <a href="../examples/pages/timeline.html">
-                    <span class="sidebar-mini-icon">T</span>
-                    <span class="sidebar-normal"> Timeline </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/pages/login.html">
-                    <span class="sidebar-mini-icon">L</span>
-                    <span class="sidebar-normal"> Login </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/pages/register.html">
-                    <span class="sidebar-mini-icon">R</span>
-                    <span class="sidebar-normal"> Register </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/pages/lock.html">
-                    <span class="sidebar-mini-icon">LS</span>
-                    <span class="sidebar-normal"> Lock Screen </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/pages/user.html">
-                    <span class="sidebar-mini-icon">UP</span>
-                    <span class="sidebar-normal"> User Profile </span>
+                  <a href="{{route('usuario.index')}}">
+                    <span class="sidebar-mini-icon">U</span>
+                    <span class="sidebar-normal"> Usuarios </span>
                   </a>
                 </li>
               </ul>
             </div>
           </li>
-          <li>
-            <a data-toggle="collapse" href="#componentsExamples">
-              <i class="nc-icon nc-layout-11"></i>
-              <p>
-                Components <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="componentsExamples">
-              <ul class="nav">
-                <li>
-                  <a href="../examples/components/buttons.html">
-                    <span class="sidebar-mini-icon">B</span>
-                    <span class="sidebar-normal"> Buttons </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/grid.html">
-                    <span class="sidebar-mini-icon">G</span>
-                    <span class="sidebar-normal"> Grid System </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/panels.html">
-                    <span class="sidebar-mini-icon">P</span>
-                    <span class="sidebar-normal"> Panels </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/sweet-alert.html">
-                    <span class="sidebar-mini-icon">SA</span>
-                    <span class="sidebar-normal"> Sweet Alert </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/notifications.html">
-                    <span class="sidebar-mini-icon">N</span>
-                    <span class="sidebar-normal"> Notifications </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/icons.html">
-                    <span class="sidebar-mini-icon">I</span>
-                    <span class="sidebar-normal"> Icons </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/components/typography.html">
-                    <span class="sidebar-mini-icon">T</span>
-                    <span class="sidebar-normal"> Typography </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a data-toggle="collapse" href="#formsExamples">
-              <i class="nc-icon nc-ruler-pencil"></i>
-              <p>
-                Forms <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="formsExamples">
-              <ul class="nav">
-                <li>
-                  <a href="../examples/forms/regular.html">
-                    <span class="sidebar-mini-icon">RF</span>
-                    <span class="sidebar-normal"> Regular Forms </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/forms/extended.html">
-                    <span class="sidebar-mini-icon">EF</span>
-                    <span class="sidebar-normal"> Extended Forms </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/forms/validation.html">
-                    <span class="sidebar-mini-icon">V</span>
-                    <span class="sidebar-normal"> Validation Forms </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/forms/wizard.html">
-                    <span class="sidebar-mini-icon">W</span>
-                    <span class="sidebar-normal"> Wizard </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a data-toggle="collapse" href="#tablesExamples">
-              <i class="nc-icon nc-single-copy-04"></i>
-              <p>
-                Tables <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="tablesExamples">
-              <ul class="nav">
-                <li>
-                  <a href="../examples/tables/regular.html">
-                    <span class="sidebar-mini-icon">RT</span>
-                    <span class="sidebar-normal"> Regular Tables </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/tables/extended.html">
-                    <span class="sidebar-mini-icon">ET</span>
-                    <span class="sidebar-normal"> Extended Tables </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/tables/datatables.net.html">
-                    <span class="sidebar-mini-icon">DT</span>
-                    <span class="sidebar-normal"> DataTables.net </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a data-toggle="collapse" href="#mapsExamples">
-              <i class="nc-icon nc-pin-3"></i>
-              <p>
-                Maps <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="mapsExamples">
-              <ul class="nav">
-                <li>
-                  <a href="../examples/maps/google.html">
-                    <span class="sidebar-mini-icon">GM</span>
-                    <span class="sidebar-normal"> Google Maps </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/maps/fullscreen.html">
-                    <span class="sidebar-mini-icon">FSM</span>
-                    <span class="sidebar-normal"> Full Screen Map </span>
-                  </a>
-                </li>
-                <li>
-                  <a href="../examples/maps/vector.html">
-                    <span class="sidebar-mini-icon">VM</span>
-                    <span class="sidebar-normal"> Vector Map </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a href="../examples/widgets.html">
-              <i class="nc-icon nc-box"></i>
-              <p>Widgets</p>
-            </a>
-          </li>
-          <li>
-            <a href="../examples/charts.html">
-              <i class="nc-icon nc-chart-bar-32"></i>
-              <p>Charts</p>
-            </a>
-          </li>
-          <li>
-            <a href="../examples/calendar.html">
-              <i class="nc-icon nc-calendar-60"></i>
-              <p>Calendar</p>
-            </a>
-          </li>-->
         </ul>
       </div>
     </div>
@@ -382,14 +197,14 @@ Coded by www.creative-tim.com
                 <span class="navbar-toggler-bar bar3"></span>
               </button>
             </div>
-            <a class="navbar-brand" href="javascript:;">Paper Dashboard 2 PRO</a>
+            <a class="navbar-brand" href="javascript:;">Panel de Control</a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
           </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+          <!--<div class="collapse navbar-collapse justify-content-end" id="navigation">
             <form>
               <div class="input-group no-border">
                 <input type="text" value="" class="form-control" placeholder="Search...">
@@ -431,7 +246,7 @@ Coded by www.creative-tim.com
                 </a>
               </li>
             </ul>
-          </div>
+          </div>-->
         </div>
       </nav>
       <!-- End Navbar -->
@@ -508,8 +323,6 @@ Coded by www.creative-tim.com
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
       demo.initDashboardPageCharts();
-
-
       demo.initVectorMap();
 
     });
@@ -517,8 +330,26 @@ Coded by www.creative-tim.com
     $(document).ready(function() {
         $('#table_paginate').DataTable();
     } );
+
+    $(document).ready(function() {
+        $('#table_paginate_inmueble').DataTable({
+        "order": [[ 4, "desc" ]]
+    } );
+    } );
     
   </script>
+  <script>
+    var CSRF_TOKEN = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+
+    Dropzone.autoDiscover = false;
+    var myDropzone = new Dropzone(".dropzone",{ 
+        maxFilesize: 3,  // 3 mb
+        acceptedFiles: ".jpeg,.jpg,.png,.pdf",
+    });
+    myDropzone.on("sending", function(file, xhr, formData) {
+       formData.append("_token", CSRF_TOKEN);
+    }); 
+    </script>
 </body>
 
 </html>
