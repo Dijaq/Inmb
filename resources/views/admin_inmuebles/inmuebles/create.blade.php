@@ -34,23 +34,24 @@
               </div>
             </div>
             
-            <div class="col-md-6" style="text-align:left;">
+            <input class="form-control" type="hidden" name="tipo" value="{{$tipo}}">
+            <!--<div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Inmueble</label>
                 <select class="form-control" name="tipo" required>
-                  <option value="">[Seleccion una opción]</option>
+                  <option value="">[Seleccione una opción]</option>
                   @foreach($tipos as $tipo)     
                       <option value="{{$tipo->id}}" {{old('tipo') == $tipo->id ? 'selected':''}}>{{$tipo->nombre}}</option>
                   @endforeach
                 </select>
               </div>
-            </div>
+            </div>-->
 
             <div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Operación</label>
                 <select class="form-control" name="operacion" required>
-                  <option value="">[Seleccion una opción]</option>
+                  <option value="">[Seleccione una opción]</option>
                   @foreach($operaciones as $operacion)     
                       <option value="{{$operacion->id}}" {{old('operacion') == $operacion->id ? 'selected':''}}>{{$operacion->nombre}}</option>
                   @endforeach
@@ -58,11 +59,19 @@
               </div>
             </div>
 
+            <div class="col-md-6" style="text-align:left;">
+              <div class="form-group">
+                <label for="area" >Área</label>
+                <input class="form-control" type="text" name="area" value="{{old('area')}}">
+                  {!! $errors->first('area', '<span class="error">:message</span>') !!}
+              </div>
+            </div>
+
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Ubicación</label>
                 <select class="form-control" name="ubicacion" required>
-                  <option value="">[Seleccion una opción]</option>
+                  <option value="">[Seleccione una opción]</option>
                   @foreach($ubicaciones as $ubicacion)     
                       <option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>
                   @endforeach
@@ -116,19 +125,110 @@
             </div>    
             
             <div class="col-md-12" style="text-align:left;">
-              <div class="form-group">
-                <label for="tipo" style="text-align:left;">Imagen</label>
-                <div class="custom-file">
+                <label for="tipo" style="text-align:left;">Imágenes</label>
+                <input type="file" name="dir_images[]" id="image" multiple class="form-control">
+                <!--<div class="custom-file">
                   <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image">
                   <label class="custom-file-label" for="validatedCustomFile">Elige una imagen</label>
                   <div class="invalid-feedback">Example invalid custom file feedback</div>
                   {!! $errors->first('dir_image', '<span class="error">:message</span>') !!}
-                </div>
-              </div>
+                </div>-->
             </div>
             
+            <div class="col-md-12" style="text-align:center;">
+              <h4 class="card-title">Atributos</h4>
+            </div>
+
+            @foreach($atributos as $atributo)
+              <div class="col-md-4" style="text-align:left;">
+
+                @if($atributo->tipo_opcion == 1)
+
+                  <div class="form-group">
+                    <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
+                    
+                      <select class="form-control" name="atributo_{{$atributo->id}}" required>
+                      <option value="">[Seleccione una opción]</option>
+                      @foreach(explode(",",$atributo->meta) as $value)     
+                          <option value="{{$value}}" {{old('atributo-1') == $value ? 'selected':''}}>{{$value}}</option>
+                      @endforeach
+                    </select>   
+                  </div>
+                @elseif($atributo->tipo_opcion == 2)
+                  <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
+                  @foreach(explode(",",$atributo->meta) as $value)   
+                    <div class="form-check">
+                      <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value={{$value}}>
+                          {{$value}}
+                          <span class="form-check-sign">
+                              <span class="check"></span>
+                          </span>
+                      </label>
+                    </div>
+                  @endforeach
+                @else
+                  <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
+                  @foreach(explode(",",$atributo->meta) as $value)   
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="atributo_{{$atributo->id}}" value="{{$value}}">
+                        {{$value}}
+                      </label>
+                    </div>
+                  @endforeach
+                @endif
+              </div>
+            @endforeach
+
+            <div class="col-md-12" style="text-align:center;">
+              <h4 class="card-title">Servicios</h4>
+            </div>
+
+            @foreach($servicios as $key => $servicio)
+              <div class="col-md-4" style="text-align:left;">
+
+                @if($servicio->tipo_opcion == 1)
+
+                  <div class="form-group">
+                    <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
+                    
+                      <select class="form-control" name="atributo_{{$servicio->id}}">
+                      <option value="">[Seleccione una opción]</option>
+                      @foreach(explode(",",$servicio->meta) as $value)     
+                          <option value="{{$value}}" {{old('atributo-1') == $value ? 'selected':''}}>{{$value}}</option>
+                      @endforeach
+                    </select>   
+                  </div>
+                @elseif($servicio->tipo_opcion == 2)
+                  <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
+                  @foreach(explode(",",$servicio->meta) as $value)   
+                    <div class="form-check">
+                      <label class="form-check-label">
+                          <input class="form-check-input" type="checkbox" value={{$value}}>
+                          {{$value}}
+                          <span class="form-check-sign">
+                              <span class="check"></span>
+                          </span>
+                      </label>
+                    </div>
+                  @endforeach
+                @else
+                  <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
+                  @foreach(explode(",",$servicio->meta) as $value)   
+                    <div class="radio">
+                      <label>
+                        <input type="radio" name="servicio_{{$servicio->id}}" value="{{$value}}">
+                        {{$value}}
+                      </label>
+                    </div>
+                  @endforeach
+                @endif
+              </div>
+            @endforeach
 
           </div>
+
           <div class="row">
             <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Crear Inmueble"></div>
           </div>

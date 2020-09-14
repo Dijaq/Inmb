@@ -3,6 +3,11 @@
   color: white;
 }
 
+.sidebar:before {
+  background: red !important;
+  background-color: red !important;
+}
+
 .foot_list {
   list-style: none;
   padding: 0px;

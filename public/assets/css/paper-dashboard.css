@@ -13589,11 +13589,11 @@ img {
 
 .sidebar:after,
 .off-canvas-sidebar:after {
-  background: #262A34;
-  background: -webkit-linear-gradient(#262A34 0%, #000 80%);
-  background: -o-linear-gradient(#262A34 0%, #000 80%);
-  background: -moz-linear-gradient(#262A34 0%, #000 80%);
-  background: linear-gradient(#262A34 0%, #000 80%);
+  background: #1ab474;
+  background: -webkit-linear-gradient(#1ab474 0%, #000 80%);
+  background: -o-linear-gradient(#1ab474 0%, #000 80%);
+  background: -moz-linear-gradient(#1ab474 0%, #000 80%);
+  background: linear-gradient(#1ab474 0%, #000 80%);
   z-index: 3;
 }
 
@@ -13614,7 +13614,7 @@ img {
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"] i,
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"]~div>ul>li .sidebar-mini-icon,
 .off-canvas-sidebar[data-color="white"] .nav li a[data-toggle="collapse"]~div>ul>li>a {
-  color: #262A34;
+  color: #1ab474;
   opacity: .7;
 }
 
@@ -13627,7 +13627,7 @@ img {
 
 .sidebar[data-color="white"] .logo .simple-text,
 .off-canvas-sidebar[data-color="white"] .logo .simple-text {
-  color: #262A34;
+  color: #1ab474;
 }
 
 .sidebar[data-color="white"] .logo:after,
@@ -13642,7 +13642,7 @@ img {
 .off-canvas-sidebar[data-color="white"] .user .info a span,
 .off-canvas-sidebar[data-color="white"] .user .nav .sidebar-mini-icon,
 .off-canvas-sidebar[data-color="white"] .user .nav .sidebar-normal {
-  color: #262A34 !important;
+  color: #1ab474 !important;
 }
 
 .sidebar[data-color="white"] .user:after,
@@ -13653,7 +13653,7 @@ img {
 
 .sidebar[data-color="default"]:after,
 .off-canvas-sidebar[data-color="default"]:after {
-  background: #262A34;
+  background: #1ab474;
 }
 
 .sidebar[data-active-color="primary"] .nav li.active>a,

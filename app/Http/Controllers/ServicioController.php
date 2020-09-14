@@ -35,7 +35,7 @@ class ServicioController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            //['id' => 2, 'nombre' => 'CHECK BOX'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
    
@@ -55,7 +55,7 @@ class ServicioController extends Controller
         $servicio->nombre = $request->nombre;
         $servicio->ruta_imagen = $filename;
         $servicio->tipo_opcion = $request->tipo_opcion;
-        $servicio->meta = $request->meta;
+        $servicio->meta = str_replace(' ','',$request->meta);
         $servicio->orden = $request->orden;
         $servicio->save();
 
@@ -68,7 +68,7 @@ class ServicioController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            //['id' => 2, 'nombre' => 'CHECK BOX'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
         return view('administracion.servicios.edit', compact('servicio', 'tipos', 'tipos_opcion'));
@@ -80,7 +80,7 @@ class ServicioController extends Controller
         //$servicio->tipo_id = $request->tipo;
         $servicio->nombre = $request->nombre;
         $servicio->tipo_opcion = $request->tipo_opcion;
-        $servicio->meta = $request->meta;
+        $servicio->meta = str_replace(' ','',$request->meta);
         $servicio->orden = $request->orden;
 
         if(is_file($request->file('dir_image'))){

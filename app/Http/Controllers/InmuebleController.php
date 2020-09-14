@@ -8,6 +8,10 @@ use App\InmuebleFotos;
 use App\Tipo;
 use App\Operacion;
 use App\UbicacionDistrito;
+use App\Atributo;
+use App\Servicio;
+use App\AtributoInmueble;
+use App\ServicioInmueble;
 
 class InmuebleController extends Controller
 {
@@ -22,8 +26,15 @@ class InmuebleController extends Controller
         return view('admin_inmuebles.inmuebles.index', compact('inmuebles'));
     }
 
-    public function create()
+    public function seleccionar_tipo(){
+        $tipos = Tipo::all();
+        return view('admin_inmuebles.inmuebles.seleccionar_tipo', compact('tipos'));
+    }
+
+    public function create(Request $request)
     {
+        $tipo = $request->tipo;
+
         $tipos = Tipo::all();
         $operaciones = Operacion::all();
         $ubicaciones = UbicacionDistrito::all();
@@ -33,20 +44,41 @@ class InmuebleController extends Controller
             ['id' => 'USD', 'nombre' => 'DOLARES'],
         ]);
 
-        return view('admin_inmuebles.inmuebles.create', compact('tipos', 'operaciones', 'ubicaciones', 'monedas'));
+        $atributos = Atributo::where('tipo_id', $tipo)->get();
+        $servicios = Servicio::where('tipo_id', $tipo)->get();
+
+        //return explode(",",$atributos[0]->meta);
+
+        return view('admin_inmuebles.inmuebles.create', compact('tipo','tipos', 'operaciones', 'ubicaciones', 'monedas', 'atributos', 'servicios'));
     }
 
     
     public function store(Request $request)
     {
-        
+        $atributos = Atributo::where('tipo_id', $request->tipo)->get();
+        $servicios = Servicio::where('tipo_id', $request->tipo)->get();
+
+        /*$arr_servicios = array();
+        return $request;
+        foreach($servicios as $serv)
+        {
+            if($request->{'servicio_'.$serv->id} != null)
+                array_push($arr_servicios, $request->{'servicio_'.$serv->id});
+        }
+
+        return $arr_servicios;
+        return 0;*/
+
         //return $request;
+        
 
         $inmueble = new Inmueble();
         $inmueble->tipo_id = $request->tipo;
+        $inmueble->area = $request->area;
         $inmueble->operacion_id = $request->operacion;
         $inmueble->moneda = $request->moneda;
         $inmueble->titulo = $request->titulo;
+        $inmueble->usuario_creacion_id = auth()->user()->id;
         $inmueble->descripcion = $request->descripcion;
         $inmueble->direccion = $request->direccion;
         $inmueble->fecha_publicacion = now();
@@ -71,10 +103,9 @@ class InmuebleController extends Controller
         $inmueble->update();
 
         /*Images*/
-        $image = $request->file('dir_image');
+        /*$image = $request->file('dir_image');
         $nameImage = $image->getClientOriginalName();
         $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
-        //$image->save(storage_path('app/public/'. $filename));
         $image->storeAs('public', $filename);
 
         $inmueble_fotos = new InmuebleFotos();
@@ -82,7 +113,47 @@ class InmuebleController extends Controller
         $inmueble_fotos->url_imagen = 'storage/'.$filename;
         $inmueble_fotos->orden = 1;
         $inmueble_fotos->es_destacado = true;
-        $inmueble_fotos->save();
+        $inmueble_fotos->save();*/
+
+        foreach($request->file('dir_images') as $image)
+        {
+            $nameImage = $image->getClientOriginalName();
+            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $image->storeAs('public', $filename);
+
+            $inmueble_fotos = new InmuebleFotos();
+            $inmueble_fotos->inmueble_id = $inmueble->id;
+            $inmueble_fotos->url_imagen = 'storage/'.$filename;
+            $inmueble_fotos->orden = 1;
+            $inmueble_fotos->es_destacado = true;
+            $inmueble_fotos->save();
+        }
+
+        foreach($atributos as $atrib)
+        {
+            if($request->{'atributo_'.$atrib->id} != null)
+            {
+                $atributoInmueble = new AtributoInmueble();                             
+                $atributoInmueble->atributo_id = $atrib->id;
+                $atributoInmueble->inmueble_id = $inmueble->id;
+                $atributoInmueble->valor = $request->{'atributo_'.$atrib->id};
+                $atributoInmueble->save(); 
+            }       
+            //array_push($arr_servicios, $request->{'atributo_'.$atrib->id});
+        }
+
+        foreach($servicios as $serv)
+        {
+            if($request->{'servicio_'.$serv->id} != null)
+            {
+                $servicioInmueble = new ServicioInmueble();
+                $servicioInmueble->servicio_id = $serv->id;
+                $servicioInmueble->inmueble_id = $inmueble->id;
+                $servicioInmueble->valor = $request->{'servicio_'.$serv->id};
+                $servicioInmueble->save(); 
+            }
+            //array_push($arr_servicios, $request->{'servicio_'.$serv->id});
+        }
         
         return redirect()->route('inmueble.index')->with('info', 'Se creo el tipo satisfactoriamente');
  
@@ -99,7 +170,40 @@ class InmuebleController extends Controller
             ['id' => 'USD', 'nombre' => 'DOLARES'],
         ]);
 
-        return view('admin_inmuebles.inmuebles.edit', compact('inmueble', 'tipos', 'operaciones', 'ubicaciones', 'monedas'));
+        $atributos = Atributo::where('tipo_id', $inmueble->tipo_id)->get();
+        $servicios = Servicio::where('tipo_id', $inmueble->tipo_id)->get();
+
+        $inmueble_atributos = AtributoInmueble::where('inmueble_id', $id)->get();
+        $inmueble_servicios = ServicioInmueble::where('inmueble_id', $id)->get();
+
+        //return $inmueble_atributos;
+        //return sizeof($inmueble_atributos->where('atributo_id',5));
+        
+        foreach($atributos as $atrib)
+        {
+            if(sizeof($inmueble_atributos->where('atributo_id',$atrib->id))>0)
+            {
+                $atrib->inmueble_value = $inmueble_atributos->where('atributo_id',$atrib->id)->first()->valor;
+                //$atrib->inmueble_value = $inmueble_atributos->where('atributo_id',$atrib->id)[0]->valor;                                              
+            }
+            else{
+                $atrib->inmueble_value = null;
+            }
+        }
+        
+        foreach($servicios as $serv)
+        {
+            if(sizeof($inmueble_servicios->where('servicio_id',$serv->id))>0)
+            {
+                $serv->inmueble_value = $inmueble_servicios->where('servicio_id',$serv->id)->first()->valor;
+                //$atrib->inmueble_value = $inmueble_atributos->where('atributo_id',$atrib->id)[0]->valor;                                              
+            }
+            else{
+                $serv->inmueble_value = null;
+            }
+        }        
+
+        return view('admin_inmuebles.inmuebles.edit', compact('inmueble', 'tipos', 'operaciones', 'ubicaciones', 'monedas', 'atributos', 'servicios', 'inmueble_atributos', 'inmueble_servicios'));
     }
 
     public function update(Request $request, $id)
@@ -107,12 +211,12 @@ class InmuebleController extends Controller
         //return $request;
 
         $inmueble = Inmueble::findOrFail($id);
-        $inmueble->tipo_id = $request->tipo;
         $inmueble->operacion_id = $request->operacion;
         $inmueble->moneda = $request->moneda;
         $inmueble->titulo = $request->titulo;
         $inmueble->descripcion = $request->descripcion;
         $inmueble->direccion = $request->direccion;
+        $inmueble->area = $request->area;
         //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
         $inmueble->precio = $request->precio;
 
@@ -128,6 +232,58 @@ class InmuebleController extends Controller
 
         $inmueble->update();
 
+        $atributos = Atributo::where('tipo_id', $inmueble->tipo_id)->get();
+        $servicios = Servicio::where('tipo_id', $inmueble->tipo_id)->get();
+
+        //return $request;
+        foreach($atributos as $atrib)
+        {
+            if($request->{'atributo_'.$atrib->id} != null)
+            {
+                //UPDATE
+                $query = AtributoInmueble::where('atributo_id', $atrib->id)->where('inmueble_id', $inmueble->id)->get();
+                //return $query;
+                if(sizeof($query) > 0)
+                {
+                    $atributoInmueble = AtributoInmueble::where('atributo_id', $atrib->id)->where('inmueble_id', $inmueble->id)->first();
+                    $atributoInmueble->valor = $request->{'atributo_'.$atrib->id};
+                    $atributoInmueble->update();
+                }
+                else{//CREATE
+                    //return $request->{'atributo_'.$atrib->id};
+                    $atributoInmueble = new AtributoInmueble();                             
+                    $atributoInmueble->atributo_id = $atrib->id;
+                    $atributoInmueble->inmueble_id = $inmueble->id;
+                    $atributoInmueble->valor = $request->{'atributo_'.$atrib->id};
+                    $atributoInmueble->save(); 
+                }
+            }       
+            //array_push($arr_servicios, $request->{'atributo_'.$atrib->id});
+        }
+
+        foreach($servicios as $serv)
+        {
+            if($request->{'servicio_'.$serv->id} != null)
+            {
+                $query = ServicioInmueble::where('servicio_id', $atrib->id)->where('inmueble_id', $inmueble->id)->get();
+                if(sizeof($query) > 0)
+                {
+                    $servicioInmueble = ServicioInmueble::where('servicio_id', $atrib->id)->where('inmueble_id', $inmueble->id)->first();
+                    $servicioInmueble->valor = $request->{'servicio_'.$serv->id};
+                    $servicioInmueble->update();
+                }
+                else{
+                    $servicioInmueble = new ServicioInmueble();
+                    $servicioInmueble->servicio_id = $serv->id;
+                    $servicioInmueble->inmueble_id = $inmueble->id;
+                    $servicioInmueble->valor = $request->{'servicio_'.$serv->id};
+                    $servicioInmueble->save(); 
+                }
+                
+            }
+            //array_push($arr_servicios, $request->{'servicio_'.$serv->id});
+        }
+
         return redirect()->route('inmueble.index')->with('info', 'Se actuali el inmueble el satisfactoriamente');
  
     }
@@ -138,92 +294,4 @@ class InmuebleController extends Controller
         $inmueble->delete();
         return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
     }
-
-    /*public function index()
-    {
-        $inmuebles = Inmueble::with('operacion')->with('tipo')->get();
-        return $inmuebles;
-    }
-
-    public function store(Request $request)
-    {
-        try{
-            $inmueble = new Inmueble();
-            $inmueble->tipo_id = $request->tipo_id;
-            $inmueble->operacion_id = $request->operacion_id;
-            //Usuario Creacion es del usuario logueado
-            $inmueble->ubigeo_provincia_id = $request->ubigeo_provincia_id;
-            $inmueble->ubigeo_distrito_id = $request->ubigeo_distrito_id;
-            $inmueble->ubigeo_region_id = $request->ubigeo_region_id;
-            $inmueble->moneda = $request->moneda;
-            $inmueble->titulo = $request->titulo;
-            $inmueble->slug = $request->slug;
-            $inmueble->descripcion = $request->descripcion;
-            $inmueble->mapa_lalitud = $request->mapa_latitud;
-            $inmueble->mapa_longitud = $request->mapa_longitud;
-            $inmueble->mapa_zoom = $request->mapa_zoom;
-            $inmueble->fecha_publicacion = now();
-            $inmueble->fecha_vencimiento = $request->fecha_vencimiento;
-            $inmueble->estado = $request->estado;
-            $inmueble->save();
-
-            //return $persona;
-            return response()->json(['message' => 'Generado Satisfactorimente']);
-        }
-        catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
-    }
-
-    public function show($id)
-    {
-        try{            
-            $inmueble = Inmueble::findOrFail($id);
-            return $inmueble;
-        }
-        catch(\Exception $e){
-            //return $e->getMessage();
-            return response()->json(['message' => 'No se ha encontrado el elemento solicitado']);
-        }
-    }
-
-    public function update(Request $request, $id)
-    {
-        try{
-            $inmueble = Inmueble::findOrFail($id);
-            $inmueble->tipo_id = $request->tipo_id;
-            $inmueble->operacion_id = $request->operacion_id;
-            //Usuario Creacion es del usuario logueado
-            $inmueble->ubigeo_provincia_id = $request->ubigeo_provincia_id;
-            $inmueble->ubigeo_distrito_id = $request->ubigeo_distrito_id;
-            $inmueble->ubigeo_region_id = $request->ubigeo_region_id;
-            $inmueble->moneda = $request->moneda;
-            $inmueble->titulo = $request->titulo;
-            $inmueble->slug = $request->slug;
-            $inmueble->descripcion = $request->moneda;
-            $inmueble->mapa_latitud = $request->moneda;
-            $inmueble->mapa_longitud = $request->moneda;
-            $inmueble->mapa_zoom = $request->moneda;
-            $inmueble->fecha_publicacion = now();
-            $inmueble->fecha_vencimiento = $request->fecha_vencimiento;
-            $inmueble->estado = $request->estado;
-            $inmueble->update();
-
-            //return $persona;
-            return response()->json(['message' => 'Modificado Satisfactorimente']);
-        }
-        catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function _index()
-    {
-        $inmuebles = InmuebleFotos::with('inmueble')->get();
-    }*/
 }

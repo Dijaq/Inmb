@@ -36,25 +36,26 @@ Coded by www.creative-tim.com
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <!-- CSS -->
-  <link rel="stylesheet" type="text/css" href="{{asset('dropzone/dist/min/dropzone.min.css')}}">
+  <!--<link rel="stylesheet" type="text/css" href="{{asset('dropzone/dist/min/dropzone.min.css')}}">-->
 
   <!-- JS -->
-  <script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>
+  <!--<script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
 </head>
 
 <body class="">
   <div class="wrapper ">
-    <div class="sidebar" data-color="default" data-active-color="danger">
+    <div class="sidebar" data-color="default" data-active-color="danger" style="background-color: ">
       <!--
         Tip 1: You can change the color of the sidebar using: data-color=" default | primary | info | success | warning | danger |"
     -->
       <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <!--<a href="https://www.creative-tim.com" class="simple-text logo-mini">
           <div class="logo-image-small">
             <img src="../assets/img/logo-small.png">
           </div>
-          <!-- <p>CT</p> -->
-        </a>
+        </a>-->
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
           Vivela o Vendela
           <!-- <div class="logo-image-big">
@@ -62,11 +63,11 @@ Coded by www.creative-tim.com
           </div> -->
         </a>
       </div>
-      <div class="sidebar-wrapper">
+      <div class="sidebar-wrapper" >
         <div class="user">
-          <div class="photo">
+          <!--<div class="photo">
             <img src="../assets/img/faces/ayo-ogunseinde-2.jpg" />
-          </div>
+          </div>-->
           <div class="info">
             <a data-toggle="collapse" href="#collapseExample" class="collapsed">
               <span>
@@ -77,7 +78,7 @@ Coded by www.creative-tim.com
             <div class="clearfix"></div>
             <div class="collapse" id="collapseExample">
               <ul class="nav">
-                <li>
+                <!--<li>
                   <a href="#">
                     <span class="sidebar-mini-icon">MP</span>
                     <span class="sidebar-normal">Mi Perfil</span>
@@ -88,7 +89,7 @@ Coded by www.creative-tim.com
                     <span class="sidebar-mini-icon">EP</span>
                     <span class="sidebar-normal">Editar mi perfil</span>
                   </a>
-                </li>
+                </li>-->
                 <li>
                   <a href="{{ url('/logout') }}">
                     <span class="sidebar-mini-icon">X</span>
@@ -127,12 +128,12 @@ Coded by www.creative-tim.com
                     <span class="sidebar-normal"> Atributos </span>
                   </a>
                 </li>-->
-                <li>
+                <!--<li>
                   <a href="{{route('servicio.index', '0')}}">
                     <span class="sidebar-mini-icon">S</span>
                     <span class="sidebar-normal"> Servicios </span>
                   </a>
-                </li>
+                </li>-->
                 <li>
                   <a href="{{route('operacion.index')}}">
                     <span class="sidebar-mini-icon">O</span>
@@ -255,7 +256,7 @@ Coded by www.creative-tim.com
       @yield('contenido')
        
       </div>
-      <footer class="footer footer-black  footer-white ">
+      <!--<footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
             <nav class="footer-nav">
@@ -274,7 +275,7 @@ Coded by www.creative-tim.com
             </div>
           </div>
         </div>
-      </footer>
+      </footer>-->
     </div>
   </div>
   <!--   Core JS Files   -->
@@ -333,7 +334,7 @@ Coded by www.creative-tim.com
 
     $(document).ready(function() {
         $('#table_paginate_inmueble').DataTable({
-        "order": [[ 4, "desc" ]]
+        "order": [[ 5, "desc" ]]
     } );
     } );
     

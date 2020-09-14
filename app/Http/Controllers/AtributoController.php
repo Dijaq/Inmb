@@ -40,7 +40,7 @@ class AtributoController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            //['id' => 2, 'nombre' => 'CHECK BOX'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
        
@@ -63,8 +63,9 @@ class AtributoController extends Controller
         $atributo->nombre = $request->nombre;
         $atributo->ruta_imagen = $filename;
         $atributo->tipo_opcion = $request->tipo_opcion;
-        $atributo->meta = $request->meta;
+        $atributo->meta = str_replace(' ','',$request->meta);
         $atributo->orden = $request->orden;
+        return $atributo;
         $atributo->save();
 
         return redirect()->route('atributo.index', $atributo->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
@@ -76,7 +77,7 @@ class AtributoController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            ['id' => 2, 'nombre' => 'CHECK BOX'],
+            //['id' => 2, 'nombre' => 'CHECK BOX'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
         return view('administracion.atributos.edit', compact('atributo', 'tipos', 'tipos_opcion'));
@@ -88,7 +89,7 @@ class AtributoController extends Controller
         //$atributo->tipo_id = $request->tipo;
         $atributo->nombre = $request->nombre;
         $atributo->tipo_opcion = $request->tipo_opcion;
-        $atributo->meta = $request->meta;
+        $atributo->meta = str_replace(' ','',$request->meta);
         $atributo->orden = $request->orden;
 
         if(is_file($request->file('dir_image'))){

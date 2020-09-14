@@ -19,6 +19,9 @@ Route::post('/mas-propiedades', ['as' => 'inmueble.more', 'uses' => 'WebControll
 Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
 Route::get('/inmueble/{slug}', ['as' => 'inmueble.detail', 'uses' => 'WebController@inmueble']);
 
+Route::get('/mis-publicaciones', ['as' => 'mispublicaciones', 'uses' => 'WebControllerIntranet@index']);
+Route::delete('/mis-publicaciones/{id}', ['as' => 'mi-inmueble.delete', 'uses' => 'WebControllerIntranet@destroy']);
+
 
 //Route::get('/tipos' ['as' => 'tipo.store', 'uses' => 'Web']);
 
@@ -56,7 +59,8 @@ Route::put('operaciones/{id}', ['as' => 'operacion.update', 'uses' => 'Operacion
 Route::delete('operaciones/{id}', ['as' => 'operacion.delete', 'uses' => 'OperacionController@destroy']);
 
 Route::get('inmuebles', ['as' => 'inmueble.index', 'uses' => 'InmuebleController@index']);
-Route::get('inmuebles/crear', ['as' => 'inmueble.create', 'uses' => 'InmuebleController@create']);
+Route::get('seleccion_tipo', ['as' => 'inmueble.seleccion', 'uses' => 'InmuebleController@seleccionar_tipo']);
+Route::post('inmuebles/crear', ['as' => 'inmueble.create', 'uses' => 'InmuebleController@create']);
 Route::post('inmuebles', ['as' => 'inmueble.store', 'uses' => 'InmuebleController@store']);
 Route::get('inmuebles/{id}', ['as' => 'inmueble.edit', 'uses' => 'InmuebleController@edit']);
 Route::put('inmuebles/{id}', ['as' => 'inmueble.update', 'uses' => 'InmuebleController@update']);

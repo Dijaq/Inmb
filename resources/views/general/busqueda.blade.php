@@ -41,15 +41,16 @@
                         <h3 class="descrip__subtitle mb-0">S/.{{$inmueble->precio}}</h3>
                         <div class="row other-descrip">
                         <div class="col-6">
-                            <div>Alameda, 306</div>
-                            <div>Departamentos</div>
-                            <div>Miraflores, Arequipa</div>
-                            <div>11 DE AGOSTO</div>
+
+                            <div>{{$inmueble->direccion}}</div>
+                            <!--<div>Departamentos</div>-->
+                            <div>{{$inmueble->distrito->nombre}}, {{$inmueble->provincia->nombre}}</div>
+                            <div>{{$inmueble->fecha_publicacion}}</div>
                         </div>
                         <div class="col-6">
-                            <div>80m2</div>
+                            <div>{{$inmueble->area}}m2</div>
                             <div>Dueño Directo</div>
-                            <div>11 DE AGOSTO</div>
+                            <div>{{$inmueble->fecha_publicacion}}</div>
                         </div>
                         </div>
                     </div>

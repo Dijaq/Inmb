@@ -26,12 +26,35 @@
         <div class="container">
           <div class="d-flex w-100 justify-content-end py-2">
             <div>
-              <a class="header__link" href="">REGISTRO</a>
-              |
-              <a class="header__link" href="{{route('login')}}">
-                <i class="fas fa-user"></i>
-                <span class="ml-1">INGRESAR</span>
-              </a>
+              @if(Auth::check())
+                @if(auth()->user()->rol == 'ADMIN')
+                  <a class="header__link" href="{{route('tipo.index')}}">
+                    <i class="fas fa-user-cog"></i>
+                    <span class="ml-1">ADMINISTRACION</span>
+                  </a>
+                  |
+                @endif
+              
+                <a class="header__link" href="{{route('mispublicaciones')}}">
+                  <i class="fas fa-building"></i>
+                  <span class="ml-1">MIS PUBLICACIONES</span>
+                </a>
+                |
+                <a class="header__link" href="">
+                  <i class="fas fa-user"></i>
+                  <span class="ml-1">BIENVENIDO Diego
+                  </span>
+                </a>
+                |
+                <a class="header__link" href="{{route('logout')}}">Cerrar Sesión</a>
+              @else
+                <a class="header__link" href="">REGISTRO</a>
+                |
+                <a class="header__link" href="{{route('login')}}">
+                  <i class="fas fa-user"></i>
+                  <span class="ml-1">INGRESAR</span>
+                </a>
+              @endif
             </div>
           </div>
         </div>

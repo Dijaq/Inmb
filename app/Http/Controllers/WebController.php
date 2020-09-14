@@ -7,6 +7,8 @@ use App\Inmueble;
 use App\InmuebleFotos;
 use App\Operacion;
 use App\Tipo;
+use App\ServicioInmueble;
+use App\AtributoInmueble;
 
 class WebController extends Controller
 {
@@ -37,9 +39,16 @@ class WebController extends Controller
     }
 
     public function busqueda(Request $request){
-        //$inmuebles = Inmueble::where('operacion_id',$request->operacion)->with(['fotos' => function($query) {
-        $inmuebles = Inmueble::with('fotos')->orderBy('fecha_publicacion', 'desc')->get();
+        //return $request;
+        //return Inmueble::where('titulo', 'LIKE', "'%PROBANDO%'")->get();
+        //return Inmueble::whereRaw('titulo LIKE \'%'.$request->busqueda.'%\'')->get();
         
+        $inmuebles = Inmueble::with('fotos')->with('distrito')->with('provincia')->orderBy('fecha_publicacion', 'desc')->get();
+
+        if(!is_null($request->busqueda))
+        {
+            $inmuebles = Inmueble::whereRaw('titulo LIKE \'%'.$request->busqueda.'%\'')->with('fotos')->with('distrito')->with('provincia')->orderBy('fecha_publicacion', 'desc')->get();
+        }
         
         if(is_numeric($request->operacion)){
             $inmuebles = $inmuebles->where('operacion_id',$request->operacion);    
@@ -49,10 +58,12 @@ class WebController extends Controller
             $inmuebles = $inmuebles->where('tipo_id',$request->tipo);
         }
 
-        if(!is_null($request->busqueda))
+        /*if(!is_null($request->busqueda))
         {
-            $inmuebles = $inmuebles->where('titulo', 'LIKE','%'.$request->busqueda.'%');
-        }
+            //$inmuebles = $inmuebles->where('titulo', 'LIKE','%'.$request->busqueda.'%');
+            //$inmuebles = $inmuebles->query()->orWhere('titulo', 'LIKE', '%'.$request->busqueda.'%')->get();
+            $inmuebles = $inmuebles->whereRaw('titulo LIKE \'%'.$request->busqueda.'%\'')->get();
+        }*/
 
         //return $inmuebles;
 
@@ -62,15 +73,15 @@ class WebController extends Controller
     }
 
     public function inmueble($slug_page){
-        try{        
-            $inmueble = Inmueble::where('slug',$slug_page)->with('fotos')->get()[0];
-        }
-        catch(\Exception $e){
-            return response()->json(['message' => $e->getMessage()]);
-        }
+      
+        $inmueble = Inmueble::where('slug',$slug_page)->with('fotos')->get()[0];
         $tipos = Tipo::all();
+        $inmueble_servicios = ServicioInmueble::with('servicio')->where('inmueble_id', $inmueble->id)->get();
+        $inmueble_atributos = AtributoInmueble::with('atributo')->where('inmueble_id', $inmueble->id)->get();
+        
+        //return $inmueble_atributos;
 
-        return view('general.inmueble', compact('inmueble', 'tipos'));
+        return view('general.inmueble', compact('inmueble', 'tipos', 'inmueble_servicios', 'inmueble_atributos'));
     }
     
 }

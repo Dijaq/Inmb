@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title"> Lista de Inmuebles</h4>
-      <a class="btn btn-primary" href="{{route('inmueble.create')}}">Crear Imueble</a>
+      <a class="btn btn-primary" href="{{route('inmueble.seleccion')}}">Crear Imueble</a>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -14,6 +14,7 @@
             <th>Id</th>
             <th>Titulo</th>
             <th>Tipo</th>
+            <th>Moneda</th>
             <th>Precio</th>
             <th>Fecha Publicación</th>
             <th>Acciones</th>
@@ -25,6 +26,7 @@
                 <td>{{$inmueble->id}}</td>
                 <td>{{$inmueble->titulo}}</td>
                 <td>{{$inmueble->tipo->nombre}}</td>
+                <td>{{$inmueble->moneda}}</td>
                 <td>{{$inmueble->precio}}</td>
                 <td>{{$inmueble->fecha_publicacion}}</td>
 
