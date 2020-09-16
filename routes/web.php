@@ -14,14 +14,34 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', ['as' => 'inicio', 'uses' => 'WebController@index']);
-Route::post('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
+Route::get('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@busqueda']);
 Route::post('/mas-propiedades', ['as' => 'inmueble.more', 'uses' => 'WebController@more']);
 Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
 Route::get('/inmueble/{slug}', ['as' => 'inmueble.detail', 'uses' => 'WebController@inmueble']);
+Route::get('/registro', ['as' => 'usuario.registro', 'uses' => 'WebController@registro']);
+
+
+Route::post('/registro', ['as' => 'usuario.registrostore', 'uses' => 'WebController@registroStore']);
+
+Route::post('publicar/crear', ['as' => 'publicar.create', 'uses' => 'WebController@publicaCreate']);
+Route::post('publicar', ['as' => 'publicar.store', 'uses' => 'WebController@publicaStore']);
+Route::get('publicar/{id}', ['as' => 'publicar.edit', 'uses' => 'WebController@publicaEdit']);
+Route::put('publicar/{id}', ['as' => 'publicar.update', 'uses' => 'WebController@publicaUpdate']);
+
+Route::get('publicar', ['as' => 'publicar.seleccion', 'uses' => 'WebController@publicaSeleccionar']);
+
 
 Route::get('/mis-publicaciones', ['as' => 'mispublicaciones', 'uses' => 'WebControllerIntranet@index']);
 Route::delete('/mis-publicaciones/{id}', ['as' => 'mi-inmueble.delete', 'uses' => 'WebControllerIntranet@destroy']);
 
+
+Route::get('inmueble_fotos/{id}', ['as' => 'publicInmuebleFotos.index', 'uses' => 'WebInmuebleController@index']);
+Route::get('inmueble_fotos_crear/{id}', ['as' => 'publicInmuebleFotos.create', 'uses' => 'WebInmuebleController@create']);
+Route::post('inmueble_fotos', ['as' => 'publicInmuebleFotos.store', 'uses' => 'WebInmuebleController@store']);
+Route::delete('inmueble_fotos/{id}', ['as' => 'publicInmuebleFotos.delete', 'uses' => 'WebInmuebleController@destroy']);
+Route::delete('inmueble_fotos_reordenar', ['as' => 'publicInmuebleFotos.reordenar', 'uses' => 'WebInmuebleController@reordenar']);
+
+Route::post('mensajes', ['as' => 'mensaje.post', 'uses' => 'WebControllerMensajes@post']);
 
 //Route::get('/tipos' ['as' => 'tipo.store', 'uses' => 'Web']);
 
@@ -65,6 +85,17 @@ Route::post('inmuebles', ['as' => 'inmueble.store', 'uses' => 'InmuebleControlle
 Route::get('inmuebles/{id}', ['as' => 'inmueble.edit', 'uses' => 'InmuebleController@edit']);
 Route::put('inmuebles/{id}', ['as' => 'inmueble.update', 'uses' => 'InmuebleController@update']);
 Route::delete('inmuebles/{id}', ['as' => 'inmueble.delete', 'uses' => 'InmuebleController@destroy']);
+
+Route::delete('inmuebles_publicar/{id}', ['as' => 'inmueble.publicar', 'uses' => 'InmuebleController@publicar']);
+Route::delete('inmuebles_despublicar/{id}', ['as' => 'inmueble.despublicar', 'uses' => 'InmuebleController@despublicar']);
+
+Route::get('inmuebles_fotos/{id}', ['as' => 'inmuebleFotos.index', 'uses' => 'InmuebleFotosController@index']);
+Route::get('inmuebles_fotos_crear/{id}', ['as' => 'inmuebleFotos.create', 'uses' => 'InmuebleFotosController@create']);
+Route::post('inmuebles_fotos', ['as' => 'inmuebleFotos.store', 'uses' => 'InmuebleFotosController@store']);
+Route::delete('inmuebles_fotos/{id}', ['as' => 'inmuebleFotos.delete', 'uses' => 'InmuebleFotosController@destroy']);
+Route::delete('inmuebles_fotos_reordenar', ['as' => 'inmuebleFotos.reordenar', 'uses' => 'InmuebleFotosController@reordenar']);
+
+
 
 Route::get('usuarios', ['as' => 'usuario.index', 'uses' => 'UsuarioController@index']);
 Route::get('usuarios/crear', ['as' => 'usuario.create', 'uses' => 'UsuarioController@create']);

@@ -40,11 +40,10 @@ class AtributoController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            //['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 2, 'nombre' => 'INPUT'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
        
-  
         #return $tipos_opcion[0]['nombre'];
 
         return view('administracion.atributos.create', compact('tipos_opcion', 'tipo_id', 'tipos'));
@@ -65,7 +64,7 @@ class AtributoController extends Controller
         $atributo->tipo_opcion = $request->tipo_opcion;
         $atributo->meta = str_replace(' ','',$request->meta);
         $atributo->orden = $request->orden;
-        return $atributo;
+        //return $atributo;
         $atributo->save();
 
         return redirect()->route('atributo.index', $atributo->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
@@ -77,7 +76,7 @@ class AtributoController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            //['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 2, 'nombre' => 'INPUT'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
         return view('administracion.atributos.edit', compact('atributo', 'tipos', 'tipos_opcion'));

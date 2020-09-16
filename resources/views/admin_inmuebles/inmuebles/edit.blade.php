@@ -27,7 +27,7 @@
               </div>
             </div>
 
-            <div class="col-md-6" style="text-align:left;">
+            <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Operación</label>
                 <select class="form-control" name="operacion" required>
@@ -42,24 +42,24 @@
               </div>
             </div>
 
-            <div class="col-md-6" style="text-align:left;">
+            <!--<div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="area" >Área</label>
                 <input class="form-control" type="text" name="area" value="{{$inmueble->area}}">
                   {!! $errors->first('area', '<span class="error">:message</span>') !!}
               </div>
-            </div>
+            </div>-->
 
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Ubicación</label>
                 <select class="form-control" name="ubicacion" required>
                   @foreach($ubicaciones as $ubicacion)     
-                      <option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>
+                      <!--<option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>-->
                     @if($inmueble->ubigeo_distrito_id == $ubicacion->id)    
                       <option value="{{$ubicacion->id}}" selected="selected">{{$ubicacion->info_busqueda}}</option>
                     @else
-                        <option value="{{$ubicacion->id}}">{{$ubicacion->info_busqueda}}</option>
+                      <option value="{{$ubicacion->id}}">{{$ubicacion->info_busqueda}}</option>
                     @endif
                   @endforeach
                 </select>
@@ -101,7 +101,7 @@
             <div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Precio</label>
-                <input class="form-control" type="text" name="precio" value="{{$inmueble->precio}}">
+                <input class="form-control" type="number" step='0.01' name="precio" value="{{$inmueble->precio}}" required>
                   {!! $errors->first('precio', '<span class="error">:message</span>') !!}
               </div>
             </div>    
@@ -138,7 +138,14 @@
                     </select>   
                   </div>
                 @elseif($atributo->tipo_opcion == 2)
-                  <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
+                  
+                    <div class="form-group">
+                      <label for="publicacion" >{{$atributo->nombre}}</label>
+                      <input class="form-control" type="text" name="atributo{{$atributo->id}}" value="{{$atributo->inmueble_value}}">
+                        {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
+                    </div>
+                  
+                  <!--<label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
                   @foreach(explode(",",$atributo->meta) as $value)   
                     <div class="form-check">
                       <label class="form-check-label">
@@ -149,7 +156,7 @@
                           </span>
                       </label>
                     </div>
-                  @endforeach
+                  @endforeach-->
                 @else
                   <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
                   @foreach(explode(",",$atributo->meta) as $value)   
@@ -193,7 +200,14 @@
                     </select>   
                   </div>
                 @elseif($servicio->tipo_opcion == 2)
-                  <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
+                 
+                  <div class="form-group">
+                    <label for="publicacion" >{{$servicio->nombre}}</label>
+                    <input class="form-control" type="text" name="servicio_{{$servicio->id}}" value="{{$servicio->inmueble_value}}">
+                      {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
+                  </div>
+                  
+                  <!--<label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
                   @foreach(explode(",",$servicio->meta) as $value)   
                     <div class="form-check">
                       <label class="form-check-label">
@@ -204,7 +218,7 @@
                           </span>
                       </label>
                     </div>
-                  @endforeach
+                  @endforeach-->
                 @else
                   <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
                   @foreach(explode(",",$servicio->meta) as $value)   

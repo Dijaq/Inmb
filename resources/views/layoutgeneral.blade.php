@@ -41,13 +41,13 @@
                 |
                 <a class="header__link" href="">
                   <i class="fas fa-user"></i>
-                  <span class="ml-1">BIENVENIDO Diego
+                  <span class="ml-1">BIENVENIDO {{auth()->user()->nombre}}
                   </span>
                 </a>
                 |
                 <a class="header__link" href="{{route('logout')}}">Cerrar Sesión</a>
               @else
-                <a class="header__link" href="">REGISTRO</a>
+                <a class="header__link" href="{{route('usuario.registro')}}">REGISTRO</a>
                 |
                 <a class="header__link" href="{{route('login')}}">
                   <i class="fas fa-user"></i>
@@ -97,7 +97,7 @@
                 <a class="header__navlink nav-link" href="">menu</a>
               </li>
               <li class="nav-item">
-                <a class="header__publish mainButton" href="./post.html"> Publicar </a>
+                <a class="header__publish mainButton" href="{{route('publicar.seleccion')}}"> Publicar </a>
               </li>
             </ul>
           </div>
@@ -112,8 +112,8 @@
       >
         <div class="banner__search mainButton w-100 p-4">
           <!--<form class="form-inline justify-content-between">-->
-          <form  class="form-inline justify-content-between" method="POST" action="{{route('general.busqueda')}}" enctype="multipart/form-data">
-            {!!csrf_field()!!}
+          <form  class="form-inline justify-content-between" method="GET" action="{{route('general.busqueda')}}" enctype="multipart/form-data">
+            <!--{!!csrf_field()!!}-->
             <!--<input
               type="text"
               class="form-control banner__input maininput"

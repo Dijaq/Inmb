@@ -128,83 +128,26 @@
                 <span>+10</span>
               </div>-->
             </div>
+
+            <div class="d-flex flex-wrap justify-content-between">
+              <div class="col-md-12 py-4" style="background-color: #1ab474; text-align:center;">
+                <label for="" class="header__publish mainButton">Contactar al Vendedor</label>
+                <form style="width: 100%;" method="POST" action="{{route('mensaje.post')}}">    
+                {!!csrf_field()!!}     
+                    <div class="form-group"><input placeholder="Email" class="form-control post__input maininput my-2 w-100" type="text" name="correo" value="{{old('nombre')}}" required>
+                      {!! $errors->first('nombre', '<span class="error">:message</span>') !!}</div>
+              
+                    <div class="form-group">
+                      <textarea rows="6" placeholder="Mensaje" class="form-control post__input maininput my-2 w-100" type="text" name="mensaje" value="" required></textarea>
+                      {!! $errors->first('orden', '<span class="error">:message</span>') !!}</div>
+                    <input class="header__publish mainButton" type="submit" value="Enviar Mensaje">        
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!--<div class="body-one-inmueble">
-        <div class="container py-4">
-            <div class="row py-4">
-                <div class="col-md-7">
-                    <h3>{{$inmueble->titulo}}</h3>
-                </div>
-                <div class="col-md-5" style="text-align: right">
-                    <h4>S/. {{$inmueble->precio}}</h4>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-8">
-                    <img src="{{asset($inmueble->fotos[0]->url_imagen) }}" style="width: 100%" alt="Card image cap">
-
-                    <div class="row pt-4">
-                        <div class="col-md-12">
-                            <h4>Descripción</h4>
-                        </div>
-                    </div>    
-
-                    <div class="row py-4">
-                        <div class="col-md-12">
-                        {{$inmueble->descripción}}
-                        </div>
-                    </div>
-
-                    <div class="row py-4">
-                        <div class="col-md-12">
-                            <h4>Ubicación</h4>
-                        </div>
-                    </div>    
-
-                    <img src="{{$inmueble->fotos[0]->url_imagen }}" style="width: 100%" alt="Card image cap">
-
-                </div>
-                <div class="col-md-4">
-                    <div class="row">
-                        @foreach($inmueble->fotos as $key => $foto)
-                            <div class="col-md-4 p-1">
-                                <img src="{{$foto->url_imagen}}" style="width: 100%" alt="Card image cap">
-                            </div>
-                        @endforeach
-                        <!--<div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                        <div class="col-md-4 p-1">
-                            <img src="{{ asset('storage/interiores.PNG')}}" style="width: 100%" alt="Card image cap">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>-->
-
   <script>
     function change(e){
         //e.preventDefault();

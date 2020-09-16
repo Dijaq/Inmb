@@ -30,7 +30,7 @@
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Inmueble</label>
                 <select class="form-control" name="tipo" required>
-                  <option value="">[Seleccion una opción]</option>
+                  <option value="">[Seleccione Tipo de Propiedad]</option>
                   @foreach($tipos as $tipo)     
                       <option value="{{$tipo->id}}" {{old('tipo') == $tipo->id ? 'selected':''}}>{{$tipo->nombre}}</option>
                   @endforeach

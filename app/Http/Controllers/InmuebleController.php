@@ -55,6 +55,7 @@ class InmuebleController extends Controller
     
     public function store(Request $request)
     {
+        //return $request;
         $atributos = Atributo::where('tipo_id', $request->tipo)->get();
         $servicios = Servicio::where('tipo_id', $request->tipo)->get();
 
@@ -74,7 +75,7 @@ class InmuebleController extends Controller
 
         $inmueble = new Inmueble();
         $inmueble->tipo_id = $request->tipo;
-        $inmueble->area = $request->area;
+        //$inmueble->area = $request->area;
         $inmueble->operacion_id = $request->operacion;
         $inmueble->moneda = $request->moneda;
         $inmueble->titulo = $request->titulo;
@@ -216,7 +217,7 @@ class InmuebleController extends Controller
         $inmueble->titulo = $request->titulo;
         $inmueble->descripcion = $request->descripcion;
         $inmueble->direccion = $request->direccion;
-        $inmueble->area = $request->area;
+        //$inmueble->area = $request->area;
         //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
         $inmueble->precio = $request->precio;
 
@@ -292,6 +293,22 @@ class InmuebleController extends Controller
     {
         $inmueble = Inmueble::findOrFail($id);
         $inmueble->delete();
+        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
+    }
+
+    public function publicar($id)
+    {
+        $inmueble = Inmueble::findOrFail($id);
+        $inmueble->estado = "PUBLICADO";
+        $inmueble->update();
+        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
+    }
+
+    public function despublicar($id)
+    {
+        $inmueble = Inmueble::findOrFail($id);
+        $inmueble->estado = "NO PUBLICADO";
+        $inmueble->update();
         return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
     }
 }

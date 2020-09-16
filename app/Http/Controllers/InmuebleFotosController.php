@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Request;
+use Illuminate\Http\Request;
+use App\InmuebleFotos;
+use App\Inmueble;
 
 class InmuebleFotosController extends Controller
 {
@@ -11,9 +13,11 @@ class InmuebleFotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $idInmueble = $id;
+        $inmuebleFotos = InmuebleFotos::where('inmueble_id', $id)->orderBy('orden')->get();
+        return view('admin_inmuebles.inmueble_imagen.index', compact('inmuebleFotos', 'idInmueble'));
     }
 
     /**
@@ -21,9 +25,11 @@ class InmuebleFotosController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idInmueble)
     {
-        //
+        $inmueble = Inmueble::findOrFail($idInmueble);
+        //return $inmueble;
+        return view('admin_inmuebles.inmueble_imagen.create', compact('inmueble'));
     }
 
     /**
@@ -34,7 +40,45 @@ class InmuebleFotosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach($request->file('dir_images') as $image)
+        {
+            $nameImage = $image->getClientOriginalName();
+            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $image->storeAs('public', $filename);
+
+            $inmueble_fotos = new InmuebleFotos();
+            $inmueble_fotos->inmueble_id = $request->inmueble_id;
+            $inmueble_fotos->url_imagen = 'storage/'.$filename;
+            $inmueble_fotos->orden = 1;
+            $inmueble_fotos->es_destacado = true;
+            $inmueble_fotos->save();
+        }
+
+        return redirect()->route('inmuebleFotos.index', $request->inmueble_id)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function reordenar(Request $request)
+    {
+        //return $request;
+        $inmuebleFotos = InmuebleFotos::where('inmueble_id', $request->id)->get();
+
+        foreach($inmuebleFotos as $foto)
+        {
+            //return $request->{'destacado_'.$foto->id};
+            $inmueble_foto = InmuebleFotos::findOrFail($foto->id);
+            $inmueble_foto->orden = $request->{'orden_'.$foto->id};
+            if($request->{'destacado_'.$foto->id} != null)
+                $inmueble_foto->es_destacado = 1;
+            else
+                $inmueble_foto->es_destacado = 0;
+
+            $inmueble_foto->update();
+
+            //return $request->{'orden_'.$foto->id};
+            //$request->'destacado_'.$foto->id;
+        }
+
+        return redirect()->route('inmuebleFotos.index', $request->id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     /**
@@ -79,6 +123,9 @@ class InmuebleFotosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $inmueble_foto = InmuebleFotos::findOrFail($id);
+        $idInmueble = $inmueble_foto->inmueble_id;
+        $inmueble_foto->delete();
+        return redirect()->route('inmuebleFotos.index', $idInmueble)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 }

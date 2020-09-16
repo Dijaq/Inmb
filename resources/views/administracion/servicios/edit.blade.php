@@ -74,7 +74,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Meta</label>
-                <input class="form-control" type="text" name="meta" value="{{$servicio->meta}}">
+                <textarea class="form-control" type="text" name="meta" value="{{$servicio->meta}}">{{$servicio->meta}}</textarea>
                   {!! $errors->first('meta', '<span class="error">:message</span>') !!}
               </div>
             </div>

@@ -25,7 +25,7 @@
               </div>
             </form>
             <div>
-              <p class="text-center" style="font-size: 0.8em;">¿No tiene cuenta? <a class="login__link" href="">Crea una</a></p>
+              <p class="text-center" style="font-size: 0.8em;">¿No tiene cuenta? <a class="login__link" href="{{route('usuario.registro')}}">Crea una</a></p>
             </div>
           </div>
           <div class="col-lg-7 col-md-6 d-none d-md-block">

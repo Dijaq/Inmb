@@ -35,7 +35,7 @@ class ServicioController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            //['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 2, 'nombre' => 'INPUT'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
    
@@ -68,7 +68,7 @@ class ServicioController extends Controller
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
-            //['id' => 2, 'nombre' => 'CHECK BOX'],
+            ['id' => 2, 'nombre' => 'INPUT'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
         return view('administracion.servicios.edit', compact('servicio', 'tipos', 'tipos_opcion'));

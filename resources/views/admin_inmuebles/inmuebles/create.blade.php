@@ -47,7 +47,7 @@
               </div>
             </div>-->
 
-            <div class="col-md-6" style="text-align:left;">
+            <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Tipo Operación</label>
                 <select class="form-control" name="operacion" required>
@@ -59,13 +59,13 @@
               </div>
             </div>
 
-            <div class="col-md-6" style="text-align:left;">
+            <!--<div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="area" >Área</label>
                 <input class="form-control" type="text" name="area" value="{{old('area')}}">
                   {!! $errors->first('area', '<span class="error">:message</span>') !!}
               </div>
-            </div>
+            </div>-->
 
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
@@ -111,7 +111,7 @@
             <div class="col-md-6" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Precio</label>
-                <input class="form-control" type="text" name="precio" value="{{old('precio')}}">
+                <input class="form-control" type="number" step='0.01' name="precio" value="{{old('precio')}}" required>
                   {!! $errors->first('precio', '<span class="error">:message</span>') !!}
               </div>
             </div>    
@@ -126,7 +126,7 @@
             
             <div class="col-md-12" style="text-align:left;">
                 <label for="tipo" style="text-align:left;">Imágenes</label>
-                <input type="file" name="dir_images[]" id="image" multiple class="form-control">
+                <input type="file" name="dir_images[]" id="image" multiple class="form-control" required>
                 <!--<div class="custom-file">
                   <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image">
                   <label class="custom-file-label" for="validatedCustomFile">Elige una imagen</label>
@@ -155,7 +155,14 @@
                     </select>   
                   </div>
                 @elseif($atributo->tipo_opcion == 2)
-                  <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
+                  <div class="col-md-12" style="text-align:left;">
+                    <div class="form-group">
+                      <label for="publicacion" >{{$atributo->nombre}}</label>
+                      <input class="form-control" type="text" name="atributo_{{$atributo->id}}" value="{{old('publicacion')}}">
+                        {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
+                    </div>
+                  </div>    
+                  <!--<label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
                   @foreach(explode(",",$atributo->meta) as $value)   
                     <div class="form-check">
                       <label class="form-check-label">
@@ -166,7 +173,7 @@
                           </span>
                       </label>
                     </div>
-                  @endforeach
+                  @endforeach-->
                 @else
                   <label for="tipo" style="text-align:left;">{{$atributo->nombre}}</label>
                   @foreach(explode(",",$atributo->meta) as $value)   
@@ -201,7 +208,14 @@
                     </select>   
                   </div>
                 @elseif($servicio->tipo_opcion == 2)
-                  <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
+                  
+                  <div class="form-group">
+                    <label for="publicacion" >{{$servicio->nombre}}</label>
+                    <input class="form-control" type="text" name="servicio_{{$servicio->id}}" value="{{old('publicacion')}}">
+                      {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
+                  </div>
+                     
+                  <!--<label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
                   @foreach(explode(",",$servicio->meta) as $value)   
                     <div class="form-check">
                       <label class="form-check-label">
@@ -212,7 +226,7 @@
                           </span>
                       </label>
                     </div>
-                  @endforeach
+                  @endforeach-->
                 @else
                   <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
                   @foreach(explode(",",$servicio->meta) as $value)   

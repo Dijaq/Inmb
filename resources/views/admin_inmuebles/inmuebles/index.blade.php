@@ -17,6 +17,7 @@
             <th>Moneda</th>
             <th>Precio</th>
             <th>Fecha Publicación</th>
+            <th>Estado</th>
             <th>Acciones</th>
             <!--<th style="text-align: center">Acciones</th>-->
           </thead>
@@ -29,8 +30,25 @@
                 <td>{{$inmueble->moneda}}</td>
                 <td>{{$inmueble->precio}}</td>
                 <td>{{$inmueble->fecha_publicacion}}</td>
+                <td>
+                  @if($inmueble->estado == 'PUBLICADO')
+                    <form style="display: inline" method="POST" action={{route('inmueble.despublicar', $inmueble->id)}}>
+                      {!! csrf_field() !!}
+                      {!! method_field('DELETE') !!}
+                      <button class="btn btn-success btn-sm">{{$inmueble->estado}}</button>
+                    </form>
+                  @else
+                  <form style="display: inline" method="POST" action={{route('inmueble.publicar', $inmueble->id)}}>
+                      {!! csrf_field() !!}
+                      {!! method_field('DELETE') !!}
+                      <button class="btn btn-danger btn-sm">{{$inmueble->estado}}</button>
+                    </form>
+                  @endif
+                  
+                </td>
 
                 <td>
+                  <a class="btn btn-success btn-sm" href="{{route('inmuebleFotos.index', $inmueble->id)}}">Imágenes</a>
                   <a class="btn btn-info btn-sm" href="{{route('inmueble.edit', $inmueble->id)}}">Editar</a>
                   <form style="display: inline" method="POST" action={{route('inmueble.delete', $inmueble->id)}}>
                     {!! csrf_field() !!}

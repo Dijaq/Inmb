@@ -48,7 +48,7 @@
                 |
                 <a class="header__link" href="{{route('logout')}}">Cerrar Sesión</a>
               @else
-                <a class="header__link" href="">REGISTRO</a>
+                <a class="header__link" href="{{route('usuario.registro')}}">REGISTRO</a>
                 |
                 <a class="header__link" href="{{route('login')}}">
                   <i class="fas fa-user"></i>
@@ -98,7 +98,7 @@
                 <a class="header__navlink nav-link" href="">menu</a>
               </li>
               <li class="nav-item">
-                <a class="header__publish mainButton" href="./post.html"> Publicar </a>
+                <a class="header__publish mainButton" href="{{route('publicar.seleccion')}}"> Publicar </a>
               </li>
             </ul>
           </div>
