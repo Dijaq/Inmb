@@ -119,7 +119,17 @@ class InmuebleController extends Controller
         foreach($request->file('dir_images') as $image)
         {
             $nameImage = $image->getClientOriginalName();
-            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $name = "";
+            for($i = 0; $i<strlen($nameImage); $i++)
+            {
+                $vocal = ord(substr($nameImage, $i, 1));
+                if(!(($vocal >= 97 && $vocal<= 122)||($vocal >= 65 && $vocal <= 90) ||($vocal >= 48 && $vocal <= 57) || $vocal == 46))
+                    $name .= '-';
+                else
+                    $name .= substr($nameImage, $i, 1);
+            }
+
+            $filename = date("Ymd-His", strtotime(now())).'_'.$name;
             $image->storeAs('public', $filename);
 
             $inmueble_fotos = new InmuebleFotos();

@@ -5,11 +5,11 @@
   <div class="card">
     <div class="card-header">
       <h4 class="card-title"> Lista de Fotos</h4>
-      <a class="btn btn-primary" href="{{route('publicInmuebleFotos.create', $idInmueble)}}">Nueva Foto</a>
+      <a class="btn btn-primary" href="{{route('inmuebleFotos.create', $idInmueble)}}">Nueva Foto</a>
     </div>
     <div class="card-body">
 
-      <form method="POST" action="{{route('publicInmuebleFotos.reordenar')}}" enctype="multipart/form-data">
+      <form method="POST" action="{{route('inmuebleFotos.reordenar')}}" enctype="multipart/form-data">
       {!!csrf_field()!!}
       <input type="hidden" value="{{$idInmueble}}" name="id">
         <div class="table-responsive">
@@ -42,7 +42,7 @@
                   <td><img src="{{asset($foto->url_imagen)}}" style="width: 120px" alt="Card image cap"></td>
                   <td>
                     <a class="btn btn-info btn-sm" href="{{route('inmueble.edit', $foto->inmueble_id)}}">Editar</a>
-                    <form style="display: inline" method="POST" action={{route('publicInmuebleFotos.delete', $foto->id)}}>
+                    <form style="display: inline" method="POST" action={{route('inmuebleFotos.delete', $foto->id)}}>
                       {!! csrf_field() !!}
                       {!! method_field('DELETE') !!}
                       <button class="btn btn-danger btn-sm">Eliminar</button>

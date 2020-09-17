@@ -53,7 +53,7 @@ class AtributoController extends Controller
     {
         $image = $request->file('dir_image');
         $nameImage = $image->getClientOriginalName();
-        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        $filename = 'i'.date("Ymd-His", strtotime(now())).'_'.$nameImage;
         //$image->save(storage_path('app/public/'. $filename));
         $image->storeAs('public', $filename);
 
@@ -94,7 +94,7 @@ class AtributoController extends Controller
         if(is_file($request->file('dir_image'))){
             $image = $request->file('dir_image');
             $nameImage = $image->getClientOriginalName();
-            $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+            $filename = 'i'.date("Ymd-His", strtotime(now())).'_'.$nameImage;
             $image->storeAs('public', $filename);
 
             $atributo->ruta_imagen = $filename;

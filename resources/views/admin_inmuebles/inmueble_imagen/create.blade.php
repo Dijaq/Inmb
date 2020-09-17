@@ -20,7 +20,7 @@
       </form>-->
 
       <div align="center">
-        <form method="POST" action="{{route('publicInmuebleFotos.store')}}" enctype="multipart/form-data">
+        <form method="POST" action="{{route('inmuebleFotos.store')}}" enctype="multipart/form-data">
         
           {!!csrf_field()!!}
         
