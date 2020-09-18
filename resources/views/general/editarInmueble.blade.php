@@ -90,13 +90,12 @@
                 </div>
             </div>    
 
-            <div class="col-md-4" style="text-align:left;">
+            <!--<div class="col-md-4" style="text-align:left;">
                 <div class="form-group">
-                <!--<label for="publicacion" >Días de Publicación</label>-->
                 <input placeholder="Agregar días de Publicación" class="form-control post__input maininput my-2 w-100" type="text" name="publicacion" value="0">
                     {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
                 </div>
-            </div>    
+            </div>    -->
             
             <div class="col-md-12" style="text-align:center;">
                 <h4 class="card-title py-4">Atributos</h4>

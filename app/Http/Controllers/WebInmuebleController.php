@@ -94,15 +94,11 @@ class WebInmuebleController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //
+        $tipos = Tipo::all();
+        $operaciones = Operacion::all();
+        return view('general.inmueble_imagen.edit', compact('id', 'tipos', 'operaciones'));
     }
 
     /**
@@ -114,7 +110,16 @@ class WebInmuebleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $image = $request->file('dir_image');
+        $nameImage = $image->getClientOriginalName();
+        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        $image->storeAs('public', $filename);
+
+        $inmueble_foto = InmuebleFotos::findOrFail($id);
+        $inmueble_foto->url_imagen = 'storage/'.$filename;
+        $inmueble_foto->update();
+
+        return redirect()->route('publicInmuebleFotos.index', $inmueble_foto->inmueble_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     /**

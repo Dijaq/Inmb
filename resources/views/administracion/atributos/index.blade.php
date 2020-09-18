@@ -4,27 +4,31 @@
 
   <div class="card">
     <div class="card-header">
-      <h4 class="card-title"> Lista de Atributos</h4>
-      <a class="btn btn-primary" href="{{route('atributo.create', $tipo_id)}}">Crear Atributo</a>
+      <a class="btn btn-info btn-sm" href="{{route('tipo.index')}}">Atrás</a>
+        <h4 class="card-title" style="text-align: center;">
+         Atributos de {{$tipo->nombre}}</h4>
+      <a class="btn btn-primary" href="{{route('atributo.create', $tipo->id)}}">Crear Atributo</a>
     </div>
     <div class="card-body">
+      <form method="POST" action="{{route('atributo.reordenar', $tipo->id)}}" enctype="multipart/form-data">
       <div class="table-responsive">
         <table id="table_paginate" class="table">
           <thead class="">
-            <th>Id</th>
+            <!--<th>Id</th>-->
             <th>Orden</th>
             <th>Nombre</th>
             <th>Tipo</th>
             <th>Ruta Imagen</th>
             <th>Meta</th>
+            <th>Acciones</th>
             
             <!--<th style="text-align: center">Acciones</th>-->
           </thead>
           <tbody>
           @foreach($atributos as $atributo)
               <tr>  
-                <td>{{$atributo->id}}</td>
-                <td>{{$atributo->orden}}</td>
+                <!--<td>{{$atributo->id}}</td>-->
+                <td><input class="form-control" type="text" name="orden_{{$atributo->id}}" value="{{$atributo->orden}}" style="width: 40px; text-align: center;"></td>
                 <td>{{$atributo->nombre}}</td>
                 <td>{{$atributo->tipo->nombre}}</td>
                 <td><img src="{{asset('storage/'.$atributo->ruta_imagen)}}" style="width: 40px" alt="Card image cap"></td>
@@ -44,6 +48,8 @@
           </tbody>
         </table>
       </div>
+          <input class="btn btn-primary" type="submit" value="Reordenar">
+      </form>
     </div>
   </div>
 

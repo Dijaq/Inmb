@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table id="table_paginate_inmueble" class="table">
+        <table id="" class="table">
           <thead class="">
             <th>Id</th>
             <th>Titulo</th>
@@ -48,7 +48,7 @@
                 </td>
 
                 <td>
-                  <a class="btn btn-success btn-sm" href="{{route('inmuebleFotos.index', $inmueble->id)}}">Imágenes</a>
+                  <a class="btn btn-success btn-sm" href="{{route('inmuebleFotos.index', $inmueble->id)}}">Galería</a>
                   <a class="btn btn-info btn-sm" href="{{route('inmueble.edit', $inmueble->id)}}">Editar</a>
                   <form style="display: inline" method="POST" action={{route('inmueble.delete', $inmueble->id)}}>
                     {!! csrf_field() !!}
@@ -60,6 +60,11 @@
             @endforeach
           </tbody>
         </table>
+        <div>
+          <nav aria-label="Page navigation example" style="align-items: center; justify-content: center;  display:flex;">
+            {!!$inmuebles->links()!!}
+          </nav>
+        </div>
       </div>
     </div>
   </div>

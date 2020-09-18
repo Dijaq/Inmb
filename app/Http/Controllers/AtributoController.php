@@ -21,12 +21,13 @@ class AtributoController extends Controller
 
     public function index($tipo_id)
     {
+        $tipo = Tipo::findOrfail($tipo_id);
         $atributos = Atributo::with('tipo')->orderBy('orden')->get();
         if($tipo_id != 0)
         {
-            $atributos = $atributos->where('tipo_id', $tipo_id);
+            $atributos = $atributos->where('tipo_id', $tipo->id);
         }
-        return view('administracion.atributos.index', compact('atributos', 'tipo_id'));
+        return view('administracion.atributos.index', compact('atributos', 'tipo'));
     }
 
       /**
@@ -36,6 +37,7 @@ class AtributoController extends Controller
      */
     public function create($tipo_id)
     {
+        $tipo = Tipo::findOrfail($tipo_id);
         //$atributos = Atributo::with('tipo')->get();
         $tipos = Tipo::all();
         $tipos_opcion = collect([
@@ -46,7 +48,7 @@ class AtributoController extends Controller
        
         #return $tipos_opcion[0]['nombre'];
 
-        return view('administracion.atributos.create', compact('tipos_opcion', 'tipo_id', 'tipos'));
+        return view('administracion.atributos.create', compact('tipos_opcion', 'tipo', 'tipos'));
     }
 
     public function store(Request $request)
@@ -73,13 +75,14 @@ class AtributoController extends Controller
     public function edit($id)
     {
         $atributo = Atributo::findOrFail($id);
+        $tipo = TIpo::findOrFail($atributo->tipo_id);
         $tipos = Tipo::all();
         $tipos_opcion = collect([
             ['id' => 1, 'nombre' => 'SELECT OPTION'],
             ['id' => 2, 'nombre' => 'INPUT'],
             ['id' => 3, 'nombre' => 'RADIO BUTTON']
         ]);
-        return view('administracion.atributos.edit', compact('atributo', 'tipos', 'tipos_opcion'));
+        return view('administracion.atributos.edit', compact('atributo', 'tipos', 'tipos_opcion', 'tipo'));
     }
 
     public function update(Request $request, $id)
@@ -112,6 +115,25 @@ class AtributoController extends Controller
         $tipo_id = $atributo->tipo_id;
         $atributo->delete();
         return redirect()->route('atributo.index', $tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
+    }
+
+    public function reordenar(Request $request, $id)
+    {
+        $atributos = Atributo::where('tipo_id', $id)->get();
+        //return $atributos;
+    
+        foreach($atributos as $atributo)
+        {
+            //return $request->{'destacado_'.$foto->id};
+            $atributo = Atributo::findOrFail($atributo->id);
+            $atributo->orden = $request->{'orden_'.$atributo->id};
+            $atributo->update();
+
+            //return $request->{'orden_'.$foto->id};
+            //$request->'destacado_'.$foto->id;
+        }
+
+        return redirect()->route('atributo.index', $id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
 

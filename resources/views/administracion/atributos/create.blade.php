@@ -2,8 +2,9 @@
 
 @section('contenido')
 
+  <a class="btn btn-info btn-sm" href="{{route('atributo.index', $tipo->id)}}">Volver</a>
   <div align="center">
-  <h2 style="text-align:center;">Atributo</h2>
+  <h2 style="text-align:center;">Nuevo Atributo para {{$tipo->nombre}}</h2>
   <br>
   @if(session()->has('info'))
     <h3>{{session('info')}}</h3>
@@ -28,7 +29,7 @@
               </div>
             </div>
 
-            <input class="form-control" type="hidden" name="tipo" value="{{$tipo_id}}">
+            <input class="form-control" type="hidden" name="tipo" value="{{$tipo->id}}">
             
             <!--<div class="col-md-12" style="text-align:left;">
               <div class="form-group">
@@ -59,7 +60,7 @@
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Icono</label>
                 <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image">
+                  <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image" required>
                   <label class="custom-file-label" for="validatedCustomFile">Elige una imagen</label>
                   <div class="invalid-feedback">Example invalid custom file feedback</div>
                   {!! $errors->first('dir_image', '<span class="error">:message</span>') !!}
@@ -70,7 +71,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Meta</label>
-                <input class="form-control" type="text" name="meta" value="{{old('meta')}}">
+                <textarea class="form-control" type="text" name="meta" value="{{old('meta')}}"></textarea>
                   {!! $errors->first('meta', '<span class="error">:message</span>') !!}
               </div>
             </div>
@@ -78,7 +79,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Orden</label>
-                <input class="form-control" type="text" name="orden" value="{{old('orden')}}">
+                <input class="form-control" type="text" name="orden" value="{{old('orden')}}" required>
                   {!! $errors->first('orden', '<span class="error">:message</span>') !!}
               </div>
             </div>            

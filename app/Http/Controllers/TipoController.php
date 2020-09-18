@@ -32,7 +32,7 @@ class TipoController extends Controller
 
     public function index()
     {
-        $tipos = Tipo::all();
+        $tipos = Tipo::paginate(4);
         return view('administracion.tipos.index', compact('tipos'));
     }
 

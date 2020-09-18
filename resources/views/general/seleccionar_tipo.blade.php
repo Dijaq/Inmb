@@ -27,7 +27,7 @@
           <div class="col-md-12">
             <div class="mt-3">
             <button type="submit" class="btn mainButton mt-3 mainButton--shadow">
-                Cargar Formulario
+                Continuar
             </button>
             </div>
           </div>

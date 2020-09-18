@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table id="table_paginate" class="table">
+        <table id="" class="table">
           <thead class="">
             <th>Id</th>
             <th>Nombre</th>
@@ -36,6 +36,11 @@
             @endforeach
           </tbody>
         </table>
+        <div>
+          <nav aria-label="Page navigation example" style="align-items: center; justify-content: center;  display:flex;">
+            {!!$tipos->links()!!}
+          </nav>
+        </div>
       </div>
     </div>
   </div>

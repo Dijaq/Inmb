@@ -40,7 +40,7 @@
 
           </div>
           <div class="row">
-            <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Cargar Formulario"></div>
+            <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Continuar"></div>
           </div>
           <br><br>
         

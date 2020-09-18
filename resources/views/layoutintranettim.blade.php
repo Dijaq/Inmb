@@ -122,22 +122,16 @@ Coded by www.creative-tim.com
                     <span class="sidebar-normal"> Tipos de Inmueble </span>
                   </a>
                 </li>
-                <!--<li>
-                  <a href="{{route('atributo.index', '0')}}">
-                    <span class="sidebar-mini-icon">A</span>
-                    <span class="sidebar-normal"> Atributos </span>
-                  </a>
-                </li>-->
-                <!--<li>
-                  <a href="{{route('servicio.index', '0')}}">
-                    <span class="sidebar-mini-icon">S</span>
-                    <span class="sidebar-normal"> Servicios </span>
-                  </a>
-                </li>-->
                 <li>
                   <a href="{{route('operacion.index')}}">
                     <span class="sidebar-mini-icon">O</span>
                     <span class="sidebar-normal"> Operaciones </span>
+                  </a>
+                </li>
+                <li>
+                  <a href="{{route('usuario.index')}}">
+                    <span class="sidebar-mini-icon">U</span>
+                    <span class="sidebar-normal"> Usuarios </span>
                   </a>
                 </li>
               </ul>
@@ -146,7 +140,7 @@ Coded by www.creative-tim.com
           <li>
             <a data-toggle="collapse" href="#inmuebleExample">
               <i class="nc-icon nc-book-bookmark"></i>
-              <p> Admin Inmuebles <b class="caret"></b>
+              <p> Inmuebles <b class="caret"></b>
               </p>
             </a>
             <div class="collapse " id="inmuebleExample">
@@ -155,23 +149,6 @@ Coded by www.creative-tim.com
                   <a href="{{route('inmueble.index')}}">
                     <span class="sidebar-mini-icon">I</span>
                     <span class="sidebar-normal"> Inmuebles </span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li>
-            <a data-toggle="collapse" href="#usuarioExample">
-              <i class="nc-icon nc-book-bookmark"></i>
-              <p> Admin Usuarios <b class="caret"></b>
-              </p>
-            </a>
-            <div class="collapse " id="usuarioExample">
-              <ul class="nav">
-                <li>
-                  <a href="{{route('usuario.index')}}">
-                    <span class="sidebar-mini-icon">U</span>
-                    <span class="sidebar-normal"> Usuarios </span>
                   </a>
                 </li>
               </ul>
@@ -216,36 +193,7 @@ Coded by www.creative-tim.com
                 </div>
               </div>
             </form>
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link btn-magnify" href="javascript:;">
-                  <i class="nc-icon nc-layout-11"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Stats</span>
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item btn-rotate dropdown">
-                <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="nc-icon nc-bell-55"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Some Actions</span>
-                  </p>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link btn-rotate" href="javascript:;">
-                  <i class="nc-icon nc-settings-gear-65"></i>
-                  <p>
-                    <span class="d-lg-none d-md-block">Account</span>
-                  </p>
-                </a>
-              </li>
+          
             </ul>
           </div>-->
         </div>
@@ -320,6 +268,7 @@ Coded by www.creative-tim.com
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/paper-dashboard.min.js?v=2.1.1" type="text/javascript"></script><!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script src="/dist/sweetalert.min.js"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
@@ -351,6 +300,18 @@ Coded by www.creative-tim.com
        formData.append("_token", CSRF_TOKEN);
     }); 
     </script>
+    <script> 
+      /*swal({
+          "timer":1800,
+          "title":"Título",
+          "text":"Notificación Básica",
+          "showConfirmButton":false
+      });*/
+      /*Swal.fire({
+      confirmButtonText: "Aceptar",
+    });*/
+  </script>
+    @include('sweet::alert')
 </body>
 
 </html>

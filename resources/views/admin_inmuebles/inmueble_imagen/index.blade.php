@@ -41,7 +41,7 @@
                   </td>
                   <td><img src="{{asset($foto->url_imagen)}}" style="width: 120px" alt="Card image cap"></td>
                   <td>
-                    <a class="btn btn-info btn-sm" href="{{route('inmueble.edit', $foto->inmueble_id)}}">Editar</a>
+                    <a class="btn btn-info btn-sm" href="{{route('inmuebleFotos.edit', $foto->id)}}">Editar</a>
                     <form style="display: inline" method="POST" action={{route('inmuebleFotos.delete', $foto->id)}}>
                       {!! csrf_field() !!}
                       {!! method_field('DELETE') !!}

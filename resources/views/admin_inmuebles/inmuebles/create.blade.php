@@ -116,23 +116,17 @@
               </div>
             </div>    
 
-            <div class="col-md-12" style="text-align:left;">
+             <!--<div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="publicacion" >Días de Publicación</label>
                 <input class="form-control" type="text" name="publicacion" value="{{old('publicacion')}}">
                   {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
               </div>
-            </div>    
+            </div>    -->
             
             <div class="col-md-12" style="text-align:left;">
                 <label for="tipo" style="text-align:left;">Imágenes</label>
                 <input type="file" name="dir_images[]" id="image" multiple class="form-control" required>
-                <!--<div class="custom-file">
-                  <input type="file" class="custom-file-input" id="validatedCustomFile" name="dir_image">
-                  <label class="custom-file-label" for="validatedCustomFile">Elige una imagen</label>
-                  <div class="invalid-feedback">Example invalid custom file feedback</div>
-                  {!! $errors->first('dir_image', '<span class="error">:message</span>') !!}
-                </div>-->
             </div>
             
             <div class="col-md-12" style="text-align:center;">
@@ -244,7 +238,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Crear Inmueble"></div>
+            <div class="col-md-12"><input class="btn btn-primary" type="submit" value="Publicar Inmueble"></div>
           </div>
           <br><br>
         

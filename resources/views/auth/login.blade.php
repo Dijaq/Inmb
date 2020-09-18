@@ -22,6 +22,11 @@
               >
                 Iniciar sesión
               </button>
+              <div class="pt-4">
+                <a class="btn btn-primary login__button btn-lg btn-block" href="{{route('facebook.iniciarSesion')}}"
+              >
+                Login Con Facebook
+                </a>
               </div>
             </form>
             <div>

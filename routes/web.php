@@ -38,6 +38,8 @@ Route::delete('/mis-publicaciones/{id}', ['as' => 'mi-inmueble.delete', 'uses' =
 Route::get('inmueble_fotos/{id}', ['as' => 'publicInmuebleFotos.index', 'uses' => 'WebInmuebleController@index']);
 Route::get('inmueble_fotos_crear/{id}', ['as' => 'publicInmuebleFotos.create', 'uses' => 'WebInmuebleController@create']);
 Route::post('inmueble_fotos', ['as' => 'publicInmuebleFotos.store', 'uses' => 'WebInmuebleController@store']);
+Route::get('inmueble_fotos_edit/{id}', ['as' => 'publicInmuebleFotos.edit', 'uses' => 'WebInmuebleController@edit']);
+Route::put('inmueble_fotos/{id}', ['as' => 'publicInmuebleFotos.update', 'uses' => 'WebInmuebleController@update']);
 Route::delete('inmueble_fotos/{id}', ['as' => 'publicInmuebleFotos.delete', 'uses' => 'WebInmuebleController@destroy']);
 Route::delete('inmueble_fotos_reordenar', ['as' => 'publicInmuebleFotos.reordenar', 'uses' => 'WebInmuebleController@reordenar']);
 
@@ -63,6 +65,7 @@ Route::post('atributos', ['as' => 'atributo.store', 'uses' => 'AtributoControlle
 Route::get('atributos/{id}', ['as' => 'atributo.edit', 'uses' => 'AtributoController@edit']);
 Route::put('atributos/{id}', ['as' => 'atributo.update', 'uses' => 'AtributoController@update']);
 Route::delete('atributos/{id}', ['as' => 'atributo.delete', 'uses' => 'AtributoController@destroy']);
+Route::delete('atributo_reordenar/{id}', ['as' => 'atributo.reordenar', 'uses' => 'AtributoController@reordenar']);
 
 Route::get('lista_servicios/{id}', ['as' => 'servicio.index', 'uses' => 'ServicioController@index']);
 Route::get('servicios_crear/{id}', ['as' => 'servicio.create', 'uses' => 'ServicioController@create']);
@@ -92,6 +95,8 @@ Route::delete('inmuebles_despublicar/{id}', ['as' => 'inmueble.despublicar', 'us
 Route::get('inmuebles_fotos/{id}', ['as' => 'inmuebleFotos.index', 'uses' => 'InmuebleFotosController@index']);
 Route::get('inmuebles_fotos_crear/{id}', ['as' => 'inmuebleFotos.create', 'uses' => 'InmuebleFotosController@create']);
 Route::post('inmuebles_fotos', ['as' => 'inmuebleFotos.store', 'uses' => 'InmuebleFotosController@store']);
+Route::get('inmueble_foto_edit/{id}', ['as' => 'inmuebleFotos.edit', 'uses' => 'InmuebleFotosController@edit']);
+Route::put('inmuebles_fotos/{id}', ['as' => 'inmuebleFotos.update', 'uses' => 'InmuebleFotosController@update']);
 Route::delete('inmuebles_fotos/{id}', ['as' => 'inmuebleFotos.delete', 'uses' => 'InmuebleFotosController@destroy']);
 Route::delete('inmuebles_fotos_reordenar', ['as' => 'inmuebleFotos.reordenar', 'uses' => 'InmuebleFotosController@reordenar']);
 
@@ -104,9 +109,18 @@ Route::get('usuarios/{id}', ['as' => 'usuario.edit', 'uses' => 'UsuarioControlle
 Route::put('usuarios/{id}', ['as' => 'usuario.update', 'uses' => 'UsuarioController@update']);
 Route::delete('usuarios/{id}', ['as' => 'usuario.delete', 'uses' => 'UsuarioController@destroy']);
 
+Route::get('facebook_iniciar', ['as' => 'facebook.iniciarSesion', 'uses' => 'LoginController@iniciarSesion']);
+Route::post('facebook_callback', ['as' => 'facebook.fbCallback', 'uses' => 'LoginController@iniciarSesion']);
+
 Auth::routes();
 
-Route::get('data', ['as' => 'data', 'uses' => 'Data@index']);
+Route::get('data', function(){
+    $targetFolder = base_path().'/storage/app/public'; 
+    $linkFolder = $_SERVER['DOCUMENT_ROOT'].'/storage'; 
+    symlink($targetFolder, $linkFolder); 
+});
+
+
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
@@ -115,3 +129,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/postear', 'WebControllerMensajes@sendMessage');
+
+Route::get('/red', function(){
+    return redirect('/')->with('info', 'Optiona Title');
+});

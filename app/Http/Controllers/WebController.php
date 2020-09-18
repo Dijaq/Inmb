@@ -221,7 +221,8 @@ class WebController extends Controller
         $inmueble->descripcion = $request->descripcion;
         $inmueble->direccion = $request->direccion;
         $inmueble->fecha_publicacion = now();
-        $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ 30 days"));
         $inmueble->precio = $request->precio;
 
         $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);

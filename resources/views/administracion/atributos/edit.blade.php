@@ -2,8 +2,9 @@
 
 @section('contenido')
 
+  <a class="btn btn-info btn-sm" href="{{route('atributo.index', $tipo->id)}}">Volver</a>
   <div align="center">
-  <h2 style="text-align:center;">Atributo</h2>
+  <h2 style="text-align:center;">Editar Atributo de {{$tipo->nombre}}</h2>
   <br>
   @if(session()->has('info'))
     <h3>{{session('info')}}</h3>

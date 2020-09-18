@@ -106,13 +106,13 @@
               </div>
             </div>    
 
-            <div class="col-md-12" style="text-align:left;">
+            <!--<div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="publicacion" >Aumentar N días de publicacion</label>
                 <input class="form-control" type="text" name="publicacion" value="0">
                   {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
               </div>
-            </div>    
+            </div>    -->
             
             <div class="col-md-12" style="text-align:center;">
               <h4 class="card-title">Atributos</h4>

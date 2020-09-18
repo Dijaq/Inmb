@@ -18,7 +18,8 @@
     />
 
     <link rel="stylesheet" href="css/fontawesome-free-5.14.0-web/css/all.css" />
-    <link rel="stylesheet" href="css/dashicons.min.css" />
+    <!--<link rel="stylesheet" href="css/dashicons.min.css" />-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <header>
@@ -221,6 +222,7 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
-    
+    <script src="/dist/sweetalert.min.js"></script>
+    @include('sweet::alert')
 </body>
 </html>

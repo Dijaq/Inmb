@@ -100,7 +100,7 @@ class InmuebleFotosController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin_inmuebles.inmueble_imagen.edit', compact('id'));
     }
 
     /**
@@ -112,7 +112,16 @@ class InmuebleFotosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $image = $request->file('dir_image');
+        $nameImage = $image->getClientOriginalName();
+        $filename = date("Ymd-His", strtotime(now())).'_'.$nameImage;
+        $image->storeAs('public', $filename);
+
+        $inmueble_foto = InmuebleFotos::findOrFail($id);
+        $inmueble_foto->url_imagen = 'storage/'.$filename;
+        $inmueble_foto->update();
+
+        return redirect()->route('inmuebleFotos.index', $inmueble_foto->inmueble_id)->with('info', 'Se creo el tipo satisfactoriamente');
     }
 
     /**

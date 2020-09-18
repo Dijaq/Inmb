@@ -22,7 +22,7 @@ class InmuebleController extends Controller
 
     public function index()
     {
-        $inmuebles = Inmueble::with('operacion')->with('tipo')->orderBy('fecha_publicacion', 'desc')->get();
+        $inmuebles = Inmueble::with('operacion')->with('tipo')->orderBy('fecha_publicacion', 'desc')->paginate(10);
         return view('admin_inmuebles.inmuebles.index', compact('inmuebles'));
     }
 
@@ -83,7 +83,8 @@ class InmuebleController extends Controller
         $inmueble->descripcion = $request->descripcion;
         $inmueble->direccion = $request->direccion;
         $inmueble->fecha_publicacion = now();
-        $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
+        $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ 30 days"));
         $inmueble->precio = $request->precio;
 
         $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);

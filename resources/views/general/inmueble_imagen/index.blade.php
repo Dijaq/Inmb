@@ -43,7 +43,7 @@
                         </td>
                         <td><img src="{{asset($foto->url_imagen)}}" style="width: 120px" alt="Card image cap"></td>
                         <td>
-                          <a class="btn btn-info btn-sm" href="">Editar</a>
+                          <a class="btn btn-info btn-sm" href="{{route('publicInmuebleFotos.edit', $foto->id)}}">Editar</a>
                           <form style="display: inline" method="POST" action={{route('publicInmuebleFotos.delete', $foto->id)}}>
                             {!! csrf_field() !!}
                             {!! method_field('DELETE') !!}
@@ -54,7 +54,6 @@
                     @endforeach
                   </tbody>
                 </table>
-
                 <input class="btn btn-primary" type="submit" value="Reordenar">
               </div>
             </form>
