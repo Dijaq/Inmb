@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Mail\WebControllerEmail;
 use App\Mensaje;
+use Illuminate\Support\Facades\Mail;
 
 class MensajesController extends Controller
 {
@@ -26,7 +28,11 @@ class MensajesController extends Controller
      */
     public function create()
     {
-        
+        $details = [
+            'link_verificacion' => 'https://www.vivelaovendela.com.pe/verificacion/123456'
+        ];
+        Mail::to('dijaq08@gmail.com')->send(new WebControllerEmail($details));
+        return "Mensaje enviado";
     }
 
     /**

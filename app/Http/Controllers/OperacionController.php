@@ -18,7 +18,7 @@ class OperacionController extends Controller
      */
     public function index()
     {
-        $operaciones = Operacion::orderBy('orden')->get();
+        $operaciones = Operacion::orderBy('orden')->paginate(10);
         return view('administracion.operacion.index', compact('operaciones'));
     }
 

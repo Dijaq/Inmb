@@ -9,7 +9,7 @@
     </div>
     <div class="card-body">
       <div class="table-responsive">
-        <table id="table_paginate" class="table">
+        <table id="" class="table">
           <thead class="">
             <th>Id</th>
             <th>Orden</th>
@@ -25,16 +25,42 @@
 
                 <td align="center">
                   <a class="btn btn-info btn-sm" href="{{route('operacion.edit', $operacion->id)}}">Editar</a>
-                  <form style="display: inline" method="POST" action={{route('operacion.delete', $operacion->id)}}>
+                  <!--<form style="display: inline" method="POST" action={{route('operacion.delete', $operacion->id)}}>
                     {!! csrf_field() !!}
                     {!! method_field('DELETE') !!}
                     <button class="btn btn-danger btn-sm">Eliminar</button>
-                  </form>
+                  </form>-->
+
+                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{$operacion->id}}">Eliminar</a>
+                     <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
+                    <div class="modal fade" id="exampleModal-{{$operacion->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex justify-content-center">
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center">Está seguro(a) de eliminar la operacion {{$operacion->nombre}}?</p>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                                    <form style="display: inline" method="POST" action={{route('operacion.delete', $operacion->id)}}>
+                                      {!! csrf_field() !!}
+                                      {!! method_field('DELETE') !!}
+                                      <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--fin modal-->
+
                 </td>
               </tr>
             @endforeach
           </tbody>
         </table>
+        <nav aria-label="Page navigation example" style="align-items: center; justify-content: center;  display:flex;">
+            {!!$operaciones->links()!!}
+        </nav>
       </div>
     </div>
   </div>

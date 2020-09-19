@@ -182,9 +182,9 @@
               </div>
             @endforeach
 
-            <div class="col-md-12" style="text-align:center;">
+            <!--<div class="col-md-12" style="text-align:center;">
               <h4 class="card-title">Servicios</h4>
-            </div>
+            </div>-->
 
             @foreach($servicios as $key => $servicio)
               <div class="col-md-4" style="text-align:left;">
@@ -208,19 +208,7 @@
                     <input class="form-control" type="text" name="servicio_{{$servicio->id}}" value="{{old('publicacion')}}">
                       {!! $errors->first('publicacion', '<span class="error">:message</span>') !!}
                   </div>
-                     
-                  <!--<label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
-                  @foreach(explode(",",$servicio->meta) as $value)   
-                    <div class="form-check">
-                      <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" value={{$value}}>
-                          {{$value}}
-                          <span class="form-check-sign">
-                              <span class="check"></span>
-                          </span>
-                      </label>
-                    </div>
-                  @endforeach-->
+
                 @else
                   <label for="tipo" style="text-align:left;">{{$servicio->nombre}}</label>
                   @foreach(explode(",",$servicio->meta) as $value)   

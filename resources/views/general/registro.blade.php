@@ -71,7 +71,13 @@
             <button type="submit" class="btn mainButton mt-3 mainButton--shadow">
                 Registrar
             </button>
-        </div>
+          </div>
+
+          <div class="col-lg-4 pt-2">
+            <a class="btn btn-primary login__button btn-lg btn-block" href="{{route('facebook.registro')}}">
+                  REGISTRARME CON FACEBOOK
+            </a>
+         </div>
           
         </form>
         

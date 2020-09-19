@@ -10,8 +10,11 @@ use App\Operacion;
 use App\UbicacionDistrito;
 use App\Atributo;
 use App\Servicio;
+use APp\Usuario;
 use App\AtributoInmueble;
 use App\ServicioInmueble;
+use App\Mail\MensajePublicado;
+use Illuminate\Support\Facades\Mail;
 
 class InmuebleController extends Controller
 {
@@ -167,7 +170,7 @@ class InmuebleController extends Controller
             //array_push($arr_servicios, $request->{'servicio_'.$serv->id});
         }
         
-        return redirect()->route('inmueble.index')->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('inmueble.index')->with('success', 'Se creo el inmueble satisfactoriamente');
  
     }
 
@@ -296,7 +299,7 @@ class InmuebleController extends Controller
             //array_push($arr_servicios, $request->{'servicio_'.$serv->id});
         }
 
-        return redirect()->route('inmueble.index')->with('info', 'Se actuali el inmueble el satisfactoriamente');
+        return redirect()->route('inmueble.index')->with('success', 'Se modifico el inmueble satisfactoriamente');
  
     }
 
@@ -304,7 +307,7 @@ class InmuebleController extends Controller
     {
         $inmueble = Inmueble::findOrFail($id);
         $inmueble->delete();
-        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
+        return redirect()->route('inmueble.index')->with('success', 'Se elimino el inmueble satisfactoriamente');
     }
 
     public function publicar($id)
@@ -312,14 +315,23 @@ class InmuebleController extends Controller
         $inmueble = Inmueble::findOrFail($id);
         $inmueble->estado = "PUBLICADO";
         $inmueble->update();
-        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
+        $usuario = Usuario::findOrfail($inmueble->usuario_creacion_id);
+
+        $details = [
+
+            'url' => 'https://www.vivelaovendela.com.pe/inmueble/'.$inmueble->slug,
+            'titulo' => $inmueble->titulo
+        ];
+        Mail::to($usuario->email)->send(new MensajePublicado($details));
+
+        return redirect()->route('inmueble.index')->with('success', 'Se publico el inmueble satisfactoriamente');
     }
 
     public function despublicar($id)
     {
         $inmueble = Inmueble::findOrFail($id);
-        $inmueble->estado = "NO PUBLICADO";
+        $inmueble->estado = "INACTIVO";
         $inmueble->update();
-        return redirect()->route('inmueble.index')->with('info', 'Se elimino el inmueble satisfactoriamente');
+        return redirect()->route('inmueble.index')->with('success', 'Se cambio el estado a inactivo satisfactoriamente');
     }
 }

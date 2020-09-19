@@ -15,7 +15,7 @@ class WebControllerMensajes extends Controller
     public function post(Request $request)
     {
         return $request;
-        return redirect()->route('/')->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('/')->with('success', 'Se creo el tipo satisfactoriamente');
     }
 
     public function sendMessage(Request $request)

@@ -28,7 +28,7 @@ class WebControllerIntranet extends Controller
     {
         $inmueble = Inmueble::findOrFail($id);
         $inmueble->delete();
-        return redirect()->route('mispublicaciones')->with('info', 'Se elimino el inmueble satisfactoriamente');
+        return redirect()->route('mispublicaciones')->with('success', 'Se elimino el inmueble satisfactoriamente');
     }
     
     

@@ -175,9 +175,9 @@
               </div>
             @endforeach
 
-            <div class="col-md-12" style="text-align:center;">
+            <!--<div class="col-md-12" style="text-align:center;">
               <h4 class="card-title">Servicios</h4>
-            </div>
+            </div>-->
 
             @foreach($servicios as $key => $servicio)
               <div class="col-md-4" style="text-align:left;">

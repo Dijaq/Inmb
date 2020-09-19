@@ -15,7 +15,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::with('persona')->get();
+        $usuarios = Usuario::with('persona')->paginate(10);
         return view('usuarios.index', compact('usuarios'));
     }
 
@@ -57,7 +57,7 @@ class UsuarioController extends Controller
         $usuario->rol = $request->rol;
         $usuario->password = bcrypt($request->password);
         $usuario->save();
-        return redirect()->route('usuario.index')->with('info', 'Se creo el usuario satisfactoriamente');
+        return redirect()->route('usuario.index')->with('success', 'Se creo el usuario satisfactoriamente');
     }
 
     /**
@@ -119,7 +119,7 @@ class UsuarioController extends Controller
         $usuario->email = $persona->correo;
         $usuario->rol = $request->rol;
         $usuario->update();
-        return redirect()->route('usuario.index')->with('info', 'Se creo el usuario satisfactoriamente');
+        return redirect()->route('usuario.index')->with('success', 'Se modifico el usuario satisfactoriamente');
     }
 
     /**
@@ -133,6 +133,6 @@ class UsuarioController extends Controller
             
         $usuario = Usuario::findOrFail($id);
         $usuario->delete();
-        return redirect()->route('usuario.index')->with('info', 'Se elimino el usuario satisfactoriamente');
+        return redirect()->route('usuario.index')->with('success', 'Se elimino el usuario satisfactoriamente');
     }
 }

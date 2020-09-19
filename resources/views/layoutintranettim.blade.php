@@ -58,9 +58,15 @@ Coded by www.creative-tim.com
         </a>-->
         <a href="https://www.creative-tim.com" class="simple-text logo-normal">
           Vivela o Vendela
-          <!-- <div class="logo-image-big">
-            <img src="../assets/img/logo-big.png">
-          </div> -->
+         
+          <div class="logo-image-big">
+            <img
+                class="nav-img"
+                src="{{ asset('storage/img/white-logo.png')}}"
+                alt="brandlogo"
+                id="logo"
+              />
+          </div>
         </a>
       </div>
       <div class="sidebar-wrapper" >

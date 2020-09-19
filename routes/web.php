@@ -18,10 +18,6 @@ Route::get('/busqueda', ['as' => 'general.busqueda', 'uses' => 'WebController@bu
 Route::post('/mas-propiedades', ['as' => 'inmueble.more', 'uses' => 'WebController@more']);
 Route::get('/inmueble', ['as' => 'general.inmueble', 'uses' => 'WebController@inmueble']);
 Route::get('/inmueble/{slug}', ['as' => 'inmueble.detail', 'uses' => 'WebController@inmueble']);
-Route::get('/registro', ['as' => 'usuario.registro', 'uses' => 'WebController@registro']);
-
-
-Route::post('/registro', ['as' => 'usuario.registrostore', 'uses' => 'WebController@registroStore']);
 
 Route::post('publicar/crear', ['as' => 'publicar.create', 'uses' => 'WebController@publicaCreate']);
 Route::post('publicar', ['as' => 'publicar.store', 'uses' => 'WebController@publicaStore']);
@@ -109,8 +105,17 @@ Route::get('usuarios/{id}', ['as' => 'usuario.edit', 'uses' => 'UsuarioControlle
 Route::put('usuarios/{id}', ['as' => 'usuario.update', 'uses' => 'UsuarioController@update']);
 Route::delete('usuarios/{id}', ['as' => 'usuario.delete', 'uses' => 'UsuarioController@destroy']);
 
-Route::get('facebook_iniciar', ['as' => 'facebook.iniciarSesion', 'uses' => 'LoginController@iniciarSesion']);
-Route::post('facebook_callback', ['as' => 'facebook.fbCallback', 'uses' => 'LoginController@iniciarSesion']);
+Route::get('ingresar', ['as' => 'vivela.login', 'uses' => 'LoginController@login']);
+Route::get('iniciar_sesion_facebook', ['as' => 'facebook.registro', 'uses' => 'LoginController@face_registro']);
+Route::get('iniciar_sesion', ['as' => 'facebook.iniciarSesion', 'uses' => 'LoginController@iniciarSesion']);
+Route::get('facebook_callback', ['as' => 'facebook.fbCallback', 'uses' => 'LoginController@fbCallback']);
+Route::get('facebook_callback_registro', ['as' => 'facebook.fbCallbackRegisto', 'uses' => 'LoginController@fbCallback_registro']);
+Route::get('registro', ['as' => 'usuario.registro', 'uses' => 'LoginController@registro']);
+Route::post('registro', ['as' => 'usuario.registrostore', 'uses' => 'LoginController@registroStore']);
+Route::post('ingresar_login', ['as' => 'usuario.login', 'uses' => 'LoginController@ingresarLogin']);
+Route::get('verificacion/{codigos}', ['as' => 'usuario.verificacion', 'uses' => 'LoginController@verificacion']);
+
+
 
 Auth::routes();
 
@@ -128,10 +133,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/postear', 'WebControllerMensajes@sendMessage');
 
 Route::get('/red', function(){
-    return redirect('/')->with('info', 'Optiona Title');
+    return redirect('/')->with('success', 'Optiona Title');
 });
+
+Route::get('/enviar', 'MensajesController@create');
+

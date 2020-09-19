@@ -51,7 +51,7 @@ class TipoController extends Controller
         $tipo = new Tipo();
         $tipo->nombre = $request->nombre;
         $tipo->save();
-        return redirect()->route('tipo.index')->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('tipo.index')->with('success', 'Se creo el tipo satisfactoriamente');
     }
 
     public function edit($id)
@@ -66,14 +66,14 @@ class TipoController extends Controller
         $tipo->nombre = $request->nombre;
         $tipo->update();
 
-        return redirect()->route('tipo.index')->with('info', 'Se modifico el tipo satisfactoriamente');
+        return redirect()->route('tipo.index')->with('success', 'Se modifico el tipo satisfactoriamente');
     }
 
     public function destroy($id)
     {  
         $tipo = Tipo::findOrFail($id);
         $tipo->delete();
-        return redirect()->route('tipo.index')->with('info', 'Se elimino el tipo satisfactoriamente');
+        return redirect()->route('tipo.index')->with('success', 'Se elimino el tipo satisfactoriamente');
    
     }
 

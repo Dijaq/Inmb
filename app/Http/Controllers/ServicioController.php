@@ -59,7 +59,7 @@ class ServicioController extends Controller
         $servicio->orden = $request->orden;
         $servicio->save();
 
-        return redirect()->route('servicio.index', $servicio->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $servicio->tipo_id)->with('success', 'Se creo el servicio satisfactoriamente');
     }
 
     public function edit($id)
@@ -94,7 +94,7 @@ class ServicioController extends Controller
 
         $servicio->update();
 
-        return redirect()->route('servicio.index', $servicio->tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $servicio->tipo_id)->with('success', 'Se modificio el servicio satisfactoriamente');
     }
 
     public function destroy($id)
@@ -103,7 +103,7 @@ class ServicioController extends Controller
         $servicio = Servicio::findOrFail($id);
         $tipo_id = $servicio->tipo_id;
         $servicio->delete();
-        return redirect()->route('servicio.index', $tipo_id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('servicio.index', $tipo_id)->with('success', 'Se elimino el servicio satisfactoriamente');
     }
 
  /* 

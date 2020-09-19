@@ -92,36 +92,6 @@ class WebController extends Controller
         return view('general.inmueble', compact('inmueble', 'tipos', 'inmueble_servicios', 'inmueble_atributos'));
     }
 
-    public function registro()
-    {
-        $tipos = Tipo::all();
-        return view('general.registro', compact('tipos'));
-    }
-
-    public function registroStore(Request $request)
-    {
-        $persona = new Persona();
-        $persona->nombres = $request->nombres;
-        $persona->apellidos = $request->apellidos;
-        $persona->dni = $request->dni;
-        $persona->correo = $request->email;
-        $persona->telefono = $request->celular;
-        //$persona->info_busqueda = $request->nombres." ".$request->apellidos." ".$request->celular;
-        $persona->save();
-
-        //return explode(" ",$request->nombres)[0];
-
-        $usuario = new Usuario();
-        $usuario->persona_id = $persona->id;
-        //$usuario->nombre = $request->nombre_usuario;
-        $usuario->nombre = explode(" ",$request->nombres)[0];
-        $usuario->email = $persona->correo;
-        $usuario->rol = 'USER';
-        $usuario->password = bcrypt($request->password);
-        $usuario->save();
-        return redirect()->route('login')->with('info', 'Se creo el usuario satisfactoriamente');
-    }
-
     public function publicaSeleccionar(){
 
         if(Auth::check())

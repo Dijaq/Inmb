@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EnvioMensajesController extends Mailable
+class VerificadoSatisfactoriamente extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -16,9 +16,9 @@ class EnvioMensajesController extends Mailable
      *
      * @return void
      */
-    public function __construct($nuevo)
+    public function __construct()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +28,6 @@ class EnvioMensajesController extends Mailable
      */
     public function build()
     {
-        
-        return $this->view('view.name');
+        return $this->markdown('emails.verificado');
     }
 }

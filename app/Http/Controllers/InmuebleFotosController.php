@@ -54,7 +54,7 @@ class InmuebleFotosController extends Controller
             $inmueble_fotos->save();
         }
 
-        return redirect()->route('inmuebleFotos.index', $request->inmueble_id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('inmuebleFotos.index', $request->inmueble_id)->with('success', 'Se creo la foto satisfactoriamente');
     }
 
     public function reordenar(Request $request)
@@ -78,7 +78,7 @@ class InmuebleFotosController extends Controller
             //$request->'destacado_'.$foto->id;
         }
 
-        return redirect()->route('inmuebleFotos.index', $request->id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('inmuebleFotos.index', $request->id)->with('success', 'Se reordeno satisfactoriamente');
     }
 
     /**
@@ -121,7 +121,7 @@ class InmuebleFotosController extends Controller
         $inmueble_foto->url_imagen = 'storage/'.$filename;
         $inmueble_foto->update();
 
-        return redirect()->route('inmuebleFotos.index', $inmueble_foto->inmueble_id)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('inmuebleFotos.index', $inmueble_foto->inmueble_id)->with('success', 'Se creo la foto satisfactoriamente');
     }
 
     /**
@@ -135,6 +135,6 @@ class InmuebleFotosController extends Controller
         $inmueble_foto = InmuebleFotos::findOrFail($id);
         $idInmueble = $inmueble_foto->inmueble_id;
         $inmueble_foto->delete();
-        return redirect()->route('inmuebleFotos.index', $idInmueble)->with('info', 'Se creo el tipo satisfactoriamente');
+        return redirect()->route('inmuebleFotos.index', $idInmueble)->with('success', 'Se elimino la foto satisfactoriamente');
     }
 }

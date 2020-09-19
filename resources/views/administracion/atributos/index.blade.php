@@ -37,11 +37,33 @@
                 
                 <td align="center">
                   <a class="btn btn-info btn-sm" href="{{route('atributo.edit', $atributo->id)}}">Editar</a>
-                  <form style="display: inline" method="POST" action={{route('atributo.delete', $atributo->id)}}>
+                  <!--<form style="display: inline" method="POST" action={{route('atributo.delete', $atributo->id)}}>
                     {!! csrf_field() !!}
                     {!! method_field('DELETE') !!}
                     <button class="btn btn-danger btn-sm">Eliminar</button>
-                  </form>
+                  </form>-->
+                  <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{$atributo->id}}">Eliminar</a>
+                     <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
+                    <div class="modal fade" id="exampleModal-{{$atributo->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header d-flex justify-content-center">
+                                </div>
+                                <div class="modal-body">
+                                    <p class="text-center">Está seguro(a) de eliminar el atributo {{$atributo->nombre}}?</p>
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button type="button" class="btn btn-secondary btn-default btn-sm" data-dismiss="modal">Cancelar</button>
+                                    <form style="display: inline" method="POST" action={{route('atributo.delete', $atributo->id)}}>
+                                      {!! csrf_field() !!}
+                                      {!! method_field('DELETE') !!}
+                                      <button class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--fin modal-->
+
                 </td>
               </tr>
             @endforeach

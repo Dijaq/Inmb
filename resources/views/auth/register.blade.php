@@ -69,6 +69,12 @@
                             </div>
                         </div>
                     </form>
+
+                    <div class="pt-2">
+                        <a class="btn btn-primary login__button btn-lg btn-block" href="{{route('facebook.iniciarSesion')}}">
+                            Login con Facebook
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

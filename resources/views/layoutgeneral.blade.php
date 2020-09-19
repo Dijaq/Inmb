@@ -50,7 +50,7 @@
               @else
                 <a class="header__link" href="{{route('usuario.registro')}}">REGISTRO</a>
                 |
-                <a class="header__link" href="{{route('login')}}">
+                <a class="header__link" href="{{route('vivela.login')}}">
                   <i class="fas fa-user"></i>
                   <span class="ml-1">INGRESAR</span>
                 </a>
@@ -223,6 +223,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="/dist/sweetalert.min.js"></script>
-    @include('sweet::alert')
+    @include('sweet::alert')->autoclose(3)
 </body>
 </html>
