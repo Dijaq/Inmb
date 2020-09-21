@@ -53,16 +53,17 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Ubicación</label>
-                <select class="form-control" name="ubicacion" required>
+                <input class="form-control" type="text" name="ubicacion" id="ubicacion" value="{{$inmueble->distrito->info_busqueda}}">
+                  <div id="ubicacionList"></div>
+                <!--<select class="form-control" name="ubicacion" required>
                   @foreach($ubicaciones as $ubicacion)     
-                      <!--<option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>-->
                     @if($inmueble->ubigeo_distrito_id == $ubicacion->id)    
                       <option value="{{$ubicacion->id}}" selected="selected">{{$ubicacion->info_busqueda}}</option>
                     @else
                       <option value="{{$ubicacion->id}}">{{$ubicacion->info_busqueda}}</option>
                     @endif
                   @endforeach
-                </select>
+                </select>-->
               </div>
             </div>
 
@@ -70,7 +71,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Dirección</label>
-                <input class="form-control" type="text" name="direccion" value="{{$inmueble->direccion}}">
+                <input class="form-control" type="text" name="direccion" value="{{$inmueble->direccion}}" required>
                   {!! $errors->first('direccion', '<span class="error">:message</span>') !!}
               </div>
             </div>            
@@ -251,4 +252,32 @@
   @endif
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+
+  $('#ubicacion').keyup(function(){ 
+        var query = $(this).val();
+        if(query != '')
+        {
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+          url:"{{ route('inmueble.fetch') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+            $('#ubicacionList').fadeIn();  
+                    $('#ubicacionList').html(data);
+          }
+          });
+        }
+    });
+
+    $(document).on('click', 'li', function(){  
+        $('#ubicacion').val($(this).text());  
+        $('#ubicacionList').fadeOut();  
+    });  
+
+  });
+</script>
 @stop

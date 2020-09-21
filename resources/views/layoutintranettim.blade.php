@@ -42,6 +42,7 @@ Coded by www.creative-tim.com
   <!--<script src="{{asset('dropzone/dist/min/dropzone.min.js')}}" type="text/javascript"></script>-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.3.0/min/dropzone.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 
 <body class="">

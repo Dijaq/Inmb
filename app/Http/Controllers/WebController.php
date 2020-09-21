@@ -195,7 +195,8 @@ class WebController extends Controller
         $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ 30 days"));
         $inmueble->precio = $request->precio;
 
-        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $ubicacion = UbicacionDistrito::where('info_busqueda', $request->ubicacion)->get()->first();
+        //$ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
         $inmueble->ubigeo_distrito_id = $ubicacion->id;
         $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
         $inmueble->ubigeo_region_id = $ubicacion->region_id;
@@ -270,7 +271,8 @@ class WebController extends Controller
         //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
         $inmueble->precio = $request->precio;
 
-        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $ubicacion = UbicacionDistrito::where('info_busqueda', $request->ubicacion)->get()->first();
+        //$ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
         $inmueble->ubigeo_distrito_id = $ubicacion->id;
         $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
         $inmueble->ubigeo_region_id = $ubicacion->region_id;

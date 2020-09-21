@@ -67,3 +67,5 @@ Route::get("mensajes/{id}", "MensajesController@show");
 Route::put("mensajes/{id}", "MensajesController@update");
 Route::delete("mensajes/{id}", "MensajesController@destroy");
 
+Route::post("fetch", "InmuebleController@fetch");
+

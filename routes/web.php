@@ -84,6 +84,7 @@ Route::post('inmuebles', ['as' => 'inmueble.store', 'uses' => 'InmuebleControlle
 Route::get('inmuebles/{id}', ['as' => 'inmueble.edit', 'uses' => 'InmuebleController@edit']);
 Route::put('inmuebles/{id}', ['as' => 'inmueble.update', 'uses' => 'InmuebleController@update']);
 Route::delete('inmuebles/{id}', ['as' => 'inmueble.delete', 'uses' => 'InmuebleController@destroy']);
+Route::post('autocomplete/fetch', ['as' => 'inmueble.fetch', 'uses' => 'InmuebleController@fetch']);
 
 Route::delete('inmuebles_publicar/{id}', ['as' => 'inmueble.publicar', 'uses' => 'InmuebleController@publicar']);
 Route::delete('inmuebles_despublicar/{id}', ['as' => 'inmueble.despublicar', 'uses' => 'InmuebleController@despublicar']);
@@ -114,6 +115,13 @@ Route::get('registro', ['as' => 'usuario.registro', 'uses' => 'LoginController@r
 Route::post('registro', ['as' => 'usuario.registrostore', 'uses' => 'LoginController@registroStore']);
 Route::post('ingresar_login', ['as' => 'usuario.login', 'uses' => 'LoginController@ingresarLogin']);
 Route::get('verificacion/{codigos}', ['as' => 'usuario.verificacion', 'uses' => 'LoginController@verificacion']);
+
+Route::get('recuperar_contrasenia', ['as' => 'usuario.recuperar', 'uses' => 'LoginController@recuperacion']);
+Route::post('recuperar_contrasenia', ['as' => 'usuario.mensajeRecuperar', 'uses' => 'LoginController@mensajeRecuperar']);
+Route::get('recuperacion/{id}', ['as' => 'usuario.nuevacontrasenia', 'uses' => 'LoginController@nuevaContrasenia']);
+Route::post('recuperacion', ['as' => 'usuario.cambiarContrasenia', 'uses' => 'LoginController@cambiarContrasenia']);
+
+
 
 
 

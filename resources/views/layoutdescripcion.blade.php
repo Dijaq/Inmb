@@ -16,9 +16,9 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700;800&display=swap"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="css/fontawesome-free-5.14.0-web/css/all.css" />
     <link rel="stylesheet" href="css/dashicons.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
 <header>
@@ -176,6 +176,6 @@
       integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
       crossorigin="anonymous"
     ></script>
-    
+    <script src="../assets/js/core/jquery.min.js"></script>
 </body>
 </html>

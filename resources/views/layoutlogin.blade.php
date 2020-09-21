@@ -30,7 +30,7 @@
           <a class="navbar-brand" href="#">
             <img
               class="nav-img"
-              src="{{ asset('storage/header_logo.PNG')}}"
+              src="{{ asset('storage/img/header_logo.PNG')}}"
               alt="brandlogo"
               id="logo"
             />

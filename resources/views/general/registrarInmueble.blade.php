@@ -35,12 +35,14 @@
             <div class="col-md-6" style="text-align:left;">
                 <div class="form-group">
                 <!--<label for="tipo" style="text-align:left;">Ubicación</label>-->
-                <select class="form-control w-100 post__input maininput my-2" name="ubicacion" required>
+                <input class="form-control post__input maininput my-2 w-100" placeholder="Ubicación" type="text" name="ubicacion" id="ubicacion" value="{{old('ubicacion')}}">
+                <div id="ubicacionList"></div>
+                <!--<select class="form-control w-100 post__input maininput my-2" name="ubicacion" required>
                     <option value="">[Ubicación]</option>
                     @foreach($ubicaciones as $ubicacion)     
                         <option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>
                     @endforeach
-                </select>
+                </select>-->
                 </div>
             </div>
 
@@ -192,4 +194,32 @@
         </form>
       </div>
     </div>
+
+    <script>
+  $(document).ready(function(){
+
+  $('#ubicacion').keyup(function(){ 
+        var query = $(this).val();
+        if(query != '')
+        {
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+          url:"{{ route('inmueble.fetch') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+            $('#ubicacionList').fadeIn();  
+                    $('#ubicacionList').html(data);
+          }
+          });
+        }
+    });
+
+    $(document).on('click', 'li', function(){  
+        $('#ubicacion').val($(this).text());  
+        $('#ubicacionList').fadeOut();  
+    });  
+
+  });
+</script>
 @stop

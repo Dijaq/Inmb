@@ -36,7 +36,9 @@
             <div class="col-md-6" style="text-align:left;">
                 <div class="form-group">
                 <!--<label for="tipo" style="text-align:left;">Ubicación</label>-->
-                <select class="form-control w-100 post__input maininput my-2" name="ubicacion" required>
+                <input class="form-control post__input maininput my-2 w-100" placeholder="Ubicación" type="text" name="ubicacion" id="ubicacion" value="{{$inmueble->distrito->info_busqueda}}">
+                <div id="ubicacionList"></div>
+                <!--<select class="form-control w-100 post__input maininput my-2" name="ubicacion" required>
                     <option value="">[Ubicación]</option>
                     @foreach($ubicaciones as $ubicacion)     
                         <@if($inmueble->ubigeo_distrito_id == $ubicacion->id)    
@@ -45,7 +47,7 @@
                             <option value="{{$ubicacion->id}}">{{$ubicacion->info_busqueda}}</option>
                         @endif
                     @endforeach
-                </select>
+                </select>-->
                 </div>
             </div>
 

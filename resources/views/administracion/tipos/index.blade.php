@@ -31,8 +31,9 @@
                       {!! method_field('DELETE') !!}
                       <button class="btn btn-danger btn-sm">Eliminar</button>
                     </form>-->
-                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{$tipo->id}}">Eliminar</a>
 
+
+                    <a href="" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal-{{$tipo->id}}">Eliminar</a>
                      <!------ ESTE ES EL MODAL QUE SE MUESTRA AL DAR CLICK EN EL BOTON "ELIMINAR" ------>
                     <div class="modal fade" id="exampleModal-{{$tipo->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">

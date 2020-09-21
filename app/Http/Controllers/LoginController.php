@@ -11,6 +11,7 @@ use App\Usuario;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\WebControllerEmail;
 use App\Mail\VerificadoSatisfactoriamente;
+use App\Mail\RecuperacionContrasenia;
 use Auth;
 
 class LoginController extends Controller
@@ -269,5 +270,52 @@ class LoginController extends Controller
             Mail::to($usuario->email)->send(new VerificadoSatisfactoriamente());
             return redirect()->route('inicio')->with('success', 'Su cuenta fue validada satisfactoriamente.');
         }
+    }
+
+    public function recuperacion()
+    {
+        return view('auth.recuperacioncuenta');
+    }
+
+    public function mensajeRecuperar(Request $request){
+
+        $usuario = Usuario::where('email', $request->email)->get();
+
+        if(count($usuario) > 0)
+        {
+            $usuario = $usuario->first();
+            $details = [
+                'link_recuperacion' => 'https://www.vivelaovendela.com.pe/recuperacion/'.$usuario->persona_id."-".$usuario->id
+            ];
+            Mail::to($request->email)->send(new RecuperacionContrasenia($details));
+
+            return redirect()->route('inicio')->with('success', 'Se ha enviado un mensaje a su correo electrónico para recuperar su contraseña.');
+        }
+        else{
+            return redirect()->route('inicio')->with('errors', 'El correo electrónico '.$request->email.' no está registrado en nuestro portal.');
+        }
+    }
+
+    public function nuevaContrasenia($codigos)
+    {
+        $id = explode("-", $codigos)[1];
+        return view('auth.nuevacontrasenia', compact('id'));
+        
+    }
+
+    public function cambiarContrasenia(Request $request)
+    {
+        if($request->nuevo_password == $request->nuevo_password_2)
+        {
+            $usuario = Usuario::findOrFail($request->id);                        
+            $usuario->password = bcrypt($request->nuevo_password);
+            $usuario->update();
+            return redirect()->route('inicio')->with('success', 'Su contraseña fue cambiada satisfactoriamente.');
+        }
+        else{
+            return redirect()->route('inicio')->with('errors', 'Las contraseñas ingresadas no coinciden.');
+        }
+        
+        
     }
 }

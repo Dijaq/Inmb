@@ -70,12 +70,14 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="tipo" style="text-align:left;">Ubicación</label>
-                <select class="form-control" name="ubicacion" required>
+                  <input class="form-control" type="text" name="ubicacion" id="ubicacion" value="{{old('direccion')}}">
+                  <div id="ubicacionList"></div>
+                <!--<select class="form-control" name="ubicacion" required>
                   <option value="">[Seleccione una opción]</option>
                   @foreach($ubicaciones as $ubicacion)     
                       <option value="{{$ubicacion->id}}" {{old('ubicacion') == $ubicacion->id ? 'selected':''}}>{{$ubicacion->info_busqueda}}</option>
                   @endforeach
-                </select>
+                </select>-->
               </div>
             </div>
 
@@ -83,7 +85,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="titulo" >Dirección</label>
-                <input class="form-control" type="text" name="direccion" value="{{old('direccion')}}">
+                <input class="form-control" type="text" name="direccion" value="{{old('direccion')}}" required>
                   {!! $errors->first('direccion', '<span class="error">:message</span>') !!}
               </div>
             </div>            
@@ -91,7 +93,7 @@
             <div class="col-md-12" style="text-align:left;">
               <div class="form-group">
                 <label for="descripcion" >Descripción</label>
-                <textarea rows="8" class="form-control" type="text" id="editor" name="descripcion" value="{{old('descripcion')}}"></textarea>
+                <textarea rows="8" class="form-control" type="text" id="editor" name="descripcion" value="{{old('descripcion')}}" required></textarea>
                   {!! $errors->first('descripcion', '<span class="error">:message</span>') !!}
               </div>
             </div>  
@@ -237,4 +239,32 @@
   @endif
   </div>
 </div>
+
+<script>
+  $(document).ready(function(){
+
+  $('#ubicacion').keyup(function(){ 
+        var query = $(this).val();
+        if(query != '')
+        {
+          var _token = $('input[name="_token"]').val();
+          $.ajax({
+          url:"{{ route('inmueble.fetch') }}",
+          method:"POST",
+          data:{query:query, _token:_token},
+          success:function(data){
+            $('#ubicacionList').fadeIn();  
+                    $('#ubicacionList').html(data);
+          }
+          });
+        }
+    });
+
+    $(document).on('click', 'li', function(){  
+        $('#ubicacion').val($(this).text());  
+        $('#ubicacionList').fadeOut();  
+    });  
+
+  });
+</script>
 @stop

@@ -90,7 +90,8 @@ class InmuebleController extends Controller
         $inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ 30 days"));
         $inmueble->precio = $request->precio;
 
-        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $ubicacion = UbicacionDistrito::where('info_busqueda', $request->ubicacion)->get()->first();
+        //$ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
         $inmueble->ubigeo_distrito_id = $ubicacion->id;
         $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
         $inmueble->ubigeo_region_id = $ubicacion->region_id;
@@ -176,6 +177,7 @@ class InmuebleController extends Controller
 
     public function edit($id)
     {
+        //$inmueble = Inmueble::findOrFail($id)->with('distrito')->get();
         $inmueble = Inmueble::findOrFail($id);
         $tipos = Tipo::all();
         $operaciones = Operacion::all();
@@ -235,7 +237,8 @@ class InmuebleController extends Controller
         //$inmueble->fecha_vencimiento = date("Y-m-d H:m:s", strtotime($request->fecha_publicacion."+ ".$request->publicacion." days"));
         $inmueble->precio = $request->precio;
 
-        $ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
+        $ubicacion = UbicacionDistrito::where('info_busqueda', $request->ubicacion)->get()->first();
+        //$ubicacion = UbicacionDistrito::findOrfail($request->ubicacion);
         $inmueble->ubigeo_distrito_id = $ubicacion->id;
         $inmueble->ubigeo_provincia_id = $ubicacion->provincia_id;
         $inmueble->ubigeo_region_id = $ubicacion->region_id;
@@ -333,5 +336,46 @@ class InmuebleController extends Controller
         $inmueble->estado = "INACTIVO";
         $inmueble->update();
         return redirect()->route('inmueble.index')->with('success', 'Se cambio el estado a inactivo satisfactoriamente');
+    }
+
+    public function fetch(Request $request)
+    {
+        if($request->get('query'))
+        {
+            $query = $request->get('query');
+            /*$data = DB::table('ubi_distritos')
+                ->where('info_busqueda', 'LIKE', "%{$query}%")
+                ->get();*/
+
+            $data = UbicacionDistrito::whereRaw('info_busqueda LIKE \'%'.$query.'%\'')->get();
+
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative;">';
+            foreach($data as $row)
+            {
+            $output .= '
+            <li><a href="#" style="color: black;">'.$row->info_busqueda.'</a></li>
+            ';
+            }
+            $output .= '</ul>';
+
+            echo $output;
+            //echo $request->get('query');
+        }
+        /*if($request->get('query'))
+        {
+            $query = $request->get('query');
+            $data = DB::table('ubi_distritos')
+                ->where('info_busqueda', 'LIKE', "%{$query}%")
+                ->get();
+            $output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+            foreach($data as $row)
+            {
+            $output .= '
+            <li><a href="#">'.$row->info_busqueda.'</a></li>
+            ';
+            }
+            $output .= '</ul>';
+            echo $output;
+        }*/
     }
 }
